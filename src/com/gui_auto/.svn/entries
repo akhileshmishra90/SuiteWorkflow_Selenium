@@ -1,0 +1,40 @@
+10
+
+dir
+7304
+http://balscm01/repos/DSF_Automation/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto
+http://balscm01/repos/DSF_Automation
+
+
+
+2017-10-26T06:58:51.168556Z
+7234
+karthivi
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+32fae8a6-c1f0-415e-a886-973d8cd5d6ec
+
+base_classes
+dir
+
+dao
+dir
+
+pages
+dir
+
+utilities
+dir
+

@@ -1,0 +1,58 @@
+chrome
+Starting ChromeDriver (v2.9.248315) on port 41001
+20_Jun_2014__05_10_59PM -------------------------------------------------- 
+20_Jun_2014__05_10_59PM Console of TestCase P_2917_Modify_Finishing_Operation : Start
+20_Jun_2014__05_10_59PM  
+Select Username from [Global$] where Scenario='Epace_Login' and TestCase='Epace_Login'
+PaceSupport
+Select Password from [Global$] where Scenario='Epace_Login' and TestCase='Epace_Login'
+Id2f2wac!
+Select Category from [EstimatePre$] where Scenario='Estimate' and TestCase='CreateEstimateByCreatingAllRequiredData'
+0PrdCat20140554
+Select Product from [EstimatePre$] where Scenario='Estimate' and TestCase='CreateEstimateByCreatingAllRequiredData'
+JPT0555-Product type
+20_Jun_2014__05_11_01PM  Login to Epace
+20_Jun_2014__05_11_01PM *** Author: Shilpa
+20_Jun_2014__05_11_01PMFri Jun 20 17:11:01 IST 2014
+20_Jun_2014__05_11_01PM *** Launch & Login Start
+20_Jun_2014__05_11_04PM Able to see Login Text
+20_Jun_2014__05_11_18PMC:\tmp\ScreenShots\Home20_Jun_2014__05_11_18PM_.png
+20_Jun_2014__05_11_18PM Able to Login Successfully
+Navigate to Finishing Shipping operation
+Click on Add new Record
+Enter Finishing Operation Details
+Enter Finishing Operation Details
+Enter Finishing Operation Machine Selection Details
+Enter Finishing Operation Specification Details
+Enter Finishing Operation Settings Details
+Already Unchecked Status
+Click on Add Button
+20_Jun_2014__05_12_31PMAdd
+  Navigate To Workflow Finishing Workflow
+  Add New PressEvent Workflow
+20_Jun_2014__05_12_58PMUpdate
+20_Jun_2014__05_13_03PM Navigate To Enter New Estimate
+20_Jun_2014__05_13_09PM  Enter estimate details
+Select MaterialType from [EstimatePre$] where Scenario='Estimate' and TestCase='CreateEstimateByCreatingAllRequiredData'
+INV0347
+CDwindow-69AA5B22-9935-424B-9F16-B93171BAF2A4
+Selected inventory item is 
+Search  Iventory Item
+rowcount  is 1
+sINVentory is INV0347
+20_Jun_2014__05_13_57PM  Click on Calculate Button
+Clicking the Calculate Button
+Estimate Created
+Click on View Details Button
+Click on Finishing Tab
+Add finishing Operation To Estimate
+CDwindow-69AA5B22-9935-424B-9F16-B93171BAF2A4
+Select the Finishing Operation
+Modify Finishing operation
+CDwindow-69AA5B22-9935-424B-9F16-B93171BAF2A4
+Select the Finishing Operation
+UPDATE [EstimatePre$] SET  Execution == 'FAIL' where Scenario='Estimate' and TestCase='P_2917_Modify_Finishing_Operation'
+Select Execution from [EstimatePre$] where Scenario='Estimate' and TestCase='P_2917_Modify_Finishing_Operation'
+FAIL
+P_2917_Modify_Finishing_Operation(com.TestScripts.Estimate_Prerequisites): run 1 failed
+P_2917_Modify_Finishing_Operation(com.TestScripts.Estimate_Prerequisites): giving up after 1 failures

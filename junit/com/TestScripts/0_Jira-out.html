@@ -1,0 +1,38 @@
+<html xmlns:lxslt="http://xml.apache.org/xslt" xmlns:stringutils="xalan://org.apache.tools.ant.util.StringUtils">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Standard Output from Jira</title>
+</head>
+<body>
+<pre>Open the Browser and launch the site
+firefox
+08_Nov_2013__10_34_04AM Application Launched
+Select Username from [jira$] where Scenario='Jira_Login_Logout' and TestCase='Jira_Login_Logout'
+shilpav
+Select Password from [jira$] where Scenario='Jira_Login_Logout' and TestCase='Jira_Login_Logout'
+P@ssw0rd5
+---------------------------------------------------------------
+08_Nov_2013__10_34_05AM Start of TestCase
+---------------------------------------------------------------
+08_Nov_2013__10_34_05AM Enter User Name and Password and Click Login
+08_Nov_2013__10_34_28AM Login Clicked
+Start Time :10:34:28
+UPDATE [jira$] SET  Login == '10:34:28' where Scenario='Jira_Login_Logout' and TestCase='Jira_Login_Logout'
+Select Login from [jira$] where Scenario='Jira_Login_Logout' and TestCase='Jira_Login_Logout'
+1899-12-30 10:34:28
+08_Nov_2013__10_34_35AM Verify Create Issue Link Present
+08_Nov_2013__10_34_35AM Element Present
+{9645abb3-0176-457b-a76c-01a29dd24170}
+08_Nov_2013__10_34_36AM Click on Create Issues
+08_Nov_2013__10_34_59AM Click on Cancel
+08_Nov_2013__10_35_02AM LogOut
+UPDATE [jira$] SET  Logout == '10:35:02' where Scenario='Jira_Login_Logout' and TestCase='Jira_Login_Logout'
+Select Logout from [jira$] where Scenario='Jira_Login_Logout' and TestCase='Jira_Login_Logout'
+1899-12-30 10:35:02
+End Time :10:35:02
+---------------------------------------------------------------
+08_Nov_2013__10_35_02AM End of  TestCase
+---------------------------------------------------------------
+</pre>
+</body>
+</html>

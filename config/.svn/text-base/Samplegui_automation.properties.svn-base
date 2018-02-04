@@ -1,0 +1,15 @@
+BASEURL                         = @ServerName@
+SERVER				= @Server@
+XLS_DATA                        = \InputTestData\Epace_Data.xls
+COMPANY			 	= @Company@
+UID                         	= @UID@
+BROWSER                         = @Browser@
+#BROWSER                        = internetExplorer
+#BROWSER                        = chrome
+USERS_LIST                      = 0
+
+ScreenShotPath 			= C:\\tmp
+FILEPATH			= \\InputTestData\\Epace_Data.xls
+FILE				= \\InputTestData\\Sample_File.txt
+VBSFileP                        = \\InputTestData\\SaveExcel.vbs
+DownloadPath			= \\InputTestData\\TempDownload  

@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages
+END
+PurchasePage.java
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/PurchasePage.java
+END
+Product.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/Product.java
+END
+DCPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/DCPage.java
+END
+JobBillingPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/JobBillingPage.java
+END
+JobShipmentsPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/JobShipmentsPage.java
+END
+Login.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/Login.java
+END
+ICPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/ICPage.java
+END
+JobPlanningPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/JobPlanningPage.java
+END
+Users.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/Users.java
+END
+Storefront.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/Storefront.java
+END
+ReportFunctions.java
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/ReportFunctions.java
+END
+JobCostingPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/JobCostingPage.java
+END
+DSFPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/DSFPage.java
+END
+WorkflowIntegrationPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/WorkflowIntegrationPage.java
+END
+ReportPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/ReportPage.java
+END
+UIPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/UIPage.java
+END
+DSF_Integration_Page.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/DSF_Integration_Page.java
+END
+PriceListQuotingPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/PriceListQuotingPage.java
+END
+ProcessShipperPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/ProcessShipperPage.java
+END
+ARPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/ARPage.java
+END
+BasePage.java
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/BasePage.java
+END
+APPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/APPage.java
+END
+ValidateButtonsLinksPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/ValidateButtonsLinksPage.java
+END
+EstimationPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/EstimationPage.java
+END
+StorefrontCustomizationPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/StorefrontCustomizationPage.java
+END
+JCCPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/JCCPage.java
+END
+PayrollPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/PayrollPage.java
+END
+RegisterPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/pages/RegisterPage.java
+END

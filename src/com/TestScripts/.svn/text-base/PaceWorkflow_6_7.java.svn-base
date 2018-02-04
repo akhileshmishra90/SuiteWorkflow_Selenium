@@ -1,0 +1,207 @@
+package com.TestScripts;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+//import com.applitools.eyes.Eyes;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.JobPlanningPage;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.WorkflowIntegrationPage;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+
+public class PaceWorkflow_6_7 extends GUI_automation_base
+{
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");	
+		return sdf.format(date);
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{		   
+		_driver.quit();
+	}
+	
+	@Test
+	public void TC_6_7 () throws Exception
+	{	
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String dater = dateReturn();
+		String sTestcase = dbConnection.ReadFunction("PresentWorkflow", "PresentWorkflow", "PresentWorkflow", "TestCase_Executing");
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		//========================================================================
+		
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+			try
+			{
+				String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+				String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+				String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+				String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+				String PaceServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+				
+				String sJobNumber= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACE_Job_Num");
+								
+				//========================================== verify Updated Job plans in Pace =============================================================		
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				DCPage DC = new DCPage(_driver);
+				JobPlanningPage JP = new JobPlanningPage(_driver);
+				WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+						
+				//==========================================================================
+				//===================verify the Job costs created for the completed DC transaction===========================
+				//==========================================================================
+				System.out.println("Navigate to each Job Part Job Costs page and verify the Job Cost created");
+				WIP.JobPartJobCostPage(sJobNumber, "01", PaceServer, PaceCompany);
+				CommonFunctions.waitForPageLoaded(_driver);
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Unposted Job Costs']"));
+				int iRwCnt = _driver.findElements(By.xpath("//table[@id='JobCost_N10022']/tbody/tr")).size();			
+				if (iRwCnt == 1)
+				{
+					System.out.println("The system created a Job cost");				
+					String sOriginalHandle = _driver.getWindowHandle();
+					CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobCost_N10022']/tbody/tr[1]/td[2]/div/a/img"));
+					Thread.sleep(2000);
+					CommonFunctions.SwitchToWindow(_driver, "Job Cost");
+					String sTranactionType = CommonFunctions.GetSelectedOption(_driver, By.name(Locators.getProperty(Locators.Job_Cost_TransactionType)));
+					if (sTranactionType.equals("Data Collection"))
+					{
+						System.out.println("Job cost with correct transaction type was created");
+						_driver.close();
+						_driver.switchTo().window(sOriginalHandle);
+					}
+					else
+					{
+						Assert.fail("Job cost with incorrect transaction type was created, Expected = Data Collection, Actual = "+sTranactionType);
+					}
+				}
+				else
+				{
+					System.err.println("Incorrect number of Job Costs were created, expected = 1, Actual = "+iRwCnt);
+				}
+				
+				//==========================================================================
+				//===================Complete DC for the remaining Job plans created===========================
+				//==========================================================================
+				
+				String sJPPFPlanID = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JPPFJobPlansIDs");
+				String sJobPlanIDs = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JobPlanIDs");
+				String[] aJobPlanIDs = sJobPlanIDs.split(";");
+				String sEmpID = "EMP001";
+				
+				WIP.NavigateToDataCollectionLogin(PaceServer, PaceCompany);
+				DC.SignInToDCL(sEmpID);
+				for (int i=0; i<aJobPlanIDs.length; i++)
+				{
+					if (!(aJobPlanIDs[i].equals(sJPPFPlanID)))
+					{
+						DC.StartJobActivityPlanned(aJobPlanIDs[i], "", "", "");
+						CommonFunctions.selectDropdown(_driver, By.name("activityCode"), "66505");
+						DC.DCLAddTransaction("QA QA");
+						CommonFunctions.waitForPageLoaded(_driver);
+						if(CommonFunctions.isElementPresent(_driver, By.xpath(Locators.getProperty(Locators.DCL_Stop_Job_Activity))))
+						{
+							DC.StopJobActivity("", "");
+							DC.JobComplete("QA QA", "100");
+						}
+					}
+				}
+				
+				DC.PullAllMaterials(sJobNumber, "01");
+				DC.SignoutFromDCL();
+				
+				//==========================================================================
+				//===================verify the status of job plans completed===========================
+				//==========================================================================
+				System.out.println("Verify Job Plan status in Production Plan page");
+				WIP.navigateToProductionPlanPage(sJobNumber, PaceServer, PaceCompany);
+				int iPlanIDCol = JP.getColumnNum("ID", "//table[@id='JobPlan']");
+				int iStatusColNum = JP.getColumnNum("Status", "//table[@id='JobPlan']");
+				for (int i=0; i<aJobPlanIDs.length; i++)
+				{
+					int iJobPlanCnt = CommonFunctions.RowCount(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr"));
+					for (int j=1; j<=iJobPlanCnt; j++)
+					{
+						String sJobPlanID = CommonFunctions.getText(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+j+"]/td["+iPlanIDCol+"]/div"));
+						if(sJobPlanID.equals(aJobPlanIDs[i]))
+						{
+							String sJobPlanStatus = CommonFunctions.GetSelectedOption(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+j+"]/td["+iStatusColNum+"]/select"));
+							if (!sJobPlanStatus.equals("Process Complete"))
+							{
+								System.err.println("Status of Job Plan "+aJobPlanIDs[i]+" was not changed to Process Complete. Status is "+sJobPlanStatus);
+								Assert.fail("Status of Job Plan "+aJobPlanIDs[i]+" was not changed to Process Complete. Status is "+sJobPlanStatus);
+							}
+						}
+					}
+				}
+				DC.Logout();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+				Assert.fail(sTestcase+" failed");
+			}
+		}
+	}
+
+}

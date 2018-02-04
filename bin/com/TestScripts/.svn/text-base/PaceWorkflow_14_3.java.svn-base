@@ -1,0 +1,518 @@
+package com.TestScripts;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.text.WordUtils;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+//import com.applitools.eyes.Eyes;
+//import com.applitools.eyes.RectangleSize;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.DSF_Integration_Page;
+import com.gui_auto.pages.JobBillingPage;
+import com.gui_auto.pages.JobPlanningPage;
+import com.gui_auto.pages.Login;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.Storefront;
+import com.gui_auto.pages.WorkflowIntegrationPage;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+import com.sun.corba.se.spi.activation.Locator;
+
+public class PaceWorkflow_14_3 extends GUI_automation_base
+{
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+		return sdf.format(date);
+	}
+	
+	public static int randInt(int min, int max) 
+	{
+
+		// Usually this can be a field rather than a method variable
+		Random rand = new Random();
+
+		// nextInt is normally exclusive of the top value,
+		// so add 1 to make it inclusive
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+
+		return randomNum;
+	}
+	
+	public static void Killpython() throws Exception   
+	{
+		Process p = Runtime.getRuntime().exec("cmd /c taskkill /F /IM python.exe *32 /T");
+		p.destroy();
+	}
+	
+
+	@After
+	public void tearDown() throws Exception 
+	{		   
+		_driver.quit();
+	}
+	
+	@Test
+	public void TC_14_3 () throws Exception
+	{		
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String  sTestcase = "TC_14";
+		String dater = dateReturn();
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		//========================================================================
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		dbConnection.UpdateFunction("PresentWorkflow", "PresentWorkflow", "PresentWorkflow", "TestCase_Executing", "TC_14");
+		
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+			try
+			{
+				//========================================= prerequisites============================================
+				String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+				String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+				String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+				String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+				String PaceServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+				String PONumber=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PONumber");
+
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+				DCPage DC = new DCPage(_driver);
+				JobPlanningPage JP = new JobPlanningPage(_driver);
+				DSF_Integration_Page DSF = new DSF_Integration_Page(_driver);
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				//========================================== verify Job in Pace =============================================================								
+				String sJobNumber="";
+				
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				//_driver = eyes.open(_driver, "PACE", "TC_14_1", new RectangleSize(1008, 705));				
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				//==========================================================================
+				//======================Fetch Job Number using order number=================
+				//==========================================================================
+				System.out.println("Fetch Job Number using order number");
+				
+				String orderNumber = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Order_Number");
+				
+				sJobNumber = WIP.FetchJobNumber_Printstream(orderNumber, PaceServer, PaceCompany);
+				if(!sJobNumber.equals(""))
+				{
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "PACE_Job_Num", sJobNumber);
+					String sJobDescription = CommonFunctions.GetValue(_driver, By.name(Locators.getProperty(Locators.Description)));
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "Job_Description", sJobDescription);
+					String JobStatus = CommonFunctions.GetSelectedOption(_driver, By.name(Locators.getProperty(Locators.Job_Status)));
+					if(JobStatus.equals("Open/Scheduled"))
+					{
+						System.out.println("Successfully verify the admin status of the job");
+					}
+					else
+					{
+						System.out.println("Failed to verify the job status as open/Scheduled");
+						Assert.fail("Failed to verify the job status");
+						
+					}
+				}
+				else
+				{
+					Assert.fail("Job Not Created for above Order Number");
+				}
+				TakeScreenshot.ScreenShotWindow(_driver, "JobDetails");
+				_driver.manage().window().maximize();
+				Thread.sleep(2000);
+								
+				//==========================================================================
+				//================================Verify Job Products======================
+				//==========================================================================
+				System.out.println("Verify Job Products");
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Products']"));
+				
+				String totalRecordsProducts = _driver.findElement(By.xpath("//fieldset[@id='JobProducts_fieldset']/div/div[1]/div[1]/strong")).getText();
+				System.out.println("totalProducts: "+totalRecordsProducts);
+				if (totalRecordsProducts.equals("1"))
+				{
+					String product1Name = _driver.findElement(By.xpath("//div[@class='table-contents']/table[@id='JobProducts']/tbody/tr[1]/td[3]/input")).getAttribute("value");
+					//String product2Name = _driver.findElement(By.xpath("//div[@class='table-contents']/table[@id='JobProducts']/tbody/tr[2]/td[3]/input")).getAttribute("value");
+					String sPro1 = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ProductName");
+					//String sPro2 = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product2Name");
+
+					if((product1Name.equals("Post Card VDP- Praveen")))
+					{
+						System.out.println("Job Product Names have been verified");
+					}
+					else
+					{
+						System.err.println("Product 1 = "+product1Name);
+						Assert.fail("Product 1 = "+product1Name);
+					}
+				}
+				else
+				{
+					System.err.println("Total Products created are incorrect, Expected = 2, Actual = "+totalRecordsProducts);
+					Assert.fail("Total Products created are incorrect, Expected = 2, Actual = "+totalRecordsProducts);
+				}
+				
+				//==========================================================================
+				//==========Verify Job Value, Shipping, Handling and Taxes Amount in Billing Tab==========
+				//==========================================================================
+				System.out.println("Verify Job Value,W2P Shipping,W2P Handling and W2P Taxes AMount in Billing Tab");
+				
+				String sJobValue = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFSubTotal");
+				String sTax = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFTaxAmount");
+				String sShipping = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFShippingAmount");
+				String sHandling = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFHandlingAmount");
+				
+				boolean IsBillingDetailsVerified = DSF.Verify_JobValue_Shipping_Handling_Taxes_Amount_On_Job_Billing_Tab(sJobValue, sTax, sShipping, sHandling);
+				
+				if(IsBillingDetailsVerified==true)
+				{
+					System.out.println("Verified Job Value field is not editable in Billing Tab");
+				}
+				else
+				{
+					Assert.fail("Failed to Verify Job Value, W2P Shipping, W2P Handling and W2P Taxes Amount in pace. IsNotEditableSuccess is "+IsBillingDetailsVerified);
+				}
+				
+				System.out.println("Verify payment method in pace for DSF order");
+				String sPaymentMode="PO Number";
+				
+				String[] PaymentOption_And_Value= DSF.Verify_The_Payment_Mode_In_Pace();
+				System.out.println("Validate the PO number in jonb info tab ");
+				CommonFunctions.ClickElement(_driver, By.xpath(Locators.getProperty(Locators.Job_JobInfo)));
+				String sPoNumber = CommonFunctions.GetValue(_driver, By.name(Locators.getProperty(Locators.Job_PoNum)));				
+				
+				if(PaymentOption_And_Value[0].equals(sPaymentMode) && sPoNumber.equals(PONumber))
+				{
+					System.out.println("The Payment Mode and Po numbers are displayed correct");
+				}
+				else
+				{
+					System.err.println("Payment Method, Expected = PO Number, Actual= "+sPaymentMode+"Expected PO num ="+PONumber+" ,Actual PO is= "+sPoNumber);
+					Assert.fail("Payment Method, Expected = PO Number, Actual= "+sPaymentMode+"Expected PO num ="+PONumber+" ,Actual PO is= "+sPoNumber);
+				}
+							
+				//==========================================================================
+				//===================Verify the Job Parts created===========================
+				//==========================================================================
+				String PartMaterial = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PacePartMaterial");
+
+				System.out.println("Verify Job Parts");
+				JobBillingPage JB=new JobBillingPage(_driver);
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Parts Info']"));
+				
+				((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[contains(@id,'JobPart_N')]")));
+				TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[contains(@id,'JobPart_N')]"), "JobParts");
+								
+				int iNumofJobPartsCreated = CommonFunctions.RowCount(_driver, By.xpath("//table[@id='JobPart_N1002F']/tbody/tr"));
+				
+				if (iNumofJobPartsCreated == 2)
+				{
+					CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobPart_N1002F']/tbody/tr[2]/td[3]/div/a/img"));
+					CommonFunctions.waitForPageLoaded(_driver);
+					CommonFunctions.Wait(_driver, By.name("additionalDescription"));				
+					
+					
+					//verify Part details
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Part Details']"));
+					
+					//Validation on part1
+					_driver.findElement(By.xpath("//tbody/tr[@class='c1'][1]/td[@class='firstCol']/div/a/img")).click();
+					CommonFunctions.waitForPageLoaded(_driver);
+					JB.Validate_job_General_Information("Post Card VDP- Praveen", "10","Diego Esparza-Nelsen Fulfillment Orders Service");	
+				
+					//Validate material of part01
+					JB.NavigateToJobPart(sJobNumber, "01");
+					String sMaterial = CommonFunctions.getText(_driver, By.xpath("//*[@id='JobPartPressFormMixedMedia']/tr[3]/td[7]/div"));
+					if(sMaterial.equals(PartMaterial))
+					{
+						System.out.println("Successfully verify the material on part detail page");
+					}
+					else
+					{
+						System.err.println("failed to verify the material on part detail page");
+						Assert.fail("Failed to verify the job material");
+					}		
+					
+					//verify JPPF
+					if (CommonFunctions.RowCount(_driver, By.xpath("//div[@id='gridBox_Runs']/div/table/tr[1]/th/img")) > 0)
+					{							
+						CommonFunctions.SetOriginalWindowHandle(_driver);
+						CommonFunctions.ClickElement(_driver, By.xpath("//div[@id='gridBox_Runs']/div/table/tr[1]/th/img"));
+						Thread.sleep(3000);
+						CommonFunctions.SwitchToWindow(_driver, "Job Part Press Form");						
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@id='scrollableContent']/div[@id='contents']/div[@class='active']")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@id='scrollableContent']/div[@id='contents']/div[@class='active']"), "JPPFDetails");
+						CommonFunctions.CloseWindow(_driver, "Job Part Press Form");
+					}
+								
+//					//verify Job Plans
+//					CommonFunctions.ClickElement(_driver, By.xpath("//div[@id='tabBar']//span[text()='a']"));
+//					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[@id='JobPlan_fieldset']")));
+//					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[@id='JobPlan_fieldset']"), "JobPlans");	
+										
+				}
+										
+				else
+				{
+					System.err.println("Total Job Parts created are incorrect, Expected = 1, Actual = "+iNumofJobPartsCreated);
+					Assert.fail("Total Job Parts created are incorrect, Expected = 1, Actual = "+iNumofJobPartsCreated);
+				}
+				
+				
+				for (int i=2; i<=iNumofJobPartsCreated; i+=2)
+				{	
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Parts Info']"));
+					CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobPart_N1002F']/tbody/tr["+i+"]/td[3]/div/a/img"));
+					CommonFunctions.waitForPageLoaded(_driver);
+					CommonFunctions.Wait(_driver, By.name("additionalDescription"));
+					System.out.println("Verifying Job Part "+(i-1));
+					String sPartDescription = CommonFunctions.GetValue(_driver, By.name("description_label"));
+				if (i == 2)
+				{
+					WIP.getJobPartDetails(sSheetName, sScenario, sTestcase, "1");
+					verifyPart1Details(sSheetName, sScenario, sTestcase);
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobPart1_Description", sPartDescription);
+				}
+				
+				WIP.NavigateToJob(sJobNumber, PaceServer, PaceCompany);
+				CommonFunctions.waitForPageLoaded(_driver);
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Parts Info']"));				
+				Thread.sleep(1000);
+				}
+											
+				//==========================================================================
+				//===================Verify the Job Plans created===========================
+				//==========================================================================
+				System.out.println("Navigate to Job Plan Production page");
+				WIP.navigateToProductionPlanPage(sJobNumber, PaceServer, PaceCompany);
+				
+				System.out.println("Verify Job Plans");
+				int iJobPlanCnt = CommonFunctions.RowCount(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr"));
+				if(iJobPlanCnt == 1)
+				{
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//table[@id='JobPlan']/tbody/tr[1]")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//table[@id='JobPlan']"), "ProductionPlans");
+					
+					String sJobPlanIDs = JP.getJobPlans();
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobPlanIDs", sJobPlanIDs);
+				}
+				else
+				{
+					System.err.println("Total Job Plans created are incorrect, Expected = 1, Actual = "+iJobPlanCnt);
+					Assert.fail("Total Job Plans created are incorrect, Expected = 1, Actual = "+iJobPlanCnt);
+				}
+				
+				System.out.println("Verify the Job is scheduled");
+				if (WIP.verifyJobPlansScheduledCheckBox(12))
+				{
+					System.out.println("Job was schedueld");
+				}
+				else
+				{
+					System.err.println("Job was not scheduled");
+					Assert.fail("Job was not scheduled");
+				}
+				
+				//==========================================================================
+				//===================Verify the Job shipment created========================
+				//==========================================================================
+				System.out.println("Navigate to Job Shipment Detail page");
+				WIP.navigateToJobShipmentListpage(sJobNumber, PaceServer, PaceCompany);
+				
+				System.out.println("Verify Job Shipment details");
+				if (CommonFunctions.RowCount(_driver, By.xpath("//div[contains(@id, 'shipmentBox')]")) == 1)
+				{
+					CommonFunctions.ClickElement(_driver, By.xpath("//div[@id='shipmentBox0']/div[1]/span/div[1]//img[@title='View Object']"));
+					CommonFunctions.waitForPageLoaded(_driver);
+					CommonFunctions.Wait(_driver, By.xpath(Locators.getProperty(Locators.Delete)));
+					
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='General Shipment']"));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']"), "JobShipmentDetails");
+					
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Shipment Address']"));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']"), "JobShipmentContactDetails");
+										
+					String sJobShipmentID = CommonFunctions.getIDfromURL(_driver);
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobShipmentID", sJobShipmentID);
+				}
+				else
+				{
+					System.err.println("No Job shipment was created");
+					Assert.fail("No Job shipment was created");
+				}
+				
+				DC.Logout();
+				//eyes.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+				Assert.fail(sTestcase+" failed");
+			}
+		}
+	}
+	
+	public void verifyPart1Details(String Sheet, String Scenario, String Testcase) throws Exception
+	{
+		boolean bSizeDeatils = false, bPrintDetails = false, bFinishDetails = false, bJobMatDetails = false, bOtherDetails = false; 
+		
+		String sFinishSize = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FinalSize");
+		String sFlatSize = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FlatSize");
+		String sPages = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Pages");
+		String sFoldPattern = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FoldPattern");
+		String sContentFile = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1ContentFiles");
+		String sNumUps = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1NumUps");
+		String sNumAlong = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1NumAlong");
+		String sNumAcross = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1NumAcross");
+		String sPrinter = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Printer");
+		String sOrientation = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Orientation");
+		String sPrintJobMat = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMaterial");
+		String sPrintJobMatDesc = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Description");
+		String sPageRange = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1PageRange");
+		String sPageCount = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1PageCount");
+		String sS1 = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1S1");
+		String sS2 = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1S2");
+		String sFinishingType = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FinishingType");
+		String sFinishingOperation = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FinishingOperation");
+		String sJobmaterials = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1NumMaterials");
+		String sJobMat = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMat");
+		String sJobMatDesc = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMatDesc");
+		String sJobMatBS = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMatBuySize");
+		String sJobMatRS = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMatRunSize");
+		String sJobMatPQ = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMatPlanQty");
+		String sItemTem = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1ItemTemplate");
+		String sNotes = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Notes");
+		String sJobPartItems = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobPartItems");
+		
+		if (sFinishSize.equals("8 1/2 x 11") && sFlatSize.equals("8.5 x 11")  && sPages.equals("2")  && sFoldPattern.equals("2/1 - Flat Sheet")  && sContentFile.contains("POST CARD DEMO.pdf"))
+		{
+			bSizeDeatils = true;
+		}
+		else
+		{
+			System.err.println("Finish Size, Expected = 8 1/2 x 11, Actual = " + sFinishSize +
+								"\nFlat Size, Expected = 8.5 x 11, Actual = " + sFlatSize +
+								"\nPages, Expected = 2, Actual = " + sPages +
+								"\nFold Pattern, Expected = 2/1 - Flat Sheet, Actual = " + sFoldPattern +
+								"\nContent File, Expected = POST CARD DEMO.pdf, Actual = " + sContentFile );
+		}
+		
+		if (sNumUps.equals("1") && sNumAlong.equals("1") && sNumAcross.equals("1") && sPrinter.equals("Digital Press1")  && sOrientation.equals("Portrait")  && sPrintJobMat.equals("01-BD208.5X11BLUE-20# Blue Bond 8 1/2\" x 11\"")  && sPrintJobMatDesc.equals("PostCard")  && sPageRange.equals("1-2")  && sPageCount.equals("2")  && sS1.equals("4")  && sS2.equals("4"))
+		{
+			bPrintDetails = true;
+		}
+		else
+		{
+			System.err.println("Num Ups, Expected = 2, Actual = " + sNumUps +
+								"\nNum Along, Expected = 1, Actual = " + sNumAlong +
+								"\nNum Across, Expected = 2, Actual = " + sNumAcross +								
+								"\nPrint, Expected = GP - Printer, Actual = " + sPrinter +
+								"\nOrientation, Expected = Portrait, Actual = " + sOrientation +
+								"\nJob Material, Expected = 01-GLSTHOUSE10011X17-100# House Gloss Text 11\" x 17\", Actual = " + sPrintJobMat +
+								"\nDescription, Expected = Double Sided Color, Actual = " + sPrintJobMatDesc +
+								"\nPage range, Expected = 1-16, Actual = " + sPageRange +
+								"\nPage Count, Expected = 16, Actual = " + sPageCount +
+								"\nS1, Expected = 4, Actual = " + sS1 +
+								"\nS2, Expected = 4, Actual = " + sS2 );
+		}
+		
+				
+		if (sJobmaterials.equals("1") && sJobMat.equals("01-BD208.5X11BLUE") && sJobMatDesc.equals("20# Blue Bond 8 1/2\" x 11\"")  && sJobMatBS.equals("8.5 x 11")  && sJobMatRS.equals("8.5 x11")  && sJobMatPQ.equals("10"))
+		{
+			bJobMatDetails = true;
+		}
+		else
+		{
+			System.err.println("Job Materials, Expected = 1, Actual = " + sJobmaterials +
+								"\nJob Material, Expected = 01-GLSTHOUSE10011X17, Actual = " + sJobMatBS +
+								"\nJob Material Description, Expected = 100# House Gloss Text 11\" x 17\", Actual = " + sJobMatDesc +
+								"\nBuy Size, Expected = 11 x 17, Actual = " + sJobMatBS +
+								"\nRun Size, Expected = 11 x 17, Actual = " + sJobMatRS +
+								"\nPlanned Quantity, Expected = 40, Actual = " + sJobMatPQ );
+		}
+		
+		if (sItemTem.equals("01-BD208.5X11BLUE - 20# Blue Bond 8 1/2\" x 11\""))
+		{
+			bOtherDetails = true;
+		}
+		else
+		{
+			System.err.println("Item Template, Expected = DEFDSFVAR - Default DSF Item Template, Actual = " + sItemTem );
+						
+		}
+		
+		if (bSizeDeatils && bPrintDetails && bFinishDetails && bJobMatDetails && bOtherDetails)
+		{
+			System.out.println("Job parts details are verified");
+		}
+		else
+		{
+			System.err.println("Job part details are not matching");
+			Assert.fail("Job part details are not matching. Please see logs");
+		}
+	}
+
+
+}

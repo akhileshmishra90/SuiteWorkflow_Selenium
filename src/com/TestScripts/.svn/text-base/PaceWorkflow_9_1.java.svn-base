@@ -1,0 +1,724 @@
+package com.TestScripts;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+//import com.applitools.eyes.Eyes;
+//import com.applitools.eyes.RectangleSize;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.DSF_Integration_Page;
+import com.gui_auto.pages.JobPlanningPage;
+import com.gui_auto.pages.Login;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.Storefront;
+import com.gui_auto.pages.WorkflowIntegrationPage;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+
+public class PaceWorkflow_9_1 extends GUI_automation_base
+{
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+		return sdf.format(date);
+	}
+	
+	public static int randInt(int min, int max) 
+	{
+
+		// Usually this can be a field rather than a method variable
+		Random rand = new Random();
+
+		// nextInt is normally exclusive of the top value,
+		// so add 1 to make it inclusive
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+
+		return randomNum;
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{		   
+		_driver.quit();
+	}
+	
+	@Test
+	public void TC_9_1 () throws Exception
+	{		
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String  sTestcase = "TC_9";
+		String dater = dateReturn();
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		//========================================================================
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		dbConnection.UpdateFunction("PresentWorkflow", "PresentWorkflow", "PresentWorkflow", "TestCase_Executing", "TC_9");
+		
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+			try
+			{
+				//========================================= prerequisites============================================
+				String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+				String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+				String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+				String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+				String PaceServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+				String PaceConnectID = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PaceConnect");
+								
+				String SiteUrl=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "SiteUrl");
+				String userName=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "USERNAME");
+				String passWord=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PASSWORD");
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				//============================= PACE prerequisites========================
+				WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+				DCPage DC = new DCPage(_driver);
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				System.out.println("Enable the DSF Pace Connect");
+				WIP.ModifyPaceConnect(PaceConnectID, "enable", PaceServer, PaceCompany);
+				
+				System.out.println("Enable the Printflow Pace Connects");
+				WIP.DisableEnablePaceConnects("Printflow", "enable", PaceServer, PaceCompany);
+				
+				System.out.println("Enable the Process Shipper Pace Connects");
+				WIP.DisableEnablePaceConnects("Smartlinc Process Shipper", "enable", PaceServer, PaceCompany);
+				
+				System.out.println("Enable the Fiery Central Pace Connects");
+				WIP.DisableEnablePaceConnectsByName("EPS-FCENTRAL", "enable", PaceServer, PaceCompany);
+				
+				System.out.println("Enable Input location in Printflow Job Importer pace connect");
+				WIP.navigateToPaceConnectDetailPageByName("Printflow Job Importer", PaceServer, PaceCompany);
+				WIP.enableInputLocation("PaceSuite4 Outbox");
+								
+				DC.Logout();
+				
+				//===================================== Place DSF order for Adhoc product + Static Product==============================
+				_register.launchapplication(SiteUrl);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				Login Login1 = new Login(_driver);
+				Buyyer_Work_flow bwf = new Buyyer_Work_flow();
+				Storefront sfront = new Storefront(_driver);
+				DSF_Integration_Page DSF = new DSF_Integration_Page(_driver);
+
+				String ProductName=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ProductName");
+				String product_qty=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product_Qty");
+				String Product2Name=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product2Name");
+				String product2_qty=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product2_Qty");
+				String DeliveryMethod=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DeliveryMethod");
+				String oddPageFile=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "File");
+				String PaymentMethod=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PaymentMethod");
+				String CostCenterAccNo=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "CostCenterAccNo");
+				String PurchaseOrderNo=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PurchaseOrderNo");
+				
+				//Login as user
+				Login1.LoginToDSF(sSheetName, sScenario, sTestcase, userName, passWord);
+
+				//Clear Cart
+				CommonFunctions.ClearCart(_driver);
+
+				//Search an Adhoc product
+				bwf.searchProductAndBuy(ProductName);
+
+				bwf.click_on_Add_Files_And_Saved_Files();
+
+				bwf.SelectSavedFile(oddPageFile);
+	  			
+	  			bwf.EnterQty(product_qty);
+	  			
+	  			bwf.Addto_Cart();
+	  			
+	  			//Adding another product to cart
+	  			bwf.Search_Product_smart_store_Npp(Product2Name, product2_qty);
+	  			
+	  			//Proceed to check out
+				bwf.Click_On_ProceedTOCheckOut();
+
+				//Select a deliverymethod
+				sfront.choose_ShipmentMethodBasedOnValue(DeliveryMethod);
+				
+				//Click on proceed to payment button
+				sfront.ProceedToPayment();
+				
+				//Choose the Cost Center payment option
+				bwf.chooseCostCenterPaymentMethod(PaymentMethod);
+				
+				bwf.enter_CostCsnterAccountInfoAndPurchaseOrderNum(CostCenterAccNo, PurchaseOrderNo);
+				
+				//place order
+				bwf.click_on_PlaceMyOrder();
+				String orderNum = bwf.fetch_OrderNumber();
+				System.out.println("DSF Order No is ::"+orderNum);
+				
+				String subTotalValue_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Subtotal_value))).getText();
+				String ShippingAmount_Before_code_apply= _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Shipping_value))).getText();
+				String TotalValue_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Total))).getText();
+				String TaxCharge_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Tax_Charges))).getText();
+				String HandlingCharge_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Handling_Charges))).getText();
+				System.out.println("Shipping amount :"+ShippingAmount_Before_code_apply);
+				System.out.println("SubTotal Value :"+subTotalValue_Before_code_apply);
+				System.out.println("Total Value :"+TotalValue_Before_code_apply);
+				System.out.println("Tax Charge :"+TaxCharge_Before_code_apply);
+				System.out.println("Handling :"+HandlingCharge_Before_code_apply);
+				
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFSubTotal",subTotalValue_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFShippingAmount",ShippingAmount_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFTotalAmt",TotalValue_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFTaxAmount",TaxCharge_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFHandlingAmount",HandlingCharge_Before_code_apply);				
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "Order_Number", orderNum);				
+				
+				Login1.Logout();				
+				
+				//========================================== verify Job in Pace =============================================================								
+				String sJobNumber="";
+				
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				//_driver = eyes.open(_driver, "PACE", "TC_9_1", new RectangleSize(1008, 705));
+				
+				JobPlanningPage JP = new JobPlanningPage(_driver);
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				//==========================================================================
+				//======================Fetch Job Number using order number=================
+				//==========================================================================
+				System.out.println("Fetch Job Number using order number");
+				
+				String orderNumber = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Order_Number");
+				String sPaceConnect = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PaceConnect");
+				
+				DSF.NavigateToActivePaceConnect(sPaceConnect, PaceServer, PaceCompany);
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Successful Executions']"));
+				while (!(CommonFunctions.isTextPresentOnPage(_driver, "for DSF Order#"+orderNumber)))
+				{
+					_driver.navigate().refresh();
+					CommonFunctions.waitForPageLoaded(_driver);
+					Thread.sleep(1000);
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Successful Executions']"));
+				}
+				
+				sJobNumber = WIP.FetchJobNumber(orderNumber, PaceServer, PaceCompany);
+				if(!sJobNumber.equals(""))
+				{
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "PACE_Job_Num", sJobNumber);
+					String sJobDescription = CommonFunctions.GetValue(_driver, By.name(Locators.getProperty(Locators.Description)));
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "Job_Description", sJobDescription);
+				}
+				else
+				{
+					Assert.fail("Job Not Created for above Order Number");
+				}
+				TakeScreenshot.ScreenShotWindow(_driver, "JobDetails");
+				_driver.manage().window().maximize();
+				Thread.sleep(2000);
+								
+				//==========================================================================
+				//================================Verify Job Products======================
+				//==========================================================================
+				System.out.println("Verify Job Products");
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Products']"));
+				
+				String totalRecordsProducts = _driver.findElement(By.xpath("//fieldset[@id='JobProducts_fieldset']/div/div[1]/div[1]/strong")).getText();
+				System.out.println("totalProducts: "+totalRecordsProducts);
+				if (totalRecordsProducts.equals("2"))
+				{
+					String product1Name = _driver.findElement(By.xpath("//div[@class='table-contents']/table[@id='JobProducts']/tbody/tr[1]/td[3]/input")).getAttribute("value");
+					String product2Name = _driver.findElement(By.xpath("//div[@class='table-contents']/table[@id='JobProducts']/tbody/tr[2]/td[3]/input")).getAttribute("value");
+					String sPro1 = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ProductName");
+					String sPro2 = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product2Name");
+
+					if((product1Name.equals(sPro1) || product1Name.equals(sPro2)) && (product2Name.equals(sPro1) || product2Name.equals(sPro2)) && !product1Name.equals(product2Name))
+					{
+						System.out.println("Job Product Names have been verified");
+					}
+					else
+					{
+						System.err.println("Product 1 = "+product1Name+", Product 2 = "+product2Name);
+						Assert.fail("Product 1 = "+product1Name+", Product 2 = "+product2Name);
+					}
+				}
+				else
+				{
+					System.err.println("Total Products created are incorrect, Expected = 2, Actual = "+totalRecordsProducts);
+					Assert.fail("Total Products created are incorrect, Expected = 2, Actual = "+totalRecordsProducts);
+				}
+				
+				//==========================================================================
+				//==========Verify Job Value, Shipping, Handling and Taxes Amount in Billing Tab==========
+				//==========================================================================
+				System.out.println("Verify Job Value,W2P Shipping,W2P Handling and W2P Taxes AMount in Billing Tab");
+				
+				String sJobValue = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFSubTotal");
+				String sTax = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFTaxAmount");
+				String sShipping = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFShippingAmount");
+				String sHandling = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFHandlingAmount");
+				String sPaymentMethod=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PaymentMethod");
+				String sCostCenterAccNo=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "CostCenterAccNo");
+				
+				boolean IsBillingDetailsVerified = DSF.Verify_JobValue_Shipping_Handling_Taxes_Amount_On_Job_Billing_Tab(sJobValue, sTax, sShipping, sHandling);
+				
+				if(IsBillingDetailsVerified==true)
+				{
+					System.out.println("Verified Job Value, W2P Shipping, W2P Handling and W2P Taxes field is not editable in Billing Tab");
+				}
+				else
+				{
+					Assert.fail("Failed to Verify Job Value, W2P Shipping, W2P Handling and W2P Taxes Amount in pace. IsNotEditableSuccess is "+IsBillingDetailsVerified);
+				}
+				
+				System.out.println("Verify payment method in pace for DSF order");
+				
+				String[] PaymentOption_And_Value= DSF.Verify_The_Payment_Mode_In_Pace();
+				if(PaymentOption_And_Value[0].equals(sPaymentMethod) && PaymentOption_And_Value[1].equals(sCostCenterAccNo))
+				{
+					System.out.println("The Payment details are displayed are correctly");
+				}
+				else
+				{
+					System.err.println("Payment Method, Expected = "+sPaymentMethod+", Actual= "+PaymentOption_And_Value[0]+
+										"\nCharge Back Account, Expected = "+sCostCenterAccNo+", Actual= "+PaymentOption_And_Value[1]);
+					Assert.fail("Payment Method, Expected = "+sPaymentMethod+", Actual= "+PaymentOption_And_Value[0]+
+							"\nCharge Back Account, Expected = "+sCostCenterAccNo+", Actual= "+PaymentOption_And_Value[1]);
+				}
+				
+				//==========================================================================
+				//===================Verify the Job Parts created===========================
+				//==========================================================================
+				System.out.println("Verify Job Parts");
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Parts Info']"));
+				((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[contains(@id,'JobPart_N')]")));
+				TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[contains(@id,'JobPart_N')]"), "JobParts");
+								
+				int iNumofJobPartsCreated = CommonFunctions.RowCount(_driver, By.xpath("//table[@id='JobPart_N1002F']/tbody/tr"));				
+				if (iNumofJobPartsCreated == 4)
+				{
+					System.out.println("Iterate through each part and verify Job Part Details");
+					
+					for (int i=2; i<=iNumofJobPartsCreated; i+=2)
+					{
+						CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobPart_N1002F']/tbody/tr["+i+"]/td[3]/div/a/img"));
+						CommonFunctions.waitForPageLoaded(_driver);
+						CommonFunctions.Wait(_driver, By.name("additionalDescription"));
+						System.out.println("Verifying Job Part "+(i-1));
+						String sPartDescription = CommonFunctions.GetValue(_driver, By.name("description_label"));
+						
+						//verify Part Details
+						CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Part Details']"));
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@class='active']/fieldset[1]")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']/fieldset[1]"), "PartDetails_Part_1");
+						
+						//verify content
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[contains(@id, 'JobPartContent')]")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[contains(@id, 'JobPartContent')]"), "JobPartContent_Part_1");
+						
+						//verify print runs
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@class='active']/fieldset[4]")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']/fieldset[4]"), "PrintRuns_Part_1");
+						
+						//verify Finish
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@class='active']/fieldset[5]")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']/fieldset[5]"), "FinishDetails_Part_1");
+												
+						//verify Material details
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[contains(@id, 'JobMaterial')]")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[contains(@id, 'JobMaterial')]"), "JobMaterialDetails_Part_1");
+						
+						//verify General Details
+						CommonFunctions.ClickElement(_driver, By.xpath("//div[@id='tabBar']//span[text()='G']"));
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@class='active']")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']"), "GeneralDetails_Part_1");
+						
+						//verify Plans created
+						CommonFunctions.ClickElement(_driver, By.xpath("//div[@id='tabBar']//span[text()='a']"));
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@class='active']/fieldset[1]")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']/fieldset[1]"), "Plans_Part_1");
+						
+						//verify Job part items
+						CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Job Part Items']"));
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[contains(@id, 'JobPartItem')]")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[contains(@id, 'JobPartItem')]"), "JobPartItems_Part_1");
+						
+						if (i == 2)
+						{
+							WIP.getJobPartDetails(sSheetName, sScenario, sTestcase, "1");
+							verifyPart1Details(sSheetName, sScenario, sTestcase);
+							dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobPart1_Description", sPartDescription);
+						}
+						else if (i == 4)
+						{
+							WIP.getJobPartDetails(sSheetName, sScenario, sTestcase, "2");
+							verifyPart2Details(sSheetName, sScenario, sTestcase);
+							dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobPart2_Description", sPartDescription);
+						}
+						
+						WIP.NavigateToJob(sJobNumber, PaceServer, PaceCompany);
+						CommonFunctions.waitForPageLoaded(_driver);
+						CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Parts Info']"));
+						Thread.sleep(1000);
+					}
+				}
+				else
+				{
+					System.err.println("Total Job Parts created are incorrect, Expected = 2, Actual = "+(iNumofJobPartsCreated-2));
+					Assert.fail("Total Job Parts created are incorrect, Expected = 2, Actual = "+(iNumofJobPartsCreated-2));
+				}
+				
+				//==========================================================================
+				//===================Verify the Job Plans created===========================
+				//==========================================================================
+				System.out.println("Navigate to Job Plan Production page");
+				WIP.navigateToProductionPlanPage(sJobNumber, PaceServer, PaceCompany);
+				
+				System.out.println("Verify Job Plans");
+				int iJobPlanCnt = CommonFunctions.RowCount(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr"));
+				if(iJobPlanCnt == 4)
+				{
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//table[@id='JobPlan']/tbody/tr[1]")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//table[@id='JobPlan']"), "ProductionPlans");
+					
+					String sJobPlanIDs = JP.getJobPlans();
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobPlanIDs", sJobPlanIDs);
+					
+					String sJPPFIDs = JP.getJPPFIDs();
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JPPFIDs", sJPPFIDs);
+				}
+				else
+				{
+					System.err.println("Total Job Plans created are incorrect, Expected = 2, Actual = "+iJobPlanCnt);
+					Assert.fail("Total Job Plans created are incorrect, Expected = 2, Actual = "+iJobPlanCnt);
+				}
+				
+				System.out.println("Verify the Job is scheduled");
+				CommonFunctions.selectDropdownByText(_driver, By.name("adminStatus"), "Open/Scheduled");
+				CommonFunctions.sSelectCheckBox(_driver, true, By.name("readyToScheduleBooleanCheck"));
+				DC.Update();
+				if (WIP.verifyJobPlansScheduledCheckBox(12))
+				{
+					System.out.println("Job was schedueld");
+				}
+				else
+				{
+					System.err.println("Job was not scheduled");
+					Assert.fail("Job was not scheduled");
+				}
+				
+				//==========================================================================
+				//===================Verify the Job shipment created========================
+				//==========================================================================
+				System.out.println("Navigate to Job Shipment Detail page");
+				WIP.navigateToJobShipmentListpage(sJobNumber, PaceServer, PaceCompany);
+				
+				System.out.println("Verify Job Shipment details");
+				if (CommonFunctions.RowCount(_driver, By.xpath("//div[contains(@id, 'shipmentBox')]")) == 1)
+				{
+					CommonFunctions.ClickElement(_driver, By.xpath("//div[@id='shipmentBox0']/div[1]/span/div[1]//img[@title='View Object']"));
+					CommonFunctions.waitForPageLoaded(_driver);
+					CommonFunctions.Wait(_driver, By.xpath(Locators.getProperty(Locators.Delete)));
+					
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='General Shipment']"));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']"), "JobShipmentDetails");
+					
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Shipment Address']"));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']"), "JobShipmentContactDetails");
+										
+					String sJobShipmentID = CommonFunctions.getIDfromURL(_driver);
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobShipmentID", sJobShipmentID);
+				}
+				else
+				{
+					System.err.println("No Job shipment was created");
+					Assert.fail("No Job shipment was created");
+				}
+				
+				DC.Logout();
+				//eyes.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+				Assert.fail(sTestcase+" failed");
+			}
+		}
+	}
+
+	public void verifyPart1Details(String Sheet, String Scenario, String Testcase) throws Exception
+	{
+		boolean bSizeDeatils = false, bPrintDetails = false, bFinishDetails = false, bJobMatDetails = false, bOtherDetails = false; 
+		
+		String sFinishSize = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FinalSize");
+		String sFlatSize = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FlatSize");
+		String sPages = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Pages");
+		String sFoldPattern = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FoldPattern");
+		String sContentFile = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1ContentFiles");
+		String sNumUps = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1NumUps");
+		String sNumAlong = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1NumAlong");
+		String sNumAcross = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1NumAcross");
+		String sPrinter = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Printer");
+		String sOrientation = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Orientation");
+		String sPrintJobMat = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMaterial");
+		String sPrintJobMatDesc = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Description");
+		String sPageRange = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1PageRange");
+		String sPageCount = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1PageCount");
+		String sS1 = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1S1");
+		String sS2 = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1S2");
+		String sFinishingType = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FinishingType");
+		String sFinishingOperation = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1FinishingOperation");
+		String sJobmaterials = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1NumMaterials");
+		String sJobMat = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMat");
+		String sJobMatDesc = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMatDesc");
+		String sJobMatBS = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMatBuySize");
+		String sJobMatRS = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMatRunSize");
+		String sJobMatPQ = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobMatPlanQty");
+		String sItemTem = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1ItemTemplate");
+		String sNotes = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1Notes");
+		String sJobPartItems = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart1JobPartItems");
+		
+		if (sFinishSize.equals("8 1/2 x 11") && sFlatSize.equals("17 x 11")  && sPages.equals("4")  && sFoldPattern.equals("4/2 - 4 Page SS")  && sContentFile.equals("Booklet_16pgs.pdf"))
+		{
+			bSizeDeatils = true;
+		}
+		else
+		{
+			System.err.println("Finish Size, Expected = 8 1/2 x 11, Actual = " + sFinishSize +
+								"\nFlat Size, Expected = 17 x 11, Actual = " + sFlatSize +
+								"\nPages, Expected = 4, Actual = " + sPages +
+								"\nFold Pattern, Expected = 4/2 - 4 Page SS, Actual = " + sFoldPattern +
+								"\nContent File, Expected = Booklet_16pgs.pdf, Actual = " + sContentFile );
+		}
+		
+		if (sNumUps.equals("2") && sNumAlong.equals("1") && sNumAcross.equals("2") && sPrinter.equals("GP - Printer")  && sOrientation.equals("Portrait")  && sPrintJobMat.equals("01-GLSTHOUSE10011X17-100# House Gloss Text 11\" x 17\"")  && sPrintJobMatDesc.equals("Double Sided Color")  && sPageRange.equals("1-16")  && sPageCount.equals("16")  && sS1.equals("4")  && sS2.equals("4"))
+		{
+			bPrintDetails = true;
+		}
+		else
+		{
+			System.err.println("Num Ups, Expected = 2, Actual = " + sNumUps +
+								"\nNum Along, Expected = 1, Actual = " + sNumAlong +
+								"\nNum Across, Expected = 2, Actual = " + sNumAcross +								
+								"\nPrint, Expected = GP - Printer, Actual = " + sPrinter +
+								"\nOrientation, Expected = Portrait, Actual = " + sOrientation +
+								"\nJob Material, Expected = 01-GLSTHOUSE10011X17-100# House Gloss Text 11\" x 17\", Actual = " + sPrintJobMat +
+								"\nDescription, Expected = Double Sided Color, Actual = " + sPrintJobMatDesc +
+								"\nPage range, Expected = 1-16, Actual = " + sPageRange +
+								"\nPage Count, Expected = 16, Actual = " + sPageCount +
+								"\nS1, Expected = 4, Actual = " + sS1 +
+								"\nS2, Expected = 4, Actual = " + sS2 );
+		}
+		
+		if (sFinishingType.equals("Inline") && sFinishingOperation.equals("BOOK - Booklet Making"))
+		{
+			bFinishDetails = true;
+		}
+		else
+		{
+			System.err.println("Finish Type, Expected = Inline, Actual = " + sFinishingType +
+								"\nFinishing Operation, Expected = BOOK - Booklet Making, Actual = " + sFinishingOperation );
+		}
+		
+		if (sJobmaterials.equals("1") && sJobMat.equals("01-GLSTHOUSE10011X17") && sJobMatDesc.equals("100# House Gloss Text 11\" x 17\"")  && sJobMatBS.equals("11 x 17")  && sJobMatRS.equals("11 x 17")  && sJobMatPQ.equals("40"))
+		{
+			bJobMatDetails = true;
+		}
+		else
+		{
+			System.err.println("Job Materials, Expected = 1, Actual = " + sJobmaterials +
+								"\nJob Material, Expected = 01-GLSTHOUSE10011X17, Actual = " + sJobMatBS +
+								"\nJob Material Description, Expected = 100# House Gloss Text 11\" x 17\", Actual = " + sJobMatDesc +
+								"\nBuy Size, Expected = 11 x 17, Actual = " + sJobMatBS +
+								"\nRun Size, Expected = 11 x 17, Actual = " + sJobMatRS +
+								"\nPlanned Quantity, Expected = 40, Actual = " + sJobMatPQ );
+		}
+		
+		if (sItemTem.equals("DEFDSFVAR - Default DSF Item Template") && sNotes.equals("The price calculated was based on running 2-up on the sheet.") && sJobPartItems.equals("5"))
+		{
+			bOtherDetails = true;
+		}
+		else
+		{
+			System.err.println("Item Template, Expected = DEFDSFVAR - Default DSF Item Template, Actual = " + sItemTem +
+								"\nNotes, Expected = The price calculated was based on running 2-up on the sheet., Actual = " + sNotes +
+								"\nJob Part Items, Expected = 5, Actual = " + sJobPartItems );
+		}
+		
+		if (bSizeDeatils && bPrintDetails && bFinishDetails && bJobMatDetails && bOtherDetails)
+		{
+			System.out.println("Job parts details are verified");
+		}
+		else
+		{
+			System.err.println("Job part details are not matching");
+			Assert.fail("Job part details are not matching. Please see logs");
+		}
+	}
+
+	public void verifyPart2Details(String Sheet, String Scenario, String Testcase) throws Exception
+	{
+		boolean bSizeDeatils = false, bPrintDetails = false, bFinishDetails = false, bJobMatDetails = false, bOtherDetails = false; 
+		
+		String sFinishSize = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2FinalSize");
+		String sFlatSize = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2FlatSize");
+		String sPages = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2Pages");
+		String sFoldPattern = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2FoldPattern");
+		String sContentFile = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2ContentFiles");
+		String sNumUps = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2NumUps");
+		String sNumAlong = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2NumAlong");
+		String sNumAcross = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2NumAcross");
+		String sPrinter = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2Printer");
+		String sOrientation = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2Orientation");
+		String sPrintJobMat = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2JobMaterial");
+		String sPrintJobMatDesc = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2Description");
+		String sPageRange = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2PageRange");
+		String sPageCount = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2PageCount");
+		String sS1 = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2S1");
+		String sS2 = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2S2");
+		String sFinishingType = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2FinishingType");
+		String sFinishingOperation = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2FinishingOperation");
+		String sJobmaterials = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2NumMaterials");
+		String sJobMat = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2JobMat");
+		String sJobMatDesc = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2JobMatDesc");
+		String sJobMatBS = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2JobMatBuySize");
+		String sJobMatRS = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2JobMatRunSize");
+		String sJobMatPQ = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2JobMatPlanQty");
+		String sItemTem = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2ItemTemplate");
+		String sJobPartItems = dbConnection.ReadFunction(Sheet, Scenario, Testcase, "JobPart2JobPartItems");
+		
+		if (sFinishSize.equals("5 1/2 x 8 1/2") && sFlatSize.equals("11 x 8 1/2")  && sPages.equals("4")  && sFoldPattern.equals("4/2 - 4 Page SS")  && sContentFile.equals("BrochureHalfFold.pdf"))
+		{
+			bSizeDeatils = true;
+		}
+		else
+		{
+			System.err.println("Finish Size, Expected = 5 1/2 x 8 1/2, Actual = " + sFinishSize +
+								"\nFlat Size, Expected = 11 x 8 1/2, Actual = " + sFlatSize +
+								"\nPages, Expected = 4, Actual = " + sPages +
+								"\nFold Pattern, Expected = 4/2 - 4 Page SS, Actual = " + sFoldPattern +
+								"\nContent File, Expected = BrochureHalfFold.pdf, Actual = " + sContentFile );
+		}
+		
+		if (sNumUps.equals("1") && sNumAlong.equals("1") && sNumAcross.equals("1") && sPrinter.equals("GP - Printer")  && sOrientation.equals("Landscape")  && sPrintJobMat.equals("01-BD208.5X11CANARY-20# Canary Bond 8 1/2\" x 11\"")  && sPrintJobMatDesc.equals("FGS Half fold brochure")  && sPageRange.equals("1-2")  && sPageCount.equals("2")  && sS1.equals("4")  && sS2.equals("4"))
+		{
+			bPrintDetails = true;
+		}
+		else
+		{
+			System.err.println("Num Ups, Expected = 1, Actual = " + sNumUps +
+								"\nNum Along, Expected = 1, Actual = " + sNumAlong +
+								"\nNum Across, Expected = 1, Actual = " + sNumAcross +								
+								"\nPrint, Expected = GP - Printer, Actual = " + sPrinter +
+								"\nOrientation, Expected = Landscape, Actual = " + sOrientation +
+								"\nJob Material, Expected = 01-BD208.5X11CANARY-20# Canary Bond 8 1/2\" x 11\", Actual = " + sPrintJobMat +
+								"\nDescription, Expected = FGS Half fold brochure, Actual = " + sPrintJobMatDesc +
+								"\nPage range, Expected = 1-2, Actual = " + sPageRange +
+								"\nPage Count, Expected = 2, Actual = " + sPageCount +
+								"\nS1, Expected = 4, Actual = " + sS1 +
+								"\nS2, Expected = 4, Actual = " + sS2 );
+		}
+		
+		if (sFinishingType.equals("Inline") && sFinishingOperation.equals("Fold - Folding"))
+		{
+			bFinishDetails = true;
+		}
+		else
+		{
+			System.err.println("Finish Type, Expected = Inline, Actual = " + sFinishingType +
+								"\nFinishing Operation, Expected = Fold - Folding, Actual = " + sFinishingOperation );
+		}
+		
+		if (sJobmaterials.equals("1") && sJobMat.equals("01-BD208.5X11CANARY") && sJobMatDesc.equals("20# Canary Bond 8 1/2\" x 11\"")  && sJobMatBS.equals("8 1/2 x 11")  && sJobMatRS.equals("8 1/2 x 11")  && sJobMatPQ.equals("10"))
+		{
+			bJobMatDetails = true;
+		}
+		else
+		{
+			System.err.println("Job Materials, Expected = 1, Actual = " + sJobmaterials +
+								"\nJob Material, Expected = 01-BD208.5X11CANARY, Actual = " + sJobMatBS +
+								"\nJob Material Description, Expected = 20# Canary Bond 8 1/2\" x 11\", Actual = " + sJobMatDesc +
+								"\nBuy Size, Expected = 8 1/2 x 11, Actual = " + sJobMatBS +
+								"\nRun Size, Expected = 8 1/2 x 11, Actual = " + sJobMatRS +
+								"\nPlanned Quantity, Expected = 10, Actual = " + sJobMatPQ );
+		}
+		
+		if (sItemTem.equals("fgs4pagehalf - 4 Page Brochure half fold") && sJobPartItems.equals("2"))
+		{
+			bOtherDetails = true;
+		}
+		else
+		{
+			System.err.println("Item Template, Expected = fgs4pagehalf - 4 Page Brochure half fold, Actual = " + sItemTem +
+								"\nJob Part Items, Expected = 2, Actual = " + sJobPartItems );
+		}
+		
+		if (bSizeDeatils && bPrintDetails && bFinishDetails && bJobMatDetails && bOtherDetails)
+		{
+			System.out.println("Job parts details are verified");
+		}
+		else
+		{
+			System.err.println("Job part details are not matching");
+			Assert.fail("Job part details are not matching. Please see logs");
+		}
+	}
+	
+}

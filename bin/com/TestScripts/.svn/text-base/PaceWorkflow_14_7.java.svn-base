@@ -1,0 +1,612 @@
+package com.TestScripts;
+
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.DSF_Integration_Page;
+import com.gui_auto.pages.JobBillingPage;
+import com.gui_auto.pages.JobCostingPage;
+import com.gui_auto.pages.JobPlanningPage;
+import com.gui_auto.pages.Login;
+import com.gui_auto.pages.ProcessShipperPage;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.Storefront;
+import com.gui_auto.pages.WorkflowIntegrationPage;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+
+public class PaceWorkflow_14_7 extends GUI_automation_base
+{
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");	
+		return sdf.format(date);
+	}
+	
+	public static void Killpython() throws Exception   
+	{
+		Process p = Runtime.getRuntime().exec("cmd /c taskkill /F /IM python.exe *32 /T");
+		p.destroy();
+	}
+	
+	//@After
+	public void tearDown() throws Exception
+	{
+		_driver.quit();
+	}
+	
+	@Test
+	public void TC_14_7() throws Exception
+	{
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String dater = dateReturn();
+		String sTestcase = "TC_14";
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+		//========================================================================
+		
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		
+		
+		String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+		String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+		String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+		String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+		String PaceServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+		
+		String sJobNumber= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACE_Job_Num");
+		
+		super.setUp(getBrowser());
+		_register = PageFactory.initElements(_driver, RegisterPage.class);
+		_register.launchapplication(PaceURL);
+		_driver.manage().window().maximize();
+		_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		//_driver = eyes.open(_driver, "PACE", "TC_12_3", new RectangleSize(1008, 705));
+		
+		DCPage DC = new DCPage(_driver);
+		JobPlanningPage JP = new JobPlanningPage(_driver);
+		JobCostingPage JC = new JobCostingPage(_driver);
+		
+	
+
+		String sJPPFPlanIDs = "", sJPPFPlanID = "";
+		
+		System.out.println("Loging in to Pace");
+		DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+			
+			
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+			try
+			{
+								
+				//==========================================================================
+				//===================Process Shipment in Process shipper========
+				//==========================================================================
+				
+				String PSURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PS_URL");
+				String PSUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PS_UN");
+				String PSPass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PS_Pwd");
+								
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(PSURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				//_driver = eyes.open(_driver, "PACE", "TC_11_9", new RectangleSize(1008, 705));
+				
+				ProcessShipperPage PS = new ProcessShipperPage(_driver);
+				
+				System.out.println("Process Shipment in Process Shipper and get Tracking details");
+				String DeliveryNumber = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Pick_ID");
+				String Weight = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ShipmentWeight");
+				
+				TakeScreenshot.ScreenShotWindow(_driver, "ProcessShipperLogin");
+				_driver.manage().window().maximize();
+				Thread.sleep(2000);
+				
+				//login
+				PS.PSLogin(PSUserN, PSPass);		
+				
+				//get delivery doc
+				PS.getDeliveryDoc_Printstream(DeliveryNumber);				
+				TakeScreenshot.ScreenShotWindow(_driver, "DeliveryDetails");
+				
+				//pack all
+				PS.PackAll();
+				
+				//process shipment
+				PS.ProcessShipment_Printstream();
+				
+				//get tracking details
+				String[] aTrackingDetails = PS.getTrackingDetails(DeliveryNumber);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "ShipmentTrackingID", aTrackingDetails[0]);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "ShipmentWeight", aTrackingDetails[1]);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "ShipmentCost", aTrackingDetails[2]);
+				
+				//logout
+				PS.PSLogout();
+				//eyes.close();
+				
+				//==========================================================================
+				//===================verify the shipment updates in the Job shipment in PACE========
+				//==========================================================================
+				
+				
+				
+				String sShipmentTackingID = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ShipmentTrackingID");
+				String sShipmentWeight = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ShipmentWeight");
+				String sShipmentCost = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ShipmentCost");
+				
+				String sShipmentTrackingNumDisplayed = "", sShipmentWeightDisplayed = "", sShipmentCostDisplayed ="", sShimentType = "", sDSFOrderStatus = "", sJobValue = "", sInvoiceAmount = "";
+							
+				String DSFSiteUrl=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "SiteUrl");
+				String DSFUserName=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "USERNAME");
+				String DSFPassWord=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PASSWORD");
+				String sDSFOrderNumber = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Order_Number");				
+				
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);				
+			
+				
+				JobBillingPage JB = new JobBillingPage(_driver);
+			//	WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+				Login Login1 = new Login(_driver);
+				
+				System.out.println("Log on to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				System.out.println("Navigate to Job Shipment Page");
+				WIP.NavigateToJob(sJobNumber, PaceServer, PaceCompany);
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Job : "+sJobNumber+"']"));				
+				Thread.sleep(1000);
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='- Shipments']"));
+				CommonFunctions.waitForPageLoaded(_driver);
+				CommonFunctions.Wait(_driver, By.name("shipmentTypefieldIteration0"));
+				
+				if (!CommonFunctions.Elementdisplayed_Enabled(_driver.findElement(By.name("trackingNumberfieldIteration0"))))
+				{
+					CommonFunctions.ClickElement(_driver, By.xpath("//div[contains(@id, 'shipmentBox')]//legend[text()='Details']/span"));
+				}
+				
+				System.out.println("Verify the shipment tracking ID,");
+				sShipmentTrackingNumDisplayed = CommonFunctions.GetValue(_driver, By.name("trackingNumberfieldIteration0"));
+				sShipmentWeightDisplayed = CommonFunctions.GetValue(_driver, By.name("weightfieldIteration0"));
+				sShipmentCostDisplayed = CommonFunctions.GetValue(_driver, By.name("costfieldIteration0"));
+				sShimentType = CommonFunctions.GetSelectedOption(_driver, By.name("shipmentTypefieldIteration0"));
+				
+				if (sShimentType.equals("Final Shipment Complete") && sShipmentTrackingNumDisplayed.equals(sShipmentTackingID)&&sShipmentWeightDisplayed.equals(sShipmentWeight) && sShipmentCostDisplayed.equals(sShipmentCost) )
+				{
+					System.out.println("Shipment details were displayed correctly");
+				}
+				else
+				{
+					System.err.println("Shipment Type, Expected = Final Shipment Complete, Actual = "+sShimentType+
+										"\nShipment Tracking ID, Expected = "+sShipmentTackingID+", Actual ="+sShipmentTrackingNumDisplayed+
+										"\nShipment Weight, Expected = "+sShipmentWeight+", Actual ="+sShipmentWeightDisplayed+
+										"\nShipment Cost, Expected = "+sShipmentCost+", Actual ="+sShipmentCostDisplayed);
+					TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+					Assert.fail("Incorrect shipment details were displayed.");
+				}
+				
+				//==========================================================================
+				//===================verify the Job costs created for the shipment completion===========================
+				//==========================================================================
+				System.out.println("Navigate to Job Part Job Costs page and verify the Job Cost created");
+				WIP.JobPartJobCostPage(sJobNumber, "01", PaceServer, PaceCompany);
+				CommonFunctions.waitForPageLoaded(_driver);
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Unposted Job Costs']"));
+				JP.removeSort("all", "//table[@id='JobCost_N10022']");
+				JP.applySort("Start Date", "descend", "//table[@id='JobCost_N10022']");
+				JP.applySort("Start Time", "descend", "//table[@id='JobCost_N10022']");
+				String sOriginalHandle = _driver.getWindowHandle();
+				CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobCost_N10022']/tbody/tr[1]/td[2]/div/a/img"));
+				Thread.sleep(2000);
+				CommonFunctions.SwitchToWindow(_driver, "Job Cost");
+				String sTranactionType = CommonFunctions.GetSelectedOption(_driver, By.name(Locators.getProperty(Locators.Job_Cost_TransactionType)));
+				String sJobCost = CommonFunctions.GetValue(_driver, By.name("cost"));
+				if (sTranactionType.equals("Job Shipment") && sJobCost.contains(sShipmentCost))
+				{
+					System.out.println("Job cost with correct transaction type and cost was created");
+					_driver.close();
+					_driver.switchTo().window(sOriginalHandle);
+					DC.Logout();
+				}
+				else
+				{
+					TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+					Assert.fail("Job cost with incorrect transaction type was created, Expected = Job Shipment, Actual = "+sTranactionType);
+				}
+				
+				//==========================================================================
+				//===================Verify Job Status in DSF===========================
+				//==========================================================================
+								
+				_register.launchapplication(DSFSiteUrl);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				//Login as user
+				Login1.LoginToDSF(sSheetName, sScenario, sTestcase, DSFUserName, DSFPassWord);
+				Thread.sleep(1000);
+				//verify order status and shipment details
+				CommonFunctions.ClickElement(_driver, By.xpath("//div[@class='myaccount-label']/span[3]"));
+				Thread.sleep(1000);
+				CommonFunctions.ClickElement(_driver, By.xpath("//li[text()='Order History & Status']"));
+				CommonFunctions.waitForPageLoaded(_driver);
+				Thread.sleep(2000);
+				
+				if (CommonFunctions.isElementPresent(_driver, By.xpath("//a[contains(text(), '"+sDSFOrderNumber+"')]")))
+				{
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[contains(text(), '"+sDSFOrderNumber+"')]"));
+					CommonFunctions.waitForPageLoaded(_driver);
+					Thread.sleep(10000);
+					
+					sDSFOrderStatus = CommonFunctions.getText(_driver, By.xpath("//div[@class='checkout-order-info']/div[@class='order-status']/div[1]/h3"));
+					if (sDSFOrderStatus.equals("Shipped"))
+					{
+						System.out.println("DSF Order status was changed to Shipped");						
+						
+						//verify shipment details
+						if (CommonFunctions.isElementPresent(_driver, By.xpath("//div[@class='partial-shipment-table ng-scope'][1]/table//table")))
+						{
+							System.out.println("Shipment details were displayed");
+							
+							sShipmentCostDisplayed = CommonFunctions.GetText(_driver, By.xpath("//div[@class='partial-shipment-table ng-scope'][1]/table//table/tbody/tr[1]/td[5]"));
+							sShipmentTrackingNumDisplayed = CommonFunctions.GetText(_driver, By.xpath("//div[@class='partial-shipment-table ng-scope'][1]/table//table/tbody/tr[1]/td[6]/a"));
+							
+							if (sShipmentCostDisplayed.contains(sShipmentCost) && sShipmentTrackingNumDisplayed.equals(sShipmentTackingID))
+							{
+								System.out.println("Correct Shipment details were displayed");
+								Login1.Logout();
+							}
+							else
+							{
+								System.err.println("Shipment Tracking ID, Expected = "+sShipmentTackingID+", Actual ="+sShipmentTrackingNumDisplayed+
+													"\nShipment Cost, Expected = "+sShipmentCost+", Actual ="+sShipmentCostDisplayed);
+								TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+								Assert.fail("Incorrect shipment details were displayed in DSF.");
+							}
+						}
+						else
+						{
+							System.err.println("Shipment details are not displayed");
+							TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+							Assert.fail("Shipment details are not displayed");
+						}
+					}
+					else
+					{
+						System.err.println("DSF Order was not updated with Shipped Status");
+						TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+						Assert.fail("DSF Order was not updated with Shipped Status");
+					}					
+				}
+				else
+				{
+					System.err.println("DSF Order was not present");
+					TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+					Assert.fail("DSF Order was not present");
+				}
+				
+//				//==========================================================================
+//				//===================verify Job Status in PACE========================
+//				//==========================================================================
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				System.out.println("Log on to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				System.out.println("Navigate to Job Detail Page");
+				WIP.NavigateToJob(sJobNumber, PaceServer, PaceCompany);
+				assertTrue("Job Status was not changed to Shipped", CommonFunctions.GetSelectedOption(_driver, By.name(Locators.getProperty(Locators.Job_Status))).equals("Shipped"));
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Billing Info']"));
+				sJobValue = CommonFunctions.getText(_driver, By.xpath("//label[text()='Job Value']/../following-sibling::div/div"));
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobValue", sJobValue);
+				
+				//==========================================================================
+				//===================Approve Job costs and post them========================
+				//==========================================================================
+				WIP.navigateToApproveJobCostsPage(PaceServer, PaceCompany);
+				JC.ApproveJobCostTransaction(sJobNumber);
+				WIP.navigateToPostJobCostsPage(PaceServer, PaceCompany);
+				JC.PostJobCostTransaction("All Types", "t", "", "", false, "", "", "");
+				CommonFunctions.waitForPageLoaded(_driver);
+				
+				System.out.println("Go to Job Part and verify the Job Costs are posted");
+				
+					WIP.JobPartJobCostPage(sJobNumber, "01", PaceServer, PaceCompany);
+					CommonFunctions.waitForPageLoaded(_driver);
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Unposted Job Costs']"));
+					int iRwCnt1 = _driver.findElements(By.xpath("//table[@id='JobCost_N10022']/tbody/tr")).size();			
+					if (iRwCnt1 > 0)
+					{
+						System.err.println("All the Job costs are not posted for Job Part 1");
+						TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+						Assert.fail("All the Job costs are not posted for Job Part 1");
+					}
+				
+				
+				//==========================================================================
+				//===================Add an invoice to the Job and Process and Post the invoice========================
+				//==========================================================================
+				
+				System.out.println("Create an Invoice Batch");
+				sJobValue = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JobValue");
+				WIP.NavigateToEnterNewBatch(PaceServer, PaceCompany);
+				DC.Add();
+				String sInvoiceBatchID = CommonFunctions.GetIdFromUrl(_driver);
+				
+				System.out.println("Add an invoice to the Invoice Batch created above");
+				WIP.NavigateToEnterNewInvoicePage(PaceServer, PaceCompany);
+				WIP.AddNewInvoice(sJobNumber, sInvoiceBatchID);
+				CommonFunctions.waitForPageLoaded(_driver);
+				Thread.sleep(2000);
+				String sInvoiceTotal = CommonFunctions.getText(_driver, By.xpath("//fieldset[contains(@id, 'InvoiceLine')]//td[@class='group-1 totals grandTotals']"));
+				String sShippingTotal = CommonFunctions.getText(_driver, By.xpath("//fieldset[@id = 'InvoiceExtra_N101B2_fieldset']//td[@class='group-1 totals grandTotals']"));
+				String sTaxAmount = CommonFunctions.getText(_driver, By.xpath("//label[text()='Tax Amount']/../../div/div/div"));				
+				
+				if (sInvoiceTotal.contains(sJobValue) && sShippingTotal.contains(sShipmentCost))
+				{
+					System.out.println("System created a Invoice correctly");
+				}
+				else
+				{
+					System.err.println("Invoice Total, Expected = "+sJobValue+", Actual = "+sInvoiceTotal+
+										"\nShipping Total, Expected = "+sShipmentCost+", Actual = "+sShippingTotal);
+					TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+					Assert.fail("System did not create Invoice with correct details");
+				}
+				sInvoiceAmount = CommonFunctions.getText(_driver, By.xpath("//label[text()='Invoice Amount']/../following-sibling::div/div"));
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "InvoiceAmount", sInvoiceAmount);
+
+				
+				WIP.ApprovedInvoiceBatch(sInvoiceBatchID, PaceServer, PaceCompany);
+				String sInvoiceNum = CommonFunctions.GetValue(_driver, By.xpath("//table[contains(@id, 'Invoice_N')]/tbody/tr/td[4]/input"));
+				if(sInvoiceNum.equals("") || sInvoiceNum == null)
+				{
+					CommonFunctions.SendValue(_driver, By.xpath("//table[contains(@id, 'Invoice_N')]/tbody/tr/td[4]/input"), sJobNumber+"1");
+					DC.Update();
+				}
+				sInvoiceNum = CommonFunctions.GetValue(_driver, By.xpath("//table[contains(@id, 'Invoice_N')]/tbody/tr/td[4]/input"));
+				System.out.println("Created new Invoice "+sInvoiceNum);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "InvoiceNumber", sInvoiceNum);
+				JB.ProcessApprovedBatch();
+				_driver.navigate().refresh();
+				CommonFunctions.waitForPageLoaded(_driver);
+				JB.PostApprovedBatch1();
+				
+				
+				//Extract Shipping and Handling Charges from Pace
+				System.out.println("Navigate to Job Part 2(handling charges)Detail Page");
+				JB.NavigateToJobPart(sJobNumber, "02");
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='illing']"));
+				String sHandlingCharge = CommonFunctions.getText(_driver, By.xpath("//label[text()='Quoted Price']/../../div/div/div"));
+				System.out.println("Navigate to Job Part 3(Shipping Charges) Detail Page");
+				JB.NavigateToJobPart(sJobNumber, "03");
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='illing']"));
+				String sShippingCharges = CommonFunctions.getText(_driver, By.xpath("//label[text()='Quoted Price']/../../div/div/div"));
+					
+				DC.Logout();
+				//==========================================================================
+				//===================Verify Job Status in DSF==============================
+				//==========================================================================
+				
+				_register.launchapplication(DSFSiteUrl);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				DSF_Integration_Page DSF = new DSF_Integration_Page(_driver);
+				Storefront sfront = new Storefront(_driver);
+
+				
+				//Login as user
+				Login1.LoginToDSF(sSheetName, sScenario, sTestcase, DSFUserName, DSFPassWord);
+				
+				//verify order status and Invoice details
+				sInvoiceAmount = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "InvoiceAmount");
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//div[@class='myaccount-label']/span[3]"));
+				Thread.sleep(1000);
+				CommonFunctions.ClickElement(_driver, By.xpath("//li[text()='Order History & Status']"));
+				CommonFunctions.waitForPageLoaded(_driver);
+				Thread.sleep(2000);
+				
+				if (CommonFunctions.isElementPresent(_driver, By.xpath("//a[contains(text(), '"+sDSFOrderNumber+"')]")))
+				{	
+					//verify Invoice details
+					int iOrdersCnt = CommonFunctions.RowCount(_driver, By.xpath("//div[@class='myaccount-orderhistory-table']/table/tbody/tr"));
+					for (int j=1; j<=iOrdersCnt; j++)
+					{
+						if (CommonFunctions.isElementPresent(_driver, By.xpath("//div[@class='myaccount-orderhistory-table']/table/tbody/tr["+j+"]//a[contains(text()='"+sDSFOrderNumber+"')]")))
+						{
+							sDSFOrderStatus = CommonFunctions.getText(_driver, By.xpath("//div[@class='myaccount-orderhistory-table']/table/tbody/tr["+j+"]/td[1]/div[1]/table/tbody/tr/td[2]/h4"));
+							if (sDSFOrderStatus.equals("Completed And Invoiced"))
+							{
+								System.out.println("DSF Order status was changed to Completed and Invoiced");
+								
+								String sInvoiceAmountDisplayed = CommonFunctions.getText(_driver, By.xpath("//div[@class='myaccount-orderhistory-table']/table/tbody/tr["+j+"]/td[1]/div[2]/table/tbody/tr/td[2]/span"));
+								boolean bInvoiceFileExists = CommonFunctions.isElementPresent(_driver, By.xpath("//div[@class='myaccount-orderhistory-table']/table/tbody/tr["+j+"]/td[1]/div[2]//a[text()='Invoice File']"));
+							
+								if (sInvoiceAmountDisplayed.equals(sInvoiceAmount) && bInvoiceFileExists)
+								{
+									System.out.println("Invoice details are displayed correctly in DSF and Invoice is attached");									
+								}
+								else
+								{
+									System.err.println("Invoice Details are incorrect in DSF. Please investigate");
+									TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+									Assert.fail("Invoice Details are incorrect in DSF. Please investigate");
+								}
+								
+								
+								//Click on the order and verify the shipping cost ,handeling charge and Tax
+								CommonFunctions.ClickElement(_driver,By.xpath("//a[contains(text(),'"+sDSFOrderNumber+"')]"));
+								CommonFunctions.waitForPageLoaded(_driver);
+								
+								//------------verify shipping charge,handling charge,Taxes and Invoice amount In DSF-------------
+								
+								//get billing details from DSF after Invoice Compete			
+								String subTotalValue_After_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Subtotal_value))).getText();
+								String ShippingAmount_After_code_apply= _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Shipping_value))).getText();
+								String TotalValue_After_code_apply =	 _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Total))).getText();
+								String TaxCharge_After_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Tax_Charges))).getText();
+								String HandlingCharge_After_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Handling_Charges))).getText();
+								System.out.println("Shipping amount :"+ShippingAmount_After_code_apply);
+								System.out.println("SubTotal Value :"+subTotalValue_After_apply);
+								System.out.println("Total Value :"+TotalValue_After_code_apply);
+								System.out.println("Tax Charge :"+TaxCharge_After_code_apply);
+								System.out.println("Handling Charge :"+HandlingCharge_After_code_apply);
+								
+								if(TotalValue_After_code_apply.equals(sInvoiceAmount) && TaxCharge_After_code_apply.equals(sTaxAmount)&&HandlingCharge_After_code_apply.equals(sHandlingCharge)&&ShippingAmount_After_code_apply.equals(sShippingTotal))
+								{
+									System.out.println("Shipping Charge, handling Charge , taxes and Invoice amount are verified in Dsf after Complete the Invoice");
+									Login1.Logout();
+								}
+								else
+								{
+									System.err.println("Shipping Charge, handling Charge , taxes and Invoice amoun are incorrect in DSF. Please investigate"+
+										"\n Invoice Amount , Expected = "+sInvoiceAmount+" Actual = "+TotalValue_After_code_apply+
+										"\n Taxes ,Expeted = "+sTaxAmount+"Actual = "+TaxCharge_After_code_apply+
+										"\n Handeling Charges , Expected = "+sHandlingCharge+" Actual = "+HandlingCharge_After_code_apply+
+										"\nShipping Charges , Expected = "+sShippingTotal+" Actual ="+ShippingAmount_After_code_apply);
+									TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+									Assert.fail("Shipping Charge, handling Charge , taxes and Invoice amount are incorrect in DSF. Please investigate");
+								}
+								break;
+							}
+													
+							else
+							{
+								System.err.println("DSF Order was not updated with Invoiced Status");
+								TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+								Assert.fail("DSF Order was not updated with Completed And Invoiced Status");
+							}						
+										
+				}
+				else
+				{
+					System.err.println("DSF Order was not Present");
+					TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+					Assert.fail("DSF Order was not present");
+				}
+			}
+		}
+				
+				//========================================================================================================
+				//==============Verify Invoice number In Customer receivable Page=========================================
+				//========================================================================================================
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				System.out.println("Log on to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				System.out.println("Go to Customer details page > on Context, click on Receivable link, Verify the invoice number & amount are shown.");
+				if (WIP.VerifyInvoiceDetailsInCustReceivables("NEL123", sInvoiceNum, sInvoiceAmount, PaceServer, PaceCompany))
+				{
+					System.out.println("The invoice number & amount are shown correctly in customer receivables page");
+				}
+				else
+				{
+					TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+					Assert.fail("The invoice number & amount are NOT shown correctly in customer receivables page");
+				}
+				
+				//==========================================================================
+				//===================Receive the Payment (Receive & Process & Post)========================
+				//==========================================================================
+				
+				System.out.println("Enter the new Batch");
+				WIP.NavigateToAddPaymentBatchPage(PaceServer, PaceCompany);
+				DC.Add();				
+				String sPaymentBatchID = CommonFunctions.getIDfromURL(_driver);
+				System.out.println("New payment batch id "+sPaymentBatchID+" is created");
+				
+				sInvoiceNum = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "InvoiceNumber");
+				sInvoiceAmount = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "InvoiceAmount");
+				
+				System.out.println("Enter Payments , on payment select invoice number & Check the Pay Boolean and click update.");
+				WIP.AddPayment("NEL123", sInvoiceNum, sInvoiceAmount);
+				CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='PaymentTrnLine_N100D7']/thead/tr/th[13]//a[text()='(all)']"));
+				DC.Update();
+				
+				if (!WIP.ApproveAndPostPaymentBatch(sPaymentBatchID, PaceServer, PaceCompany))
+				{
+					TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+					Assert.fail("Payment is not received");
+				}
+				
+				if(WIP.VerifyPaymentDetailsInCustPayables("NEL123", sInvoiceAmount, PaceServer, PaceCompany))
+				{
+					System.out.println("Customer balances are updated correctly and Payments are recorded in customer payments page");
+				}
+				else
+				{
+					Assert.fail("Customer Payments are NOT recorded in customer payments page");
+				}				
+				DC.Logout();
+				
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+				Assert.fail(sTestcase+" failed");
+			}
+		}
+	}
+}
+	
+

@@ -1,0 +1,342 @@
+package com.TestScripts;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+//import com.applitools.eyes.Eyes;
+//import com.applitools.eyes.RectangleSize;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.JobPlanningPage;
+import com.gui_auto.pages.Login;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.WorkflowIntegrationPage;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+
+public class PaceWorkflow_9_3 extends GUI_automation_base
+{
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");	
+		return sdf.format(date);
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{		   
+		_driver.quit();
+	}
+	
+	public static void Killpython() throws Exception   
+	{
+		Process p = Runtime.getRuntime().exec("cmd /c taskkill /F /IM python.exe *32 /T");
+		p.destroy();
+	}
+	
+	@Test
+	public void TC_9_3 () throws Exception
+	{	
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String dater = dateReturn();
+		String sTestcase = dbConnection.ReadFunction("PresentWorkflow", "PresentWorkflow", "PresentWorkflow", "TestCase_Executing");
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		//========================================================================
+		
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+			try
+			{
+				String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+				String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+				String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+				String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+				String PaceServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+				
+				String sJobNumber= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACE_Job_Num");
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				//_driver = eyes.open(_driver, "PACE", "TC_12_3", new RectangleSize(1008, 705));
+				
+				DCPage DC = new DCPage(_driver);
+				WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+				JobPlanningPage JP = new JobPlanningPage(_driver);
+				
+
+				String sJPPFPlanIDs = "", sJPPFPlanID = "";
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				//==========================================================================
+				//===================Verify the Job Plans are updated with start and end dates===========================
+				//==========================================================================				
+				System.out.println("Navigate to Job Plan Production page");
+				WIP.navigateToProductionPlanPage(sJobNumber, PaceServer, PaceCompany);
+				
+				System.out.println("Verify Job Plans are updated with start and end times");				
+				String sJobPlans = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JobPlanIDs");
+				String[] aJobPlans = sJobPlans.split(";");
+				String sStartDates = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "StartDates");
+				String[] aStartDates = sStartDates.split(";");
+				String sEndDates = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "EndDates");
+				String[] aEndDates = sEndDates.split(";");
+				
+				String sOriginalWindow = _driver.getWindowHandle();
+				int iJobPlanCnt = CommonFunctions.RowCount(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr"));
+				for (int i=1; i<=iJobPlanCnt; i++)
+				{
+					CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+i+"]/td[2]/div/a/img"));
+					Thread.sleep(3000);
+					CommonFunctions.SwitchToWindow(_driver, "Job Plan");
+					String sStartDate = CommonFunctions.GetValue(_driver, By.name("startDate"))+" "+CommonFunctions.GetValue(_driver, By.name("startTime"));
+					String sStartDateExpected = CommonFunctions.changeFormat(aStartDates[i-1], "MM/dd/yy hh:mm:ss a", "MM/dd/yyyy h:mm a").trim();
+					String sEndDate = CommonFunctions.GetValue(_driver, By.name("endDate"))+" "+CommonFunctions.GetValue(_driver, By.name("endTime"));
+					String sEndDateExpected = CommonFunctions.changeFormat(aEndDates[i-1], "MM/dd/yy hh:mm:ss a", "MM/dd/yyyy h:mm a").trim();
+					
+					if (sStartDate.equals(sStartDateExpected) && sEndDate.equals(sEndDateExpected))
+					{
+						System.out.println("Job Plan "+aJobPlans[i-1]+" is updated with correct start and end scheudled time");
+					}
+					else
+					{
+						System.err.println("Job Plan "+aJobPlans[i-1]+"" +
+											"\nStart Details, Expected = "+sStartDateExpected+", Actual = "+sStartDate+
+											"\nEnd Details, Expected = "+sEndDateExpected+", Actual = "+sEndDate);
+						Assert.fail("Job Plan "+aJobPlans[i-1]+" is not updated with correct start and end scheudled time");
+					}
+					_driver.close();
+					Thread.sleep(1000);
+					CommonFunctions.getPopupMessage(_driver);
+					_driver.switchTo().window(sOriginalWindow);
+				}
+				
+				System.out.println("Get JPPF job plan IDs");
+				int iJPPFCol = JP.getColumnNum("Job Part Press Form", "//table[@id='JobPlan']");
+				int iIDCol = JP.getColumnNum("ID", "//table[@id='JobPlan']");
+				for (int i=1; i<=iJobPlanCnt; i++)
+				{
+					if (CommonFunctions.isElementPresent(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+i+"]/td["+iJPPFCol+"]/div/a")))
+					{
+						if (sJPPFPlanIDs.equals(""))
+						{
+							sJPPFPlanIDs = CommonFunctions.getText(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+i+"]/td["+iIDCol+"]/div"));
+						}
+						else
+						{
+							sJPPFPlanIDs = sJPPFPlanIDs+";"+CommonFunctions.getText(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+i+"]/td["+iIDCol+"]/div"));
+						}
+					}
+				}
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JPPFJobPlansIDs", sJPPFPlanIDs);
+				
+				//==========================================================================
+				//===================Send Job to Fiery===========================
+				//==========================================================================
+				
+				System.out.println("Change the admin status of Job and send the Job to Fiery");
+				WIP.navigateToProductionPlanPage(sJobNumber, PaceServer, PaceCompany);
+				CommonFunctions.selectDropdownByText(_driver, By.name("adminStatus"), "Production Ready");
+				DC.Update();
+				
+				String sJobPartDesc = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JobPart1_Description");
+				String sPythonScirptPath = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PythonScriptPath");
+				String JobNameFiery="01-1: "+sJobPartDesc;
+				
+				System.out.println("===============Calling Python Caller to run the script for CWS======================");
+		    	WIP.CallPythonScript(JobNameFiery, sPythonScirptPath);
+		    	Thread.sleep(5000);
+		    	Killpython();
+		    	
+		    	System.out.println("Verify the Job data displayed in Fiery");
+		    	String sNumofCopiesInfiery = dbConnection.ReadCellValue("FieryData", "Fields", "NumOfCopies", sTestcase);
+		    	
+		    	if(sNumofCopiesInfiery.equals("10"))
+		    	{
+		    		System.out.println("All the Job data in Fiery was displayed correctly");
+		    	}
+		    	else
+		    	{
+		    		System.err.println("Job Quantiy, Expected = 3, Actual = "+sNumofCopiesInfiery );
+		    		Assert.fail("Job details displayed in Fiery were incorrect");
+		    	}
+		    	
+		    	//==========================================================================
+				//===================Verify the Job Plans are updated===========================
+				//==========================================================================
+		    	
+		    	sJPPFPlanIDs = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JPPFJobPlansIDs");
+		    	String[] aJPPFPlanIDs = sJPPFPlanIDs.split(";");
+		    	sJPPFPlanID = aJPPFPlanIDs[0];
+		    	JP.navigateToProductionPlanPage(sJobNumber);
+		    	CommonFunctions.waitForPageLoaded(_driver);
+		    	int iRwNum = JP.SearchTable4Value("ID", "//table[@id='JobPlan']", sJPPFPlanID);
+		    	String sJobPlanStatus = CommonFunctions.GetSelectedOption(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+iRwNum+"]//select[@name='JobPlan.status']"));
+//		    	assertTrue("Job status, Expected = Run / Working On or Makeready, Actual = "+sJobPlanStatus, (sJobPlanStatus.equals("Run / Working On") || sJobPlanStatus.equals("Makeready")));
+		    	
+		    	System.out.println("Wait for Job to be printed in Fiery");
+		    	int i = 5;
+		    	while (!sJobPlanStatus.equals("Process Complete") && i < 10)
+		    	{
+		    		Thread.sleep(5000);
+		    		System.out.println("Wait time = "+i*5+" seconds");
+		    		_driver.navigate().refresh();
+		    		CommonFunctions.waitForPageLoaded(_driver);
+		    		sJobPlanStatus = CommonFunctions.GetSelectedOption(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+iRwNum+"]//select[@name='JobPlan.status']"));
+		    		i = i++;
+		    	}
+			    
+				_driver.navigate().refresh();
+		    	CommonFunctions.waitForPageLoaded(_driver);
+		    	sJobPlanStatus = CommonFunctions.GetSelectedOption(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr[1]//select[@name='JobPlan.status']"));
+		    	assertTrue("Job status, Expected = Process Complete, Actual = "+sJobPlanStatus, sJobPlanStatus.equals("Process Complete"));
+		    	
+		    	//==========================================================================
+				//===================verify the Job costs created for the completed Fiery transaction===========================
+				//==========================================================================
+				System.out.println("Navigate to each Job Part Job Costs page and verify the Job Cost created");
+				WIP.JobPartJobCostPage(sJobNumber, "01", PaceServer, PaceCompany);
+				CommonFunctions.waitForPageLoaded(_driver);
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Unposted Job Costs']"));
+				int iRwCnt = _driver.findElements(By.xpath("//table[@id='JobCost_N10022']/tbody/tr")).size();			
+				if (iRwCnt == 6 || iRwCnt == 7)
+				{
+					System.out.println("The system created correct Job cost");				
+					String sOriginalHandle = _driver.getWindowHandle();
+					CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobCost_N10022']/tbody/tr[1]/td[2]/div/a/img"));
+					Thread.sleep(2000);
+					CommonFunctions.SwitchToWindow(_driver, "Job Cost");
+					String sTranactionType = CommonFunctions.GetSelectedOption(_driver, By.name(Locators.getProperty(Locators.Job_Cost_TransactionType)));
+					if (sTranactionType.equals("Pace Connect") || sTranactionType.equals("Inventory"))
+					{
+						System.out.println("Job cost with correct transaction type was created");
+						_driver.close();
+						_driver.switchTo().window(sOriginalHandle);
+					}
+					else
+					{
+						Assert.fail("Job cost with incorrect transaction type was created, Expected = Pace Connect or Inventory, Actual = "+sTranactionType);
+					}
+				}
+				else
+				{
+					System.err.println("Incorrect number of Job Costs were created, expected = 6 or 7, Actual = "+iRwCnt);
+					Assert.fail("Incorrect number of Job Costs were created, expected = 6 or 7, Actual = "+iRwCnt);
+				}
+				
+				DC.Logout();
+				
+				//==========================================================================
+				//===================Verify Job Status in DSF===============================
+				//==========================================================================
+				
+				String DSFSiteUrl=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "SiteUrl");
+				String DSFUserName=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "USERNAME");
+				String DSFPassWord=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PASSWORD");
+				String sDSFOrderNumber = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Order_Number");
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(DSFSiteUrl);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				Login Login1 = new Login(_driver);
+				
+				//Login as user
+				Login1.LoginToDSF(sSheetName, sScenario, sTestcase, DSFUserName, DSFPassWord);
+				
+				//verify order status and shipment details
+				CommonFunctions.ClickElement(_driver, By.xpath("//div[@class='myaccount-label']/span[3]"));
+				Thread.sleep(1000);
+				CommonFunctions.ClickElement(_driver, By.xpath("//li[text()='Order History & Status']"));
+				CommonFunctions.waitForPageLoaded(_driver);
+				Thread.sleep(2000);
+				
+				if (CommonFunctions.isElementPresent(_driver, By.xpath("//a[contains(text(), '"+sDSFOrderNumber+"')]")))
+				{
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[contains(text(), '"+sDSFOrderNumber+"')]"));
+					CommonFunctions.waitForPageLoaded(_driver);
+					Thread.sleep(3000);
+					
+					String sDSFOrderStatus = CommonFunctions.getText(_driver, By.xpath("//div[@class='checkout-order-info']/div[@class='order-status']/div[1]/h3"));
+					if (sDSFOrderStatus.equals("In production"))
+					{
+						System.err.println("DSF Order was correctly updated with In production Status");
+						Login1.Logout();
+					}
+					else
+					{
+						System.err.println("DSF Order was not updated with In production Status");
+						TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+						Assert.fail("DSF Order was not updated with In production Status");
+					}					
+				}
+				else
+				{
+					System.err.println("DSF Order was not present");
+					TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+					Assert.fail("DSF Order was not present");
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+				Assert.fail(sTestcase+" failed");
+			}
+		}
+	}
+
+}

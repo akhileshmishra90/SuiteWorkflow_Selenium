@@ -1,0 +1,426 @@
+package com.TestScripts;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+//import com.applitools.eyes.Eyes;
+//import com.applitools.eyes.RectangleSize;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.EstimationPage;
+import com.gui_auto.pages.JCCPage;
+import com.gui_auto.pages.JobPlanningPage;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.WorkflowIntegrationPage;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+public class PaceWorkflow_7_2 extends GUI_automation_base {
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+		return sdf.format(date);
+	}
+
+	public static void Killpython() throws Exception   
+	{
+		Process p = Runtime.getRuntime().exec("cmd /c taskkill /F /IM python.exe *32 /T");
+		p.destroy();
+	}
+	
+	@After
+	public void tearDown() throws Exception 
+	{
+		_driver.quit();
+	}
+	
+	@Test
+	public void TC_17_1 () throws Exception
+	{		
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String  sTestcase = "TC_17";
+		String dater = dateReturn();
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		//========================================================================
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		dbConnection.UpdateFunction("PresentWorkflow", "PresentWorkflow", "PresentWorkflow", "TestCase_Executing", sTestcase);
+		String sPythonScirptPath1 = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PythonScriptPath");
+		System.out.println("python Script path is:-"+ sPythonScirptPath1);
+		
+		
+
+		
+		
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+			try
+			{
+				//========================================= prerequisites============================================
+				String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+				String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+				String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+				String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+				String PaceServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				
+				//============================= PACE prerequisites========================
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				//_driver = eyes.open(_driver, "PACE", "TC_1_1", new RectangleSize(1008, 705));
+				
+				WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+				
+				
+				
+				DCPage DC = new DCPage(_driver);
+				EstimationPage EP = new EstimationPage(_driver);
+				JobPlanningPage JP = new JobPlanningPage(_driver);
+				JCCPage JCC = new JCCPage(_driver);
+				Actions action = new Actions(_driver);
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				//enable scheduling pace connects
+				System.out.println("Enable the Metrix Pace Connects");
+				WIP.DisableEnablePaceConnects("Metrix", "enable", PaceServer, PaceCompany);
+				
+				System.out.println("Enable Scheduling Pace Connect");
+				WIP.DisableEnablePaceConnects("Scheduling", "enable", PaceServer, PaceCompany);				
+								
+				System.out.println("Enable the Fiery Central Connects");
+				WIP.DisableEnablePaceConnectsByName("PacFC41-envd", "enable", PaceServer, PaceCompany);
+
+				//============================================= create an estimate =========================================================
+				String sProduct = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "EstimateProduct");
+				String sProductQty = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product_Qty");
+				String sPressEvent = "Corner Left Staple - ";
+				
+				System.out.println("Create an Estimate");
+				WIP.NavigateToEnterNewEstimate(PaceServer, PaceCompany);
+				JP.SimpleEstimateCreation("", "FGS", "", sProduct, "4", "6", sProductQty, "", "", "", "None - NA", "");
+				if (!EP.Calculate())
+				{
+					System.err.println("Estimate was not created");
+					Assert.fail("Failed to create Estimate");
+				}
+				String sEstNum = CommonFunctions.GetText(_driver, By.xpath("//label[text()='Estimate #']/../following-sibling::div/div"));
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "Estimate", sEstNum);
+				
+				TakeScreenshot.ScreenShotWindow(_driver, "EstimateDetailPage");
+				Thread.sleep(2000);
+				_driver.manage().window().maximize();
+				Thread.sleep(2000);
+				
+				System.out.println("Navigate to Estimate Quantity deatils page");
+				CommonFunctions.ClickElement(_driver, By.xpath(Locators.getProperty(Locators.Estimate_View_Details)));
+				CommonFunctions.waitForPageLoaded(_driver);
+				CommonFunctions.Wait(_driver, By.xpath(Locators.getProperty(Locators.Estimate_Details_Materials_Tab)));
+				
+				System.out.println("Goto Print tab and add a press event");
+				CommonFunctions.ClickElement(_driver, By.xpath(Locators.getProperty(Locators.Estimate_Details_Print_Tab)));
+				//CommonFunctions.selectDropdownByText(_driver, By.name("addPressEvent"), sPressEvent);
+				EP.Recalculate();
+				
+				System.out.println("Goto Estimate Press and set page range");
+				CommonFunctions.ClickElement(_driver, By.xpath(Locators.getProperty(Locators.Estimate_Details_Print_Tab)));
+				CommonFunctions.SetOriginalWindowHandle(_driver);
+				CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='estimatePress']/tbody/tr[1]/td[2]/div/a/img"));
+				Thread.sleep(2000);
+				CommonFunctions.SwitchToWindow(_driver, "Estimate Press");
+				CommonFunctions.SendValue(_driver, By.name("EstimatePresses.pageRange"), "1-8");
+				CommonFunctions.ClickElement(_driver, By.xpath(Locators.getProperty(Locators.UpdateAndRefresh)));
+				Thread.sleep(2000);
+				CommonFunctions.ReturnToOriginalWindow(_driver);
+				CommonFunctions.waitForPageLoaded(_driver);
+				EP.Recalculate();
+				
+				CommonFunctions.ClickElement(_driver, By.xpath(Locators.getProperty(Locators.Estimate_Details_Print_Tab)));
+				TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@id='contents']/div[@class='active']"), "EstimatePrintDetails");
+				
+				//Click On Metrix Edit Button.
+				String CurrentUrl= _driver.getCurrentUrl(); 
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "EstUrl", CurrentUrl);
+				//_driver.findElement(By.xpath("//a[text()='Metrix Edit']")).click();
+				Thread.sleep(10000);
+				//Alert alert = webDriver.switchTo().alert();
+//                 Alert alert = _driver.switchTo().alert();
+//                 System.out.println(alert.getText()); 
+//                 alert.accept();
+		       // alert.getText();
+				
+				//=====================================	 Convert the estimate to Job ======================================	
+				String sUploadFilePath = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "FilePath");
+				
+				System.out.println("Convert the estimate to a Job");
+				String sJobNumber = JCC.ConvertEstimateToJob("new", "", "Printing");
+				if(!sJobNumber.equals(""))
+				{
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "PACE_Job_Num", sJobNumber);
+					String sJobDescription = CommonFunctions.GetValue(_driver, By.name(Locators.getProperty(Locators.Description)));
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "Job_Description", sJobDescription);
+				}
+				else
+				{
+					Assert.fail("Job Not Created for the estimate");
+				}
+				TakeScreenshot.ScreenShotWindow(_driver, "JobDetails");
+								
+				//==========================================================================
+				//================================Verify Job Products======================
+				//==========================================================================
+				System.out.println("Verify Job Products");
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Products']"));
+				((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[@id='JobProducts_fieldset']")));
+				TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[@id='JobProducts_fieldset']"), "JobProductDetails");
+				
+				//==========================================================================
+				//=============================Verify Job Billing Details===================
+				//==========================================================================
+				System.out.println("Verify Job Billing Details");
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Billing Info']"));
+				((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@id='contents']/div[@class='active']/fieldset[1]")));
+				TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@id='contents']/div[@class='active']/fieldset[1]"), "JobBillingDetails");
+				String sJobValue = CommonFunctions.getText(_driver, By.xpath("//label[text()='Job Value']/../../div/div"));
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobValue", sJobValue);
+				
+				//==========================================================================
+				//================================Verify Job Contacts======================
+				//==========================================================================
+				System.out.println("Verify Job Contacts");
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Job Contacts']"));
+				((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[@id='JobContacts_fieldset']")));
+				TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[@id='JobContacts_fieldset']"), "JobContactDetails");				
+				
+				//==========================================================================
+				//===================Verify the Job Parts created===========================
+				//==========================================================================
+				System.out.println("Verify Job Parts");
+				
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Parts Info']"));
+				((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[contains(@id,'JobPart_N')]")));
+				TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[contains(@id,'JobPart_N')]"), "JobParts");
+								
+				int iNumofJobPartsCreated = CommonFunctions.RowCount(_driver, By.xpath("//table[@id='JobPart_N1002F']/tbody/tr"));				
+				if (iNumofJobPartsCreated == 2)
+				{
+					CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobPart_N1002F']/tbody/tr[2]/td[3]/div/a/img"));
+					CommonFunctions.waitForPageLoaded(_driver);
+					CommonFunctions.Wait(_driver, By.name("additionalDescription"));				
+					
+					//Upload a File
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Part Details']"));
+					CommonFunctions.SendValue(_driver, By.name("paceConnectURL"), sUploadFilePath);
+					_driver.findElement(By.name("paceConnectURL")).sendKeys(Keys.TAB);
+					DC.Update();
+					
+					//verify Part details
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Part Details']"));
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@id='contents']/div[@class='active']/fieldset[1]")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@id='contents']/div[@class='active']/fieldset[1]"), "PartDetails");
+					
+					//verifyContent Files
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[contains(@id, 'JobPartContentFile')]")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[contains(@id, 'JobPartContentFile')]"), "ContentFiles");
+						
+					//verify Print Runs
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@id='contents']/div[@class='active']/fieldset[3]")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@id='contents']/div[@class='active']/fieldset[3]"), "PrintRunsDetails");
+					
+					//verify Finish Details
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@id='contents']/div[@class='active']/fieldset[4]")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@id='contents']/div[@class='active']/fieldset[4]"), "FinishDetails");
+					
+					//verify Material details						
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[contains(@id, 'JobMaterial')]")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[contains(@id, 'JobMaterial')]"), "MaterialDetails");
+					
+					//verify JPPF
+					if (CommonFunctions.RowCount(_driver, By.xpath("//div[@id='gridBox_Runs']/div/table/tr[1]/th/img")) > 0)
+					{							
+						CommonFunctions.SetOriginalWindowHandle(_driver);
+						CommonFunctions.ClickElement(_driver, By.xpath("//div[@id='gridBox_Runs']/div/table/tr[1]/th/img"));
+						Thread.sleep(3000);
+						CommonFunctions.SwitchToWindow(_driver, "Job Part Press Form");						
+						((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//div[@id='scrollableContent']/div[@id='contents']/div[@class='active']")));
+						TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@id='scrollableContent']/div[@id='contents']/div[@class='active']"), "JPPFDetails");
+						CommonFunctions.SendValue(_driver, By.name("colorsSide2"), "0");
+						DC.Update();
+						CommonFunctions.CloseWindow(_driver, "Job Part Press Form");
+					}
+					
+					//verify Job Plans
+					CommonFunctions.ClickElement(_driver, By.xpath("//div[@id='tabBar']//span[text()='a']"));
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//fieldset[@id='JobPlan_fieldset']")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//fieldset[@id='JobPlan_fieldset']"), "JobPlans");					
+				}
+				else
+				{
+					System.err.println("Total Job Parts created are incorrect, Expected = 1, Actual = "+iNumofJobPartsCreated);
+					Assert.fail("Total Job Parts created are incorrect, Expected = 1, Actual = "+iNumofJobPartsCreated);
+				}
+				
+				//==========================================================================
+				//===================Verify the Job Plans created===========================
+				//==========================================================================
+				System.out.println("Navigate to Job Plan Production page");
+				WIP.navigateToProductionPlanPage(sJobNumber, PaceServer, PaceCompany);
+				
+				System.out.println("Verify Job Plans");
+				int iJobPlanCnt = CommonFunctions.RowCount(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr"));
+				if(iJobPlanCnt == 2)
+				{
+					((JavascriptExecutor) _driver).executeScript("arguments[0].scrollIntoView();", _driver.findElement(By.xpath("//table[@id='JobPlan']/tbody/tr[1]")));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//table[@id='JobPlan']"), "ProductionPlans");
+					
+					String sJobPlanIDs = JP.getJobPlans();
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobPlanIDs", sJobPlanIDs);
+				}
+				else
+				{
+					System.err.println("Total Job Plans created are incorrect, Expected = 2, Actual = "+iJobPlanCnt);
+					Assert.fail("Total Job Plans created are incorrect, Expected = 2, Actual = "+iJobPlanCnt);
+				}			
+				
+				System.out.println("Verify the Job is scheduled");
+				if (WIP.verifyJobPlansScheduledCheckBox(12))
+				{
+					System.out.println("Job was schedueld");
+				}
+				else
+				{
+					System.err.println("Job was not scheduled");
+					Assert.fail("Job was not scheduled");
+				}
+				
+				//==========================================================================
+				//===================Create a Planned Job shipment========================
+				//==========================================================================				
+				System.out.println("Navigate to Job Shipment List page");
+				WIP.navigateToJobShipmentListpage(sJobNumber, PaceServer, PaceCompany);
+				
+				System.out.println("Add a new Job Shipment");
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Add Detailed Record']"));
+				CommonFunctions.waitForPageLoaded(_driver);
+				CommonFunctions.selectDropdownByText(_driver, By.xpath(Locators.getProperty(Locators.Job_Shipment_ShipmentType)), "Planned Shipments");
+				CommonFunctions.ClickElement(_driver, By.xpath("//div[text()='Cartons']"));
+				WebElement element = _driver.findElement(By.xpath("//ul[@id='treemenucontextObject']//ul[@id='loadNode']/li[@id='treeItem1']/div[1]/div[1]/a/div[2]"));
+				WebElement target = _driver.findElement(By.xpath("//div[text()='Drag Items to Ship Here!']"));
+				action.dragAndDrop(element, target).perform();
+				Thread.sleep(1000);
+				CommonFunctions.ClickElement(_driver, By.xpath(Locators.getProperty(Locators.Add_button)));
+				CommonFunctions.waitForPageLoaded(_driver);
+			
+				String sJobShipmentID = CommonFunctions.getIDfromURL(_driver);
+				if (!sJobShipmentID.equals(""))
+				{
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "JobShipmentID", sJobShipmentID);
+					
+					CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Shipment Address']"));
+					TakeScreenshot.ScreenShotRegion(_driver, By.xpath("//div[@class='active']"), "JobShipmentContactDetails");
+				}
+				else
+				{
+					System.err.println("No Job shipment was created");
+					Assert.fail("No Job shipment was created");
+				}
+				
+				//==========================================================================
+				//===================Send Job to Fiery===========================
+				//==========================================================================
+				
+				System.out.println("Change the admin status of Job and send the Job to Fiery");
+				WIP.navigateToProductionPlanPage(sJobNumber, PaceServer, PaceCompany);
+				CommonFunctions.selectDropdownByText(_driver, By.name("adminStatus"), "Production Ready");
+				DC.Update();
+				
+				String sJobDesc = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Job_Description");
+				//String sPythonScirptPath = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PythonScriptPath");
+				String sPythonScirptPath ="C:\\PaceProjects\\SuiteWorkflow_Selenium\\Python\\PythonExcecution_WF17.py";
+				String JobNameFiery="01-1: "+sJobDesc;
+				
+				System.out.println("===============Calling Python Caller to run the script for CWS======================");
+		    	WIP.CallPythonScript(JobNameFiery, sPythonScirptPath);
+		    	Thread.sleep(5000);
+		    	Killpython();
+		    	
+		    	System.out.println("Verify the Job data displayed in Fiery");
+		    	String sNumofCopiesInfiery = dbConnection.ReadCellValue("FieryData", "Fields", "NumOfCopies", sTestcase);
+		    	
+		    	if(sNumofCopiesInfiery.equals("3"))
+		    	{
+		    		System.out.println("All the Job data in Fiery was displayed correctly");
+		    	}
+		    	else
+		    	{
+		    		System.err.println("Job Quantiy, Expected = 3, Actual = "+sNumofCopiesInfiery );
+		    		Assert.fail("Job details displayed in Fiery were incorrect");
+		    	}
+				
+				DC.Logout();
+				//eyes.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+				Assert.fail(sTestcase+" failed");
+			}
+		}
+	}
+
+}

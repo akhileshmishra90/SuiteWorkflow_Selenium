@@ -1,0 +1,3662 @@
+# Framework - Grazitti Automation Selenium Testing
+# Version - 2.0
+# Creation Date - Oct, 2012
+# Author - Grazitti Interactive
+# Copyright © 2012 Grazitti Interactive. All right reserved.
+
+
+# Properties file contain base configuration for GUI automation
+# scripts.
+#
+
+#LOGIN_PAGE
+EPACE_Text 		=	 //a[text()='EFI Pace Print Management System']
+Login_Username	=	j_username
+Login_Password	=	j_password 
+Login_Submit	=	Login
+Add_Another_Instance	= //input[@name='updateForm' and @value='Add Another Instance']
+Add_Another_Instance_Div	= buttonbox
+Log_Off_Users	=	//input[@name='updateForm' and @value='Log Off Users']
+Welcome_Message	=//div[@id='welcomeMessage']/a[text()='Administrator']
+Body_Click = body
+Login_Company	=	companySelection
+Logout= logOff
+TestMode	= systemModeIcon
+#HomePage
+PaceStartButton	= paceStartButton
+Menu_Administrator	= //div[@id='menuBox']/ul/li[@id='subm-admin_highlight']
+Menu_System_Setup= = //div/ul/li[5]/div[@id='subm-systemsetup_highlight']
+Menu_Data_Collection	=	//div/ul[@id='subm-systemsetup']/li[5]
+Menu_DC_Setup	=	//div/ul[@id='subm-dc-setup']/li[1]
+Estimate_Estimate_Paper_View= //table[@id='estimatePresses']/tbody/tr[3]/td/div/a/div
+Estimate_Estimate_Paper_View_Type = //table[@id='estimatePapers']/tbody/tr[7]/td/div/a/div
+Estimate_Estimate_Paper_View_Type_Coating = //select[@name='coatable']
+Estimate_Press_pressIndicator = //select[contains(@name,'stimatePresses.pressIndicator')]
+Estimate_Details_INK_Tab = //span/a[text()='nk']
+Estimate_Details_INK_inkSide1=//input[@name='inkSide1']
+Estimate_Details_INK_inkSide2=//input[@name='inkSide2']
+Estimate_Details_INK_totalColors=//input[@name='totalColors']
+Estimate_Details_INK_coating=//select[@name='coating']
+Estimate_Details_INK_varnish=//select[@name='varnish']
+Estimate_Details_INK_coatingSides=//select[@name='coatingSides']
+Estimate_Details_INK_varnishSides=//select[@name='varnishSides']
+#DC_Setup_Page
+Allow_Overlapping = allowOverlappingBooleanCheck
+Allow_Pausing	  = allowPausingBooleanCheck
+Allow_Entry_Cloning	=	allowEntryCloningBooleanCheck
+Ask_Job_Component	=	askJobComponentBooleanCheck
+Ask_Pay_Rate	   =	askPayRateBooleanCheck
+Ask_Shift	        = askShiftBooleanCheck
+Display_Job_Planning = displayJobPlanningBooleanCheck
+Use_Materials       = useMaterialsBooleanCheck
+Ask_Job_Material_Id	= askJobMaterialIDBooleanCheck
+Ask_Job_Material_Id1=askJobMeterialIDBooleanCheck
+Display_Materials	= displayMaterialsBooleanCheck
+Display_Closed_Jobs	= displayClosedJobsBooleanCheck
+Display_Employee_Time = displayEmployeeTimeBooleanCheck
+Display_Non_Chargeable_Time	=	displayNonChargeableTimeBooleanCheck
+Pull_Multiple_Materials	=	pullMultipleMaterialsBooleanCheck
+Complete_Runs	=	completeRunsBooleanCheck
+Allow_Ganging	=	allowGangingBooleanCheck
+Ask_Job_Plan_Id	=	askJobPlanIDBooleanCheck
+
+#Employee_Status_page
+Employee_Inactive=//a/span[text()='Inactive']
+Employee_Active=//a/span[text()='Active']
+# Employee_Add_New_Record=//a[text()='Add New Record']
+Employee_Add_New_Record = //a[contains(text(), 'Add New')]
+Employee_Inactive_CheckBox	=	inactiveBooleanCheck
+Employee_ID	= id
+Employee_Description = description
+Employee_Active_Checkbox = activeBooleanCheck
+Employee_Add = updateForm
+Employee_Object_added_text	=	//li[contains(text(),'Object Added')]
+Employee_Status = d64812e139
+Employee_Id_Text = //div[8]/div/div/div/div/div
+Employee_Search_Dropdown = searchField
+Employee_Search_TextField=search
+Employee_Find	=	performSearch
+Employee_Delete	=	//input[@name='updateForm' and @value='Delete']
+Employee_Deleted_text	= //li[contains(text(),'Item deleted.')]
+Employee_Delete_Popup = div.confirmButtonBox > input[name="updateForm"]
+Employee_PayRoll	= Payroll Info
+Employee_PayRoll_PayRate01	= payRate01
+Estimate_Add_Property= .//div[@class='gridInformation'][1]//a[@id='customGreen']
+
+#DepartmentMaintainance
+Data_Collection_Settings_Link	= - Data Collection Settings
+Auto_Print_Signout	=	signOutReport
+Employee_Time_rounding	=	employeeTimeRounding
+Employee_time_Early_buffer	=	employeeTimeEarlyBuffer
+Employee_time_Later_buffer	=	employeeTimeLateBuffer
+Beginning_Day_Of_Week	=	beginningDayOfWeek
+BEginning_Time_Of_Day	=	beginningTimeOfDay
+Department_Update	=	updateForm
+Department_Updated_text	=	//li[contains(text(),'Updated')]
+Department_Note_Category	=	noteCategory
+Department_CostCenter		=	Cost Centers
+Department_Activity_Codes	=	//a[text()='Activity Codes']
+Department_General_Info = //a[text()='General Info']
+Department_CostCenter_Table = //div[@id='contents']//table[@id='CostCenter']
+Department_ActivtyCodes_Table = //div[@id='contents']//table[@id='ActivityCode']
+Department_GL = glDepartment
+Department_Manager = departmentManager
+
+#ActivityCodes
+AC_TimeCharged	= //a[text()='Time Charged']
+AC_TimeCharged_Charge_Basis = chargeBasis
+AC_TimeCharged_Sales_Category	=	salesCategory
+AC_TimeCharged_HrsPerProdUnit=	hrsPerProdUnit
+AC_TimeCharged_Revenue_Producing	=revenueProducingBooleanCheck
+AC_OtherSettings = //a[text()='Other Settings']
+AC_OtherSettings_AskCounts = askCounts
+AC_OtherSettings_AskPostage = askPostage
+AC_OtherSettings_Postage_Activity	=	postageActivityCode
+AC_OtherSettings_Ask_Notes = askNotes
+AC_OtherSettings_Ask_Non_Planned_Reason = askNonPlannedReason
+AC_Job_Planning_Setting =Job Planning Settings
+AC_Job_Planning_Setting_Ask_If_Complete	= askIfCompleteBooleanCheck
+AC_Production_Units_Charged = Production Units Charged
+AC_Production_Units_ChargedAskProdUnit = askProdUnit
+AC_Materials = Materials
+AC_Materials_AskQtyOfMaterials	=askQuantityOfMaterials
+AC_Materials_Query_Materials =inventoryPrompt
+Ac_Materials_Include_IncludeNonInventoryItemsBooleanCheck=includeNonInventoryItemsBooleanCheck
+AC_Materials_Item_Type	=ActivityCodeInventoryItemTypee.inventoryItemType
+AC_MAterials_Default_Pull_Type	= ActivityCodeInventoryItemTypee.activityPullQuantityType
+AC_Materials_Add_New_Record = addGridRow_ActivityCodeInventoryItemTypee
+AC_ActivityCode = //div[@class='label' and @style='width: 50px;']
+AC_Department = //div[@class='label' and @style='width: 197px;']
+AC_Job_Planning_Setting = Job Planning Settings
+AC_Job_Planning_Setting_Ask_If_Complete	= askIfCompleteBooleanCheck
+AC_Job_Planning_Setting_PlanningIntegration = planningIntegration
+AC_Job_Planning_Setting_JobPlanLevel = jobPlanLevel
+AC_Job_Planning_Setting_PlanningTimeCalculation = planningTimeCalculation
+AC_Job_Planning_Setting_UpdateJobPartLocation = updateJobPartLocationBooleanCheck
+AC_Job_Planning_Setting_PlanByPass = planByPassBooleanCheck
+AC_Job_Planning_Setting_UpdatePlanning = updatePlanningBooleanCheck
+AC_Job_Planning_Setting_ReportCategory = plantManagerReportCategory
+AC_TimeChargedLabel = Time Charged
+AC_Production_Units_Charged_StandProdUnits = standProdUnitsPerH
+AC_Production_Units_Charged_ProductionUnitsDes = productionUnitsDes
+AC_Production_Units_Charged_StandardCharge = standardCharge
+AC_UpdateJobJacket = Update Job Jacket
+AC_UpdateJobJacket_ChanegJobStatus = changeJobStatusTo
+AC_UpdateJobJacket_AddJobTracking = addJobTrackingBooleanCheck
+AC_UpdateJobJacket_UpdateLastAction = updateCurDeptBooleanCheck
+AC_Job_Planning_Setting_RollupActivity = rollupActivity
+AC_Job_Planning_Setting_Predecessor = predecessor
+AC_Job_Planning_Setting_ExcludeProdUnits = excludeProdUnitsInRollupBooleanCheck
+AC_Job_Planning_Setting_Dealy = leadTime
+AC_Job_Planning_Setting_TimeUntilLate = timeUntilLate
+AC_Job_Planning_Setting_LasTime = lagTime
+AC_Job_Planning_Setting_PlannignTimeCalculation = planningTimeCalculationPercent
+AC_OtherSettingsLabel = Other Settings
+AC_OtherSettings_EstimateResultType = estimateResultType
+AC_OtherSettings_OutsidePurchase = outsidePurchaseBooleanCheck
+AC_OtherSettings_Paper = paperBooleanCheck
+AC_CostingRates = //a[text()='Costing Rates']
+ACCostingRates_Rate = //select[@name='ActivityRate.lineNumber']
+ACCostingRates_MarkupList = //input[@name='ActivityRate.markupList']
+ACCostingRates_LaborCost = //input[@name='ActivityRate.laborCost']
+ACCostingRates_LaborOverhead = //input[@name='ActivityRate.laborOverhead']
+ACCostingRates_MachineCost = //input[@name='ActivityRate.machineCost']
+ACCostingRates_GeneralOA = //input[@name='ActivityRate.generalOA']
+ACCostingRates_CostMarkup = //input[@name='ActivityRate.costMarkup']
+ACCostingRates_CostRateDelete= //input[@name='ActivityRate.deleteBooleanCheck']
+
+#InventoryItem
+II_QuantityPriceInfo = //a[text()='uantity / Price Info']
+II_Qty_On_Hand = //div[4]/div[2]/div/div/div
+
+
+
+#Job
+
+Job_Materials_Link = //a[text()='aterials']
+Job_Materails_Planned_Qty	= //table[@id='JobMaterial_N1010A']/tbody/tr/td[11]/div
+Job_Materails_Pulled_Qty = //table[@id='JobMaterial_N1010A']/tbody/tr/td[12]/div
+
+
+#EmployeeDetails
+Emp_Department	= department
+Emp_FirstName	=	firstName
+Emp_Status		=	status
+Emp_LastName	=	lastName
+Emp_Add1		=	address1
+Emp_Add2		=	address2
+Emp_Add3		=	address3
+Emp_city		=	city
+Emp_Printer		=	printer
+Emp_Phone		=	phoneNumber
+Emp_Phone1		=	phone2
+Emp_Phone2		=	phone3
+Emp_Country		=	country
+Emp_StateKey	=	stateKey
+Emp_Zip			=	zip
+Emp_Social_Security_Num	=	socialSecurityNum
+Emp_Unioncode		=	unionCode
+Emp_Location	=	location
+Emp_Email		=	email
+Emp_Add			=	//input[@name='updateForm' and @value='Add']
+
+
+#DataCollectionLogin
+DCL_Update	=	//input[@name='updateForm' and @value='Update']
+DCL_Login	=	//input[@name='updateForm' and @value='Login']
+DCl_Employee_Code	=	employee
+DCL_Signed_In		= //li[contains(text(),'Signed In')]
+DCL_Recent_Time_Entries	= Recent Time Entries
+DCL_Start_Time	=	//table[@id='EmployeeTime']/tbody/tr/td[4]/div
+DCL_SignIn = //input[@name='updateForm' and @value='Sign In']
+DCL_SignOut = //input[@name='updateForm' and @value='Sign Out']
+DCL_SignOut_Text = //li[contains(text(),'Signed Out')]
+DCL_Return_To_Action_Screen=//a[text()='Return To Action Screen']
+DCL_Sign_Disabled	= submit_disabled
+DCL_Start_Job_Activity = //a[text()='Start Job Activity']
+DCL_Job_Pick_Name =jobPick
+DCL_Job_Part	= JobPartKey
+DCL_Activity_Code =activityCode
+DCL_Add_Transaction=//input[@name='updateForm' and @value='Add Transaction']
+DCL_Go_To_Action_Screen = //a[text()='Go To Action Screen']
+DCL_Stop_Job_Activity = //a[text()='Stop Job Activity']
+DCL_Message	=	 //th[text()='Please enter fields to Complete Your Activity']
+DCL_Job_Complete	=	//input[@name='updateForm' and @value='Job Complete']
+DCL_Stop_Activity = //input[@name='updateForm' and @value='Stop Activity']
+DCL_Stop_Activity_And_Duplicate	=  //input[@name='updateForm' and @value='Stop Activity & Duplicate']
+DCL_Activity_Code_Text =css=h4[title="The Activity Code associated with this transaction, used to identify specific production operations. Max 5 characters. Letters and Numbers."] > label
+DCL_Hour = hours
+DCL_ProdsUnit	=	prodUnits
+DCL_Completed_Job_Activity = //a[text()='Completed Job Activities']
+DCL_Completed_Job_Activity_Table =JobTransaction_SignedOut
+DCL_Status = td.status
+DCL_Begin_Count	=	beginCount
+DCL_End_Count	= endCount
+DCL_Begin_Meter	= beginMeter
+DCL_End_Meter	= endMeter
+DCL_Notes	= notes
+DCL_Complete = complete
+DCl_Quantity_To_Pull = materials.pullQty
+DCl_Quantity =quantity
+DCL_Job_Complete_And_Duplicate	=  //input[@name='updateForm' and @value='Job Complete & Duplicate']
+DCL_Start_Ganged_job_Activity	=	Start Ganged Job Activity
+DCL_Ganged_Job	= jobs.job
+DCL_Ganged_Job_Part	= jobs.part
+DCL_Ganged_Add_Additional_Job = addGridRow_jobs
+DCL_Ganged_Job_2	=//tr[@id='jobs_addRow' and @class= 'c1']/td[2]/input
+DCL_Ganged_Job_Part_2	= //tr[@id='jobs_addRow' and @class= 'c1']/td[3]/select
+DCL_Stop_Ganged_Job_Activity = Stop Ganged Job Activity
+DCL_Ganged_Complete=  //input[@name='updateForm' and @value='Complete']
+DCL_Gang_Completed = //li[contains(text(),'Gang Completed')]
+DCL_Start_Planned_Activity = Start Planned Activity
+DCL_Start_Planned_Activity_Disabled	= #link6 > span.link.disabled
+DCL_Pull_Materails_Link	= Pull Materials
+DCL_PullMaterails_Select_Materails = sourceMaterialSelect
+DCL_PullMaterails_Select_Material_Lookup = objectlink_d108277e300
+DCL_PullMaterails_Quantity =quantity
+DCL_PullMaterails_Location=inventoryLocation
+DCL_PullMaterails_InventoryBin = inventoryBin
+DCL_Completed_Material_Pulls = Completed Material Pulls
+DCL_Pull_Materails_Link_Disable = #link14 > span.link.disabled
+DCL_Display_Materails_Link_Disable = #link18 > span.link.disabled
+DCL_Single_Materails_Pull = Single Material Pull
+DCL_Planned_Materails = sourceMaterialPickList
+DCL_Planned_Materails_Xpath	= //label[text()='Planned Material']
+DCL_Planned_Activity_Xpath	= //label[text()='Planned Activity']
+DCL_Paused_Current_Job=  //input[@name='updateForm' and @value='Pause Current Job']
+DCL_Paused_All_Open_Job=  //input[@name='updateForm' and @value='Pause All Open Jobs']
+DCL_Resume_All_Open_Job=  //input[@name='updateForm' and @value='Resume All Paused Jobs']
+DCL_Resume_Current_Job=  //input[@name='updateForm' and @value='Resume Current Job']
+DCL_SignIn_Button = #link0 > input.disabled
+DCL_SignOut_Button = #link1 > input.disabled
+DCL_StopJobActivity_Button = #link7 > span.link.disabled
+DCL_StartJobActivity_Button = //div[@id='dc_button_wrap']/table/tbody/tr[1]/td/div[@id='link3']/span
+DCL_Paused_Current_Job_Disabled = //div[@id='link5']/input[@id='submit_disabled']
+DCL_Resume_Current_Job_Disabled = //div[@id='link5']/input[@id='submit_disabled']
+DCL_Paused_All_Open_Job_Disabled = //div[@id='link5']/input[@id='submit_disabled']
+DCL_Resume_All_Open_Job_Disabled = //div[@id='link5']/input[@id='submit_disabled']
+DCL_Non_Planned_Reason = nonPlannedReason
+DCL_Start_Lunch=  //input[@name='updateForm' and @value='Start Lunch']
+DCL_Back_From_Lunch=  //input[@name='updateForm' and @value='Back From Lunch']
+DCL_Rate = rate
+DCL_Shift = shift
+DCL_RecentEntryTime_Button =//div[@id='link17']/a[text()='Recent Time Entries']
+DCL_Ask_Job_Component = //div/h4[contains(label,'Component')]/following-sibling::div/select
+DCL_Ask_Pay_Rate = //div/h4[contains(label,'Rate')]/following-sibling::div/select
+DCL_Complete_Job_Activity_Enabled = //div[@id='link15']/a[text()='Completed Job Activities']
+Job_Materails_Planned_Quantity = plannedQuantity
+DCL_Ask_Shift_Count	 = //div/h4[contains(label,'Shift')]/following-sibling::div/select
+DCL_Planned_Activity_View_Pick_img = //div[@id='scrollableContent']/table/tbody/tr[2]/td[1]/div/div/div/div[2]
+DCL_Select_Job_Plan=//table[@id='allStatus']/tbody/tr[1]/td[2]/a/div
+DCL_Select_Job_Plan_Job =//table[@id='allStatus']/tbody/tr[1]/td[3]/div/a
+DCL_Planned_Activity_ID = jobPlan
+DCL_Qty_To_Pull =materials.pullQtyRequired
+DCL_Start_Non_Chargeable_Time=  //input[@name='updateForm' and @value='Start N/C Time']
+DCL_End_Non_Chargeable_Time=  //div[@id = 'link7']/a[text()='End N/C Time']
+DCL_Non_Chargeable_Type = nonChargeableType
+DCL_Time_Entry_Employee_Name = //a[text()='ROSB - Ross, Betsy']
+DCL_Time_Entry_Non_Chargeable_Times = //legend[text()='Non-Chargeable Times']
+DCL_Time_Entry_Total_Records = //fieldset[@id='NonChargeableTime_fieldset']/div/div[1]/div
+DCL_Non_Chargeable_Start_Date = NonChargeableTime.startDate
+DCL_Non_Chargeable_End_Date = NonChargeableTime.endDate
+DCl_Edit_SignIn_SignOut_Record = //table[@id='EmployeeTime']/tbody/tr[1]/td[2]/div/a/img
+DCL_Print_Job_Jacket	=	//a[text()='Print Job Jacket']
+DCL_Print_JobJacket_Enter_Job= prompt_2500
+DCL_Select_Print = printer
+DCL_Print_Time_Sheet= Print Time Sheet
+DCL_View_Reports_Inquiries = //a[text()='View Reports/Inquiries']
+DCL_AddandDuplicate =  //input[@name='updateForm' and @value='Add & Duplicate']
+DCL_Done =  //input[@name='updateForm' and @value='Done']
+
+#WorkStation 
+WorkStation_Add_Emp_Grid = addGridRow_employees
+WorkStation_Employeename = employees.employee
+WorkStation_Add_Activity_Code_Grid	= addGridRow_activityCodes
+WorkStation_ActivityCode	= activityCodes.activityCode
+WorkStation_Add_Inventory_Code_Grid	= addGridRow_inventoryItems
+WorkStation_InventoryCode	= inventoryItems.inventoryItem
+WorkStation_NonPlanned_Reasons_Link = //a[text()='on Planned Reasons']
+WorkStation_Add_NonPlannedReasons_Code_Grid	= addGridRow_nonPlannedReasons
+WorkStation_NonPlanned_Reasons	= nonPlannedReasons.nonPlannedReason
+
+
+#NonChargeableType
+NonChargeableType_Paid = paidBooleanCheck
+NonChargeableType_AskNotes =askNote
+NonChargeableType_CostCenter=costCenter
+NonChargeableType_Id = //div[8]/div/div/div/div/div
+NonChargeableType_NonChargeableTypeBarcodeReport = Non Chargeable Type Barcode Report
+NonChargeableType_Display_text =	//div[@id='contents']/div/p[text()='Displays a listing of Non Chargeable Type Barcodes.']
+NonChargeableType_Enter_Beginning_ID = prompt_572
+NonChargeableType_Enter_Ending_ID = prompt_573
+NonChargeableType_Preview = //input[@name='updateForm' and @value='Preview Report']
+
+
+
+#Common
+Update_Go_To_Next_Item=//input[@name='updateForm' and @value='Update & Go To Next Item']
+Update_Go_Next = //input[@name='updateForm' and @value='Update & Go To Next']
+Add_And_Go_To_Next=//input[@name='updateForm' and @value='Add & Go To Next']
+Add_Item = //input[@name='updateForm' and @value='Add Items']
+Add_And_Complete =//input[@name='updateForm' and @value='Add & Complete']
+Add_Refresh	=	//input[@name='updateForm' and (contains(@value, 'Add Refresh') or contains(@value, 'Add/Refresh'))]
+Recalculate_And_View_Details = //input[@name='updateForm' and @value='Recalculate & View Details']
+Add_Part_And_Calculate = //input[@name='updateForm' and @value='Add Part & Calculate']
+Import_part = //input[@name='updateForm' and @value='Import Part']
+Convert_And_Go_To_Job = //input[@name='updateForm' and @value='Convert & Goto Job']
+Convert = //input[@name='updateForm' and @value='Convert']
+Update	=	//input[@name='updateForm' and @value='Update']
+POReview_Search	=	//input[@name='updateForm' and @value='Search']
+UpdateAndRefresh	=	//input[@name='updateForm' and (contains(@value, 'Update Refresh') or contains(@value, 'Update/Refresh'))]
+Delete	=	//input[@name='updateForm' and @value='Delete']
+Duplicate	=	//input[@name='updateForm' and @value='Duplicate']
+Recalculate  =//input[@name='updateForm' and @value='Recalculate']
+CreatePurchaseOrder  =//input[@name='updateForm' and @value='Create Purchase Order']
+Calculate = //input[@name='updateForm' and @value='Calculate']
+Updated_text = 	//li[contains(text(),'Updated')]
+Duplicated_text = 	//li[contains(text(),'Duplicated')]
+Deleted_text = 	//li[contains(text(),'Item deleted.')]
+ID	=	id
+Description = description
+Active_CheckBox	=	activeBooleanCheck
+# Add_New_Record = //a[text()='Add New Record']
+Add_New_Record = //a[contains(text(), 'Add New')]
+Object_added_text	=	//li[contains(text(),'Object Added')]
+Add = updateForm
+Add_button	=	//input[@name='updateForm' and @value='Add']
+SendEmail= //input[@name='updateForm' and @value='Send Email']
+ActivityCode_Link	= //a[text()='ctivity Codes']
+Inventory_Link =//a[text()='nventory Items']
+DCL_Job = //div[@id='scrollableContent']/table/tbody/tr[2]/td/div/div/div/input
+Paused_Transaction = 	//li[contains(text(),'Paused Transaction')]
+Resumed_All_Open_Transaction = 	//li[contains(text(),'Resumed All Open Transactions')]
+Paused_All_Open_Transaction = 	//li[contains(text(),'Paused All Open Transactions')]
+Out_For_Lunch	= //li[contains(text(),'Out for lunch')]
+Back_From_Lunch	= //li[contains(text(),'Back from lunch')]
+Non_Chargeable_Activity_Started= //li[contains(text(),'Non Chargeable Activity Started')]
+Print_Preview = //input[@name='updateForm' and @value='Preview Report']
+Print_Report = //input[@name='updateForm' and @value='Print Report']
+Search_Dropdown = searchField
+Search_TextField=search
+Find	=	performSearch
+WarningMessageAtTop =//div[@id='form-errors']/ul/li
+Quick_Search = quickJumpDropdown
+Quick_Search_Textbox =menuSearch
+Quick_Search_Find_Button = //div[@id='bodywrap']/div[2]/div[2]/a/img
+Reason_Id= reasonID
+Export_To_Spreadsheet = //a[text()='To Spreadsheet'][position()=1]
+Show_Grid_Filter = //input[@type='checkbox' and @name='filterBooleanCheck']
+Grid_Filter = //div[@id='gridSortFilterControllerID']
+Common_Webtable = //table[@id='appbox_implicit']
+Success_Message = //div[@id='fmessage']/ul/li[@class='normal']
+Warning_Message = //div[@id='fmessage']/ul/li[@class='warning']
+Error_Message = //div[@id='form-errors']
+Cancel_Button_Popup = //input[@value='Cancel' and @name='closePopup']
+Add_In_Grid_1 = //input[@value='Add In Grid'][position()=1]
+GL_AccountingPeriod = glAccountingPeriod
+Duplicate_ContextButton = //div[@class='contextItemBox']//a[text()='Duplicate']
+
+#Inventory_Control
+Inventory_Location_ID = code
+# Inventory_Item_Add_New_Record = //div[@id='buttonbox']/a[text()='Add New Record']
+Inventory_Item_Add_New_Record = //div[@id='buttonbox']/a[contains(text(), 'Add New')]
+Inventory_Item_ID = id
+Ordering_Info = Ordering Info
+Min_Stock_Level = //input[@name='minStockLevel']
+Max_Stock_Level = //input[@name='maxStockLevel']
+Inventory_Item_Add = //div[@id='buttonbox']/input[@name='updateForm' and @value='Add']
+Inventory_Bin = inventoryBinsBooleanCheck
+Inventory_Location = inventoryLocation
+Inventory_SerialID = serialIDsBooleanCheck
+Inventory_AllowAutoPost = allowAutoPostBooleanCheck
+Inventory_SerialID_Field = serialID
+Costing_Method = costingMethod
+Other_Settings = Other Settings
+Quantity_Price = Quantity / Price Info
+Paper_Info = Paper Info
+Replacement_Cost = replacementCost
+Average_Cost = averageCost
+Standard_Cost = standardCost
+Sell_Price = sellPrice1
+Override_PO_Price = overridePOPrice
+Inventory_Item = inventoryItem
+Purchase_Order = purchaseOrder
+Total_Cost = unitPrice
+Inventory_Description = description
+Vendor = vendor
+Inventory_Active = activeBooleanCheck
+Inventory_AutoPost = autoPostBooleanCheck
+Transaction_Type = transactionType
+General_Info_Tab = General Info
+Inventory_Quantity = quantity 
+#Inventory_PO = //input[@value='Create Purchase Order']
+Inventory_PO = //a[text()='Create New PO']
+Inventory_ExistingPO = //a[text()='Add to Existing PO']
+Inventory_Delete = //div[@id='buttonbox']/input[@class='delete' and @value='Delete']
+Inventory_Popup_Delete = //table[@class='confirmTable']/tbody/tr[2]/td[@class='confirmButtonTD']/div[@class='confirmButtonBox']/input[@value='Delete' and @name='updateForm']
+Item_Deleted = //div[@id='fmessage']/ul/li[@class='normal']
+Inventory_Job = job
+Inventory_Item_Duplicate = //input[@value='Duplicate']
+Inventory_Item_Duplicate_ID = id
+Duplicate_Message = //div[@id='fmessage']/ul/li[@class='normal']
+Inventory_Item_Type = inventoryItemType
+Inventory_UOM = uom
+Inventory_No_Negative_Quantity = noNegativeQuantityBooleanCheck
+Inventory_Post_Transaction_Date = cutoffDate
+Inventory_Post_Transactions = updateForm
+Inventory_Transaction_Approved_checkbox = approvedBooleanCheck
+Inventory_Auto_Post_Message = //div[@id='fmessage']/ul/li[@class='warning']
+Inventory_Paper = paperBooleanCheck
+Inventory_Ink = inkBooleanCheck
+Inventory_Default_Convet_Job_Type = defaultConvertJobType
+Inventory_Quantity_Base_Pricing = qtyBasedPricingBooleanCheck
+Inventory_No_Negative_Qty_Error_Msg = //div[@class = 'ferror']
+Inventory_Setting_Use_Location_Stock_Level = useLocationStockLevelBooleanCheck
+Use_Location_Stock_Level = useLocationStockLevelBooleanCheck
+Inventory_Num_Serial_ID = numSerialIDs
+Magnifying_Glass = //table[@id='appbox_implicit']/tbody/tr[1]/td[2]/div/a/img
+Magnifying_Glass_1 = //table[@id='appbox_implicit']/tbody/tr[2]/td[2]/div/a/img
+AddinGrid_Vendors = //input[@name='addGridRow_vendors']
+PostTransactionsButton = //div[@id='buttonbox']/input[@name='updateForm' and @value='Post Transactions']
+InventoryItem_GeneralTab = //div[@id='tabBar']//span[text()='G']
+InventoryItem_PaperInfoTab = //div[@id='tabBar']//span[text()='P']
+InventoryItem_OrderingInfoTab = //div[@id='tabBar']//span[text()='O']
+InventoryItem_LastOrderQty = //label[text()='Last Order Qty']/../following-sibling::div/div
+InventoryItem_LastPO = //label[text()='Last PO']/../following-sibling::div/div
+InventoryItem_GotoLastPO = //a[text()='Go To Last PO']
+InventoryItem_PurchasingUOMsTab = //div[@id='tabBar']//a[text()='Purchasing UOMs']
+InventoryItem_QuantityPriceInfoTab = //div[@id='tabBar']//span[text()='Q']
+InventoryItem_QtyOnHand = //label[text()='Qty On Hand']/../following-sibling::div/div
+InventoryItem_QtyOnOrder = //label[text()='Qty On Order']/../following-sibling::div/div
+InventoryItem_QtyAllocated = //label[text()='Qty Allocated']/../following-sibling::div/div
+InventoryItem_QuantityAvailable = //label[text()='Quantity Available']/../following-sibling::div/div
+InventoryItem_QtyInProduction = //label[text()='Qty In Production']/../following-sibling::div/div
+InventoryItem_ReplaceCost = //label[text()='Replace Cost']/../following-sibling::div/div
+InventoryItem_AverageCost = //label[text()='Avg Cost']/../following-sibling::div/div
+
+#Inventory Item List Page
+Inventory_Search_Field = searchField
+Inventory_Search = search
+Inventory_Find = performSearch
+Inventory_Magnifying_Glass = //tr[@class='c1']/td[@class='firstCol']/div[@class='viewContainer']/a[@class='objectlink']/img[@class='viewBox']
+
+
+
+
+#Job_Control_Center
+#Job_Add_Page
+Job = job
+Customer = customer
+Job_Description = description
+Job_Add = //div[@id='buttonbox']/input[@value='Add' and @name='updateForm']
+Job_Type =jobType
+Over_Methods = oversMethod
+Add_Plan_From_JobType = addPlanFromJobTypeBooleanCheck
+
+#Job_Detail_Page
+Job_ID = //div[@id='scrollableContent']/fieldset[1]/div[1]/div[1]/div[1]/div/div
+
+
+#Purchase Order Settings
+Auto_Approve_Inventory_Transaction = autoApproveInventoryTransactionBooleanCheck
+
+#Purchase Order detail page
+PO_Order_Status = orderStatus
+PO_Number = //div[@class='label' and @style='width: 85px;']
+PO_Context_Dropdown = //div[@id='contextBar']/span/a[3]
+PO_Receive = //tr[2]/td[@class='contextItemColumn']/a[@title='Receive']
+PO_View_Object_Magnifying_Glass = //table[@id='PurchaseOrderLine']/tbody/tr[@class='c1']/td[@class='firstCol']/div[@class='viewContainer']/a[@class='objectlink']/img[@class='viewBox']
+PO_Delete_InventoryLine = //div[@id='bodywrap']/div[@class='ispopup']/div[@id='rightPane']/form[@name='appboxForm']/div[@id='buttonbox']/input[@class='delete' and @value='Delete']
+
+#Purchase Order receive page
+PO_Search = search
+PO_Find = performSearch
+PO_Magnifying_Glass = //table[@id='appbox_implicit']/tbody/tr[2]/td[@class='firstCol']/div[@class='viewContainer']/a[@class='objectlink']/img[@class='viewBox']
+PO_Update_and_Receive = updateForm
+PO_Received_Message = //div[@id='fmessage']/ul/li[@class='normal']
+PO_Auto_Post_Message = //div[@id='fmessage']/ul/li[@class='warning']
+
+#AutoCreate Purchase Order Review Page
+PO_Search_Option =filterType
+PO_Search_String = searchString
+
+# System User
+
+SystemUser_UserName = userName
+SystemUser_Password = password_password
+SystemUser_Password_Confirm = password_check
+SystemUser_UserType =userType
+SystemUser_WorkStation =workstation
+SystemUser_defaultEmployee = defaultEmployee
+SystemUser_UserAlreadyPresent = //li[text()='User Name:             Value already in use']
+SystemUser_Add_Group = groupName
+SystemUser_Add = //input[@name='updateForm' and @value='Add']
+
+
+#Report
+
+Active_Employee_time_Mag_Glass =//table[@id='appbox_implicit']/tbody/tr[1]/td[2]/div/a/img
+Time_Entry_Start_Time = startTime
+Time_Entry_Stop_Time = stopTime
+Time_Entry_Lunch_Start= lunchStart
+Time_Entry_Lunch_Stop= lunchStop
+Time_Entry_Approved = approvedBooleanCheck
+Emp_Time_Entry_Non_Chargeable_Times= //a[text()='Non-Chargeable Times']
+Emp_Time_Entry_Select_Non_Chargeable_Type = NonChargeableTime.nonChargeableType
+Emp_Time_Entry_Start_Date = NonChargeableTime.startDate
+Emp_Time_Entry_End_Date = NonChargeableTime.endDate
+Emp_Time_Entry_Start_Time = NonChargeableTime.startTime
+Emp_Time_Entry_End_Time = NonChargeableTime.endTime
+
+Report_Daily_Time_Sheet_Report_Beginning_Date = prompt_180
+Report_Daily_Time_Sheet_Report_Ending_Date = prompt_181
+Report_Daily_Time_Sheet_Report_Beginning_Employee_Code=prompt_182
+Report_Daily_Time_Sheet_Report_Ending_Employee_Code=prompt_183
+Report_Daily_Time_Sheet_Report_Beginning_Department=prompt_184
+Report_Daily_Time_Sheet_Report_Ending_Department=prompt_185
+
+
+Timecard_Summary_Report_Beg_Date =prompt_178
+Timecard_Summary_Report_End_Date =prompt_179
+Timecard_Summary_Report_Beg_Emp_Code =prompt_544
+Timecard_Summary_Report_End_Emp_Code=prompt_545
+Timecard_Summary_Report_Detail_or_Summary=prompt_896
+
+
+Employee_Time_Variance_Report_Beg_Date = prompt_402
+Employee_Time_Variance_Report_End_Date = prompt_403
+Employee_Time_Variance_Report_Emp_Beg_Code = prompt_404
+Employee_Time_Variance_Report_Emp_End_Code = prompt_405
+Employee_Time_Variance_Report_Beg_Dept = prompt_406
+Employee_Time_Variance_Report_End_Dept = prompt_407
+Employee_Time_Variance_Report_Display_Only_Non_Planned_Activity	= prompt_408
+
+
+
+
+
+#Purchase Order SetUp
+PO_Default_Activity_Code= defaultActivityCode
+PO_UOM	= uom
+PO_Default_Status = statusID
+PO_Default_Line_Type = defaultLineType
+PO_Order_Qty = orderQty
+PO_Default_Quantity_To_Receive = defaultQuantityToReceive
+PO_Default_Shipment_To_Contact = defaultContact
+PO_Auto_Approve_Inventory = autoApproveInventoryTransactionBooleanCheck
+PO_Allow_Duplicate_PO_Number =allowDuplicatePONumbersBooleanCheck
+PO_Auto_Close_Purchase_Order =autoClosePurchaseOrdersBooleanCheck
+
+PO_Number_Perfix_1 = poNumberPrefix1
+PO_Number_Perfix_2 = poNumberPrefix2
+PO_Number_Perfix_3 = poNumberPrefix3
+PO_Number_Perfix_4 = poNumberPrefix4
+PO_Number_Perfix_5 = poNumberPrefix5
+PO_Number_Perfix_6 = poNumberPrefix6
+PO_Number_Perfix_7 = poNumberPrefix7
+PO_Number_Perfix_8 = poNumberPrefix8
+PO_Number_Perfix_9 = poNumberPrefix9
+PO_Number_1 = poNumber1
+PO_Number_2 = poNumber2
+PO_Number_3 = poNumber3
+PO_Number_4 = poNumber4
+PO_Number_5 = poNumber5
+PO_Number_6 = poNumber6
+PO_Number_7 = poNumber7
+PO_Number_8 = poNumber8
+PO_Number_9 = poNumber9
+
+PO_Interface_setup_Interface_JC_Never	=	//input[@name='interfaceJC' and @value='0']
+PO_Interface_setup_Interface_JC_Entry	=	//input[@name='interfaceJC' and @value='1']
+PO_Interface_setup_Interface_JC_Receipt	=	//input[@name='interfaceJC' and @value='2']
+PO_Interface_setup_Interface_AP			=	interfaceAPBooleanCheck
+PO_Interface_setup_Tax_To_Job_Cost		=	taxToJobCostBooleanCheck
+PO_Interface_setup_Integrate_with_Scheduling	=	integrateWithSchedulingBooleanCheck
+PO_Interface_setup_Lead_Time			=	leadTime
+
+PO_Automatic_PO_Creation_Default_GL_Account	= glAccount
+PO_Automatic_PO_Creation_Auto_Create_Job_Materail_Line = autoCreateJobMaterialLinesBooleanCheck
+PO_Automatic_PO_Creation_AutoCreate_JobPart_OutSide_PurchLines	= autoCreateJobPartOutsidePurchLinesBooleanCheck
+PO_Automatic_PO_Creation_Auto_Create_Inventory_Item_Line = autoCreateInventoryItemLinesBooleanCheck
+PO_Automatic_PO_Creation_Include_Setup	= includeSetupBooleanCheck
+
+#PO Type
+PO_Type_PO_Num_Perfix_DropDown = poNumberPrefix
+PO_Type_PO_Num_Sequence_DropDown = poNumberSequence
+PO_Type_Auto_Num_Only = autoNumberOnlyBooleanCheck
+PO_Type_Active = activeBooleanCheck
+PO_Type_first_Magnifying_Glass = //table[@id='appbox_implicit']/tbody/tr[1]/td[2]/div/a/img
+PO_Type_first_Magnifying_Glass_div = //table[@id='appbox_implicit']/tbody/tr[1]/td[2]/div/a/div
+PO_Type_Fetch_ID = //table[@id='appbox_implicit']/tbody/tr[1]/td[3]/div
+#Enter PO Number
+Enter_PO_Num_PO_Type 	= purchaseOrderType
+Enter_PO_Num_PO_Num	=	poNumber
+Enter_PO_Num_Vendor		=	vendor
+Enter_PO_Num_Vendor_Contact		=vendorContact
+Enter_PO_Num_Order_Status = orderStatus
+Enter_PO_Num_Default_Ship_To_Contact =shipToContact
+PO_POrder_Text=//div[@id='scrollableContent']/fieldset/div[1]/div[1]/div[1]/div[1]
+PO_Vendor_Text=//div[@id='scrollableContent']/fieldset/div[2]/div[1]/div[1]/div[1]/a
+PO_Line_Item_Inventory_Added = //table[@id='PurchaseOrderLine']/tbody/tr[1]/td[5]/div
+PO_Line_Item_Qty_Received = //table[@id='PurchaseOrderLine']/tbody/tr[1]/td[4]/div
+PO_Currency = altCurrency
+PO_LineItem_Salestax1=salesTax1
+PO_LineItem_Salestax2=salesTax2
+PO_LineItem_Taxable_Code1 =taxableCode1
+PO_LineItem_Taxable_Code2=taxableCode2
+PO_Summary_Information = //a[text()='Summary Information']
+PO_Summary_Information_Created_By = //div[@id='contents']/div[2]/div[2]/div[1]/div[1]/div
+PO_Summary_Information_Date_Entered	=//div/h4[contains(label,'Date Entered')]/following-sibling::div/div
+PO_Summary_Info_Ship_Via = shipVia
+PO_Summary_Info_Freight_On_Board =freightOnBoard
+PO_Summary_Info_Terms=terms
+PO_Summary_Info_Confirmed_by=confirmedBy
+PO_Summary_Info_Date_Confirmed=dateConfirmed
+PO_Summary_Info_Authorized_By=authorizedBy
+PO_Summary_Info_Requester=requester
+PO_Summary_Info_Buyer=buyer
+PO_Summary_Info_Notes=notes
+PO_Address_Information = //a[text()='Address Information']
+PO_Vendor_Add1 =vendorAddress1
+PO_Vendor_Add2 =vendorAddress2
+PO_Vendor_Add3 =vendorAddress3
+PO_Vendor_City = vendorCity
+PO_Vendor_State = vendorState
+PO_Vendor_Country=vendorCountry
+PO_Vendor_Zip= vendorZip
+PO_Unit_Price= unitPrice
+Adding_PO_Line_Item_LineType =lineType
+Adding_PO_Line_Item_UOM =uom
+Adding_PO_Line_Item_Date_Entered	= //div/h4[contains(label,'Date Entered')]/following-sibling::div
+Adding_PO_Line_Item_Date_Entered_byname	= dateEntered
+Adding_PO_Line_Item_Date_Required = dateRequired
+Adding_PO_Line_Item_Qty_Ordered = qtyOrdered
+Adding_PO_Line_Item_Qty_Required = qtyRequired
+Adding_PO_Line_Item_Unit_Price = unitPrice
+PO_Edit_Line_Item = //table[@id='PurchaseOrderLine']/tbody/tr[1]/td[2]/div/a/img
+
+PO_Edit_Line_Item_In_Receive=//table[@id='PurchaseOrderLine']/tbody/tr[1]/td[2]/div/a/img
+PO_Tax_Base1 =taxBase1
+PO_Tax_Base2=taxBase2
+PO_Tax_Amount1 =taxAmount1
+PO_Tax_Amount2 =taxAmount2
+PO_Order_Total=//div[@id='contents']/div[1]/div[5]/div[1]/div[1]/div[1]
+PO_Order_Amount =//div[@id='contents']/div[1]/div[5]/div[3]/div[1]/div[1]
+PO_Address_info_Pick_Vendor_Add = //div[@id='leftSection']/fieldset/div/div[2]/div[1]/div[1]/div[2]
+PO_Address_info_Pick_Ship_To_Contact_Add = //div[@id='rightSection']/fieldset/div/div[1]/div/div/div[2]
+PO_Address_info_Ship_To_Contact_Country=contactCountry_contact
+PO_Order_Status_Desc =//div[@id='contents']/div[1]/div[1]/div[2]/div/div
+PO_List_Duplicate_Existing_Record =//a[text()='Duplicate existing record']
+Tax_Base1 =//label[text()='Tax Base1']/../following-sibling::div/div
+Tax_Base2=//label[text()='Tax Base2']/../following-sibling::div/div
+Tax_Amount1 =//label[text()='Tax Amount1']/../following-sibling::div/div
+Tax_Amount2 =//label[text()='Tax Amount2']/../following-sibling::div/div
+Order_Total=//label[text()='Order Total']/../following-sibling::div/div
+Order_Amount =//label[text()='Taxed Total']/../following-sibling::div/div
+
+#Receive PO
+Receiving_Note = receivingNote
+Receive_PO_Qty_To_Receive =ReceiveQuantities.quantityToReceive
+Receive_PO_Receive_Button = //input[@value='Receive' and @name='updateForm']
+Receive_PO_Update_And_Receive_Button = //input[@value='Update & Receive' and @name='updateForm']
+Receive_PO_Purchase_Order_line_Result = //div[@id='fmessage']/ul/li[1]
+Receive_PO_Purchase_Order_line_Message = //div[@id='fmessage']/ul/li[2]
+Receive_PO_Recieved_Date = receiveDate
+
+#SalesTax
+SalesTax_Rate = //a[text()='Rates']
+SalesTax1= rate1
+SalesTax2= rate2
+SalesTax3= rate3
+SalesTax4= rate4
+SalesTax5= rate5
+SalesTax6= rate6
+SalesTax7= rate7
+SalesTax8= rate8
+SalesTax9= rate9
+
+#Vendor
+Vendor_Id =//div/h4[contains(label,'Vendor ID')]/following-sibling::div/input
+Vendor_Name =//div[@id='contents']/div[1]/div[2]/div[1]/div[1]/input[1]
+Vendor_Contact_Title =contactTitle
+Vendor_Contact_First_Name= contactFirstName
+Vendor_Contact_Last_Name= contactLastName
+Vendor_Add_Line1=address1
+Vendor_Add_Line2=address2
+Vendor_Add_Line3=address3
+Vendor_City= city
+Vendor_State=stateKey
+Vendor_ZipCode = zip
+Vendor_Country =country
+Vendor_phoneNum =phoneNumber
+Vendor_FaxNum = faxNumber
+Vendor_Email = emailAddress
+Vendor_Type = vendorType
+Vendor_Default_Currency	= defaultCurrency
+Vendor_Ship_From_Conatact=shipFromContact
+Vendor_Ship_To_Contact = shipToContact
+Vendor_Setting= //a[text()='Settings']
+Vendor_Settings_Tax_Number=taxNumber
+Vendor_Settings_Registration_Num = registrationNumber
+Vendor_Active= activeBooleanCheck
+Vendor_GLAccount	= glAccount
+Vendor_GL_Location = glLocation
+Vendor_Sale_Tax1= salesTax1
+Vendor_Sale_Tax2=salesTax2
+Vendor_Taxable_Code1= taxableCode1
+Vendor_Taxable_Code2= taxableCode2
+Vendor_Default_Freight_OnBoard = defaultFreightOnBoard
+Vendor_SetUp_Date = //div[@id='contents']/div[2]/div[11]/div/div/div
+Vendor_SetUp_Date1=//div/h4[contains(label,'Setup Date')]/following-sibling::div
+
+
+
+
+#Inventory
+Paper_Info_Tab = //div[@id = 'tabBar']/div[@class = 'tab']/span/a[@accesskey = 'P']
+Inventory_Addl_Desc = addlDesc
+Inventory_Auto_post	=autoPostBooleanCheck
+Inventory_Vendor = vendor
+Inventory_Customer = customer
+Inventory_Owner = ownership
+Inventory_Status= itemStatus
+Inventory_Location_Bin	= inventoryLocation
+Inventory_Location_Bin_key = locationBinKey
+Inventory_Activity_Code = activityCode
+Inventory_Make_Ready_AC		= makeReadyActivityCode
+Inventory_Sales_Category	=salesCategoryNotRequired
+Inventory_Item_Template	= itemTemplate
+Inventory_Paper_Info = //a[text()='aper Info']
+Inventory_Paper_Info_Size = size
+Inventory_Paper_Info_SizeW = sizeW
+Inventory_Paper_Info_SizeH =sizeH
+Inventory_Paper_info_Grain_Direction = grainDirection
+Inventory_Paper_info_Basis = basis
+Inventory_Paper_info_MWeight	= mWeight
+Inventory_Paper_info_Lock = doNotAutoCalcMWeightBooleanCheck
+Inventory_Paper_info_Carton_Qty =cartonQty
+Inventory_Paper_Info_Paper_Type = paperType
+Inventory_Paper_Info_Paper_Weight =paperWeight
+Inventory_Paper_Info_Brand	=	brand
+Inventory_Paper_Info_Media_Colour_Name = mediaColorName
+Inventory_Paper_Info_Pre_Print	= prePrintedBooleanCheck
+Inventory_Paper_Info_Set_Count = setCount
+Inventory_Paper_Info_Corresponding_Tabloid=correspondingTabloid
+Inventory_Context_Drop_Down = //div[@id='contextBar']/span/a[2]
+Inventory_eService_info = //div[@id='tabBar']/div[3]/span/a
+Inventory_eService_Product_Group=productGroup
+Inventory_eService_Sub_Prod_Key =prodGroupSubKey
+Inventory_eService_Unit_Weight	= unitWeight
+Inventory_eService_Max_Weight_Per_box	=maxWeightPerBox
+Inventory_eService_Sell_unit_Price =sellUnitQty
+Inventory_eService_Freight_Cost=freightCost
+Inventory_eService_Egood_Message=egoodMessage
+Inventory_Context_Serial_ID = //tr[3]/td[@class='contextItemColumn']/a[@title='Serial IDs']
+Inventory_Ordering_Info = //a[text()='rdering Info']
+Inventory_Ordering_Info_Min_Stock_Level =minStockLevel
+Inventory_Ordering_Info_Max_Stock_Level=maxStockLevel
+Inventory_Ordering_Info_Vendor_Part_Level =vendorPartNumber
+Inventory_Ordering_Info_Lead_Time = leadTime
+Inventory_Ordering_Info_Taxable = taxableBooleanCheck
+Inventory_Get_Serial_ID_Size = //table[@id='appbox_implicit']/tbody/tr
+Invnetory_DefaultOverridePOPrice = defaultOverridePOPrice
+
+#G/L setting 
+GL_Use_Location = reconcileLocationsBooleanCheck
+GL_Use_Department = useDepartmentsBooleanCheck
+
+
+
+# Approve Inventory Transaction List Page
+Approved_Check_Box =approvedBooleanCheck
+
+
+# AP
+Allow_Duplicate_Invoice_Numbers = allowDuplicateInvoiceNumbersBooleanCheck
+Search_By_Vendor_Name = searchByVendorNameBooleanCheck
+Allow_Process_All = allowProcessAllBooleanCheck
+Vendor_ID = //div/h4[contains(label,'Vendor ID')]/following-sibling::div/input
+Include_Dropdown = //select[@name='activeState'][position()=1]
+#Vendor = name
+Vendor_Type = vendorType
+GL_Account = glAccount
+Vendor_First_Name = contactFirstName
+Vendor_Last_Name = contactLastName
+Vendor_Address_1 = address1
+Vendor_Address_2 = address2
+Vendor_Address_3 = address3
+Vendor_City = city
+Vendor_Zip = zip
+Vendor_Settings_Tab = //div[@class='tabHover']/span/a[text()='Settings']
+Vendor_Search_Field = searchField
+Vendor_Search = search
+Vendor_Duplicate = //input[@value='Duplicate']
+Vendor_Find = performSearch
+Vendor_Duplicate_Error = //div/span[@class='error']
+Vendor_Context_Dropdown = //div[@id='contextBar']/span/a[2]
+Vendor_Contact = //table[@class='contextTable']/tbody/tr[3]/td[1]/a[text()='- Contacts']
+Contact_FirstName = firstName
+Contact_LastName = lastName
+Contact_Company = companyName
+Contact_Phone_Number = businessPhoneNumber
+Bill_Batch_Description = description
+#Magnifying_Glass = //table[@id='appbox_implicit']/tbody/tr[1]/td[2]/div/a/img
+AddBill_PONumber = poNumberInput
+AddBill_BillNumber = invoiceNumber
+AddBill_BillDate = invoiceDate
+AddBill_DueDate = dateDue
+AddBill_BillType = billType
+AddBill_BillStatus = billStatus
+AddBill_Terms = terms
+Bill_PickPOReciepts = //a[text()='Pick PO Receipts']
+Bill_AddPurchaseOrderReceipts = //input[@value='Add Purchase Order Receipts' and @name='updateForm']
+Bill_ReturntoBatch = //a[text='Return to Batch']
+Post_Bill_Batches = //input[@value='Post Bill Batches' and @name='updateForm']
+ApprovedOnly = approvedOnlyBooleanCheck
+
+
+#Job_Control_Center
+Job_Status = adminStatus
+Job_ProductionStatus = productionStatus
+Job_Number = jobNumber
+Job_PoNum = poNum
+
+
+#JCC Settings page
+Use_Job_Projects = useJobProjectsBooleanCheck
+Ship_Materials = shipMaterialsBooleanCheck
+Ship_Press_Forms = shipPressFormsBooleanCheck
+Ship_Proofs = shipProofsBooleanCheck
+Ship_Components = shipComponentsBooleanCheck
+Ship_JobPart_Items = shipJobPartItemsBooleanCheck
+Job_Update = updateForm
+Combo_Job_Percentage_Calculation_Type = comboJobPercentageCalculationType
+Combo_Job_Percentage_Calculation_Rounding_Method = comboJobPercentageCalculationRoundingMethod
+Default_Freight_On_Board = defaultFreightOnBoard
+Jacket_Type = jacketType
+Active = activeBooleanCheck
+Job = job
+Job_IC = //input[@class='inputField' and @name='job']
+Customer = customer
+Job_Description = description
+Job_Add = //div[@id='buttonbox']/input[@value='Add' and @name='updateForm']
+Job_Project = jobProject
+Job_Type = jobType
+Job_JobInfo = //a[text()='Job Info']
+Child_Job_Info = //a[text()='Child Job Info']
+Add_New = //input[@value='Add / Add New']
+Add_New_Record_1 = //div[@id='contents']/div[6]/fieldset/div[1]/div[1]/div[2]/a
+Combo_Job_Calculation_Type = comboJobCalcType
+Job_Search_Field = searchField
+Job_Search = search
+Job_Perform_Search = performSearch
+Job_Type_Duplicte = Duplicate
+Job_Part_Key = jobPartKey
+Combo_Job_Percent = //tr[@class='c1']/td[7]/div/input[@name='ComboJob_N10134.percent']
+Combo_Job_Percent_1 = //tr[@class='c0']/td[7]/div/input[@name='ComboJob_N10134.percent']
+Combo_Job_Type = comboJobCalcType
+Combined_Parts_Tab = //div[@id='tabBar']/div[5]/span/a[text()='Combined Parts']
+Combo_Job_Jacket = //div[@id='buttonbox']/a[@class='report' and text()='Combo Job Jacket']
+FinishedGoods_Job_Jacket = //a[text()='FinishedGoods Job Jacket']
+Price_List_Job_Jacket = //a[text()='Job Jacket']
+Display_Part_Items = displayPartItemsBooleanCheck 
+Freight_On_Board= freightOnBoard
+Job_Part_Items = //a[text()='Job Part Items']
+Sub_Types = //div[@id='tabBar']/div[2]/span/a
+Add_New_Record_Sub_type = addGridRow_subJobTypes
+Sub_Job_Type_Description = subJobTypes.description
+Sub_Job_Type = subJobType
+Sub_Job_Type_Delete = subJobTypes.deleteBooleanCheck
+Shipment_Type_Search = search
+Shipment_Search_Type = searchField
+Shipment_Status = status
+Shipment_Find = performSearch
+Shipment_Type_Delete = //input[@value='Delete' and @name='updateForm']
+Delete_Popup = //div[@id='contentDiv']/table/tbody/tr[2]/td/div/input[1]
+Billable_Check = billableBooleanCheck
+Post_Advance = postageAdvanceBooleanCheck
+Job_Project_Name = name
+Job_Project_Code = code
+# Job_Add_New_Record = //div[@id='buttonbox']/a[text()='Add New Record']
+Job_Add_New_Record = //div[@id='buttonbox']/a[contains(text(), 'Add New')]
+Pick_Ticket_ID = pickTicketId
+Populate_Shipment_Contacts = populateShipmentContactsBooleanCheck
+Defaults_Tab = //div[@id='tabBar']/div[2]/span/a
+Manufacturing_Location_Add_New_Record = //div[@id='buttonbox']/input[contains(@value, 'Add New')]
+Manufacturing_Location_Code = appbox_implicit.code
+Manufacturing_Location_Count = //table[@id='appbox_implicit']/tbody/tr
+Note_Category_Add_In_Grid = addGridRow_subNoteCategory
+Description_Add_In_Grid = //table[@id='subNoteCategory']/tbody/tr[1]/td[2]/input
+Description_Add_In_Grid_1 = //table[@id='subNoteCategory']/tbody/tr[2]/td[2]/input
+Description_Add_In_Grid_2 = //table[@id='subNoteCategory']/tbody/tr[3]/td[2]/input
+Delete_Sub_Note_Category_Second_Row = //table[@id='subNoteCategory']/tbody/tr[2]/td[3]/input[2]
+Sub_Note_Category_Delete_All = //thead/tr/th[3]/span/a
+Find_Jobs = list
+Parts_Info_Tab = //div[@id='tabBar']/div[2]/span/a
+Part_Description = description_label
+Part_Additional_Description = additionalDescription
+Production_Status = productionStatus
+Add_In_Grid = addGridRow_JobPart_N1002F
+Part_Description_In_Grid = //tbody/tr[3]/td[6]/input
+Production_Status_In_Grid = //tbody/tr[3]/td[9]/select
+Magnifying_Glass_Job_Search = //tbody/tr[1]/td[2]/div[@class='viewContainer']/a/img
+Job_Part_Context_Menu = //div[@id='contextBar']/span/a[4]
+Job_Part_Components = //div/table[4]/tbody/tr[2]/td[4]/a
+Job_Component_Qty_Ordered = qtyOrdered
+Job_Component_Add_In_Grid = addGridRow_appbox_implicit
+Job_Component_Description = appbox_implicit.description
+Job_Component_Qty_Ordered_Grid = appbox_implicit.qtyOrdered
+Job_Component_Grid_Delete = //table[@id='appbox_implicit']/tbody/tr/td[7]/input[2]
+Due_Date = dueDate
+Add_In_Grid_Product = addGridRow_JobProducts
+JobProduct_Description = JobProducts.description
+
+
+
+#Job_IC = //input[@class='inputField' and @name='job']
+Job_Pull_Button = //a[text()='PULL']
+
+
+#PO_Email
+PO_EMail_TO_img =//div[@id='to']/img
+PO_EMail_CC_img =//div[@id='cc']/img
+PO_EMail_BCC_img =//div[@id='bcc']/img
+PO_EMail_TO_TextField =torecipientField
+PO_EMail_CC_TextField =ccrecipientField
+PO_EMail_BCC_TextField =bccrecipientField
+PO_Email_Drag_Email_Address_Here = //div[@id='cc']/div[1]/img
+PO_Email_Reply_To = replyTo
+PO_Email_Reply_To_Name =replyToName
+PO_Email_Subject =subject
+PO_Email_Template =template
+PO_Email_Body	 = body
+
+#Estimation
+Estimate_SetUp_Paper_Rounding_Mode=paperRoundingMode
+Estimate_View_Details = //a[text()='View Details']
+Estimate_Details_Print_Tab = //span/a[text()='rint']
+Estimate_Details_Materials_Tab = //span/a[text()='aterials']
+Estimate_Details_Product_Tab = //span/a[text()='duct']
+Estimate_Details_View_Product_Part_Qty = currentQuantity
+Estimate_Select_Press = //table[@id='estimatePress']/tbody/tr/td[2]/div/a/img
+Estimate_Press_Select_Press = EstimatePresses.press
+Estimate_Estimate_Paper =EstimatePresses.estimatePaper
+Estimate_Press_Run_Size_Width	= EstimatePresses.runSizeW
+Estimate_Press_Run_Size_Height	= EstimatePresses.runSizeH
+#Estimate_Press_Run_Method = EstimatePresses.runMethod
+Estimate_Press_Run_Method = //select[contains(@name,'stimatePresses.printRunMethod')]
+Estimate_Press_Make_Ready_Sheet = EstimatePresses.makeReadySheets
+Estimate_Press_Run_Spoilage_Sheets =EstimatePresses.runSpoilageSheets
+Estimate_Press_Finishing_Make_Ready_Sheet = EstimatePresses.finishingMakeReadySheets
+Estimate_Press_Finishing_Spoilage_Sheets = EstimatePresses.finishingRunSpoilageSheets
+Estimate_Press_Press_Sheets_From_Buy =EstimatePresses.numPressSheetsFromBuy
+Estimate_Details_Materails_Select_printing_Materails = //table[@id='estimatePaper']/tbody/tr/td[2]/div/a/img
+Estimate_Details_Materails_Estimate_Paper_Buy_Size_W	=estimatePapers.buySizeW
+Estimate_Details_Materails_Estimate_Paper_Buy_Size_H	=estimatePapers.buySizeH
+Estimate_Details_Materails_Amount_Required	=//table[@id='estimatePaper']/tbody/tr[1]/td[9]/div/span
+Estimate_Details_Product_Final_Size_W = finalSizeW
+Estimate_Details_Product_Final_Size_H = finalSizeH
+Estimate_Details_Product_FlatSize_W = //div[@id='nonWideFormatFlatSize']/div[1]/div[1]/div[1]/div[1]/span[1]
+Estimate_Details_Product_FlatSize_H = //div[@id='nonWideFormatFlatSize']/div[1]/div[1]/div[1]/div[1]/span[1]
+Estimate_Details_N_Ups = //table[@id='estimatePress']/tbody/tr[1]/td[6]/div/span
+Estimate_Details_Num_Along =EstimatePresses.numAcross
+Estimate_Details_Num_Across=EstimatePresses.numAlong
+Estimate_Press_Press_Type =pressType
+Estimate_TotalQtys = //span[text()='T']
+Estimate_TotalQtys_NumSig = numSigs
+Estimate_Press_Material_Up = EstimatePresses.materialUp
+Estimate_Press_Impression_Per_Hour=EstimatePresses.impressionsPerHour
+Estimate_Details_Stagger=EstimatePresses.numStagger
+Estimate_Details_NumWashups = EstimatePresses.numWashups
+Estimate_Details_NumPlates=EstimatePresses.numPlates
+Estimate_Details_NumPlatesChanges=EstimatePresses.numPlateChanges
+Estimate_Details_NumPasses=EstimatePresses.numPasses
+Estimate_Details_RunSpoilagePercent=EstimatePresses.runSpoilagePercent
+Estimate_Details_PressSheets=EstimatePresses.pressSheets
+Estimate_Details_RunImpression=EstimatePresses.runImpressions
+Estimate_Details_RunHours=EstimatePresses.runHours
+Estimate_Details_NumberHelpers=EstimatePresses.numberHelpers
+Estimate_Details_MakeReadyHours=EstimatePresses.makeReadyHours
+Estimate_Details_WashupHours=EstimatePresses.washupHours
+Estimate_Details_OtherHours=EstimatePresses.otherHours
+Estimate_Details_LiftChange=EstimatePresses.liftChange
+Estimate_Details_PaperSpeed_Adjustment=EstimatePresses.paperSpeedAdjustment
+Estimate_Details_Press_Sheet=EstimatePresses.pressSheets
+Estimate_Request_Detail_Add_Product = Add Product
+Estimate_Request_Product_Detail_Go_Back_to_Estimate_Request = Go Back To Estimate Request
+Estimate_Request_Detail_Convert_And_Go_To_estimate = //input[@value="Convert and go to Estimate"]
+Estimate_Request_Product_Select_compCategory = compCategory
+Estimate_Request_Product_Select_compProduct = compProduct
+
+
+
+
+ 
+
+
+
+#Adding Jobing part Buy out
+Quote_Num =quoteNum
+Outside_Purchase_Markup = outsidePurchaseMarkup
+BuyOut_Record_1 =//div[@id='contents']/div[10]/fieldset/div/table/tbody/tr/td[2]/div/a/img
+BuyOut_Tab =//div[@id='tabBar']/div[10]/span/a
+
+#Add new estimator
+Estimator_Name= //div/h4[contains(label,'Name')]/following-sibling::div/input
+Estimate_Printout_Perference = estimatePrintoutPreference
+Estimator_SalePerson_ID= //div/h4[contains(label,'ID')]/following-sibling::div/input
+Estimator_SalePerson_Commission_Rate = commissionRate
+
+Estimator_Add_New_Grid = addGridRow_appbox_implicit
+#PressType
+Estimate_Duplicator_Checkbox =duplicatorBooleanCheck
+Estimate_SplitForms_Checkbox =splitFormsBooleanCheck
+Estimate_InterpolateSpeed_Checkbox =interpolateSpeedBooleanCheck
+Estimate_ImposeCenteredFlats_Checkbox =imposeCenteredFlatsBooleanCheck
+Estimate_CanTile_Checkbox =canTileBooleanCheck
+Estimate_UsesPlates_Checkbox =usesPlatesBooleanCheck
+Estimate_UsesPressEvents_Checkbox =usesPressEventsBooleanCheck
+Estimate_UsesInk_Checkbox=usesInkBooleanCheck
+Estimate_RunSpeedSize_Checkbox=runSpeedSizeBooleanCheck
+Estimate_RunSpeedColors_Checkbox=runSpeedColorsBooleanCheck
+Estimate_RunSpeedInktype_Checkbox=runSpeedInktypeBooleanCheck
+Estimate_SpeedFactor_Checkbox=speedFactorBooleanCheck
+Estimate_SeparateSizes_Checkbox=separateSizesBooleanCheck
+Estimate_UseTotalImpression_Checkbox=useTotalImpressionsBooleanCheck
+Estimate_PressSpeedMethod =pressSpeedMethod
+Estimate_RunSpeedSide1UnitCharge_Checkbox=runSpeedSide1UnitChargeBooleanCheck
+Estimate_RunSpeedSide2UnitCharge_Checkbox=runSpeedSide2UnitChargeBooleanCheck
+Estimate_RunSpeedSide2Speed_Checkbox=runSpeedSide2SpeedBooleanCheck
+Estimate_RunSpeedSide2Spoilage_Checkbox=runSpeedSide2SpoilageBooleanCheck
+Estimate_Press_Ink_Types = //a[text()='Press Ink Types']
+Estimate_Add_New_Press_Ink_Types = //fieldset[@id='pressTypeInkTypes_fieldset']/div[1]/div[1]/div[2]/input[@name='addGridRow_pressTypeInkTypes']
+Estimate_Select_Press_Ink_Type = pressTypeInkTypes.pressInkType
+
+Estimate_Attachment_Browser = //table[@id='Attachments']/tbody/tr[1]/td[3]/input[1]
+Estimate_Attachment_Select_Category=//table[@id='Attachments']/tbody/tr[1]/td[5]/select
+
+#SpeedFactor
+Estimate_Add_New_SpeedFactor =addGridRow_All
+Estimate_SpeedFactor_Desc = All.description
+Estimate_Add_New_Record = //input[contains(@value, 'Add New')]
+
+#adding Press
+Press_Code = code
+Press_Max_Num_Webs = maxNumberWebs
+Press_Auto_Select_Min_Diff=autoSelectMinDiff
+Press_Auto_Select_Max_Diff=autoSelectMaxDiff
+Press_Lift_Height=liftHeight
+Press_Cut_Off=cutOff
+Press_Have_Sheeter =haveSheeterBooleanCheck
+Press_Color_Bar_Allowance=colorBarAllowance
+Press_Gripper_Allowance=gripperAllowance
+Estimate_Details_Gripper_Allowance_Color_Bar=EstimatePresses.gripperColorBar
+Press_Side_Allowance=sideAllowance
+Press_Material_Gap=materialGap
+Press_Helper_Activity_Code=helperActivityCode
+Press_Number_Helpers=numberHelpers
+#Press_Color_Info = //a[text()='Color Info']
+Press_Color_Info =  //div[@id='tabBar']/div[2]/span/a
+Press_Color_Info_Max_Colors_Front_Per_Pass=maxColorsFrontPerPass
+Press_Color_Info_Max_Colors_Back_Per_Pass=maxColorsBackPerPass
+Press_Color_Info_Max_Colors_Total_Per_Pass=maxColorsTotalPerPass
+Press_Color_Info_Auto_Select_Min_Colors=autoSelectMinColors
+Press_Color_Info_Auto_Select_Max_Colors=autoSelectMaxColors
+Press_Color_Info_Max_Web_Print_Units=maxWebPrintUnits
+Press_Color_Varnish_Needs_Unit_Boolean_Check=varnishNeedsUnitBooleanCheck
+Press_Color_Coating_Sides=coatingSides
+#Press_Size_Info = //a[text()='Size Info']
+
+Press_Size_Info = //div[@id='tabBar']/div[3]/span/a
+Press_Size_Info_Min_Width=minWidth
+Press_Size_Info_Min_Length=minLength
+Press_Size_Info_Max_Width=maxWidth
+Press_Size_Info_Max_Length=maxLength
+Press_Size_Info_Max_Image_Width=maxImageWidth
+Press_Size_Info_Max_Image_Length=maxImageLength
+Press_Size_Info_Auto_Select_Mini_Caliper=autoSelectMinCaliper
+Press_Size_Info_Auto_Select_Max_Caliper=autoSelectMaxCaliper
+Press_Size_Info_Core_Diameter=coreDiameter
+Press_Size_Info_Use_Max_Press_Size_As_Buy_Candidate=useMaxPressSizeAsBuyCandidateBooleanCheck
+#Press_Make_Ready = //a[text()='MakeReady']
+Press_Make_Ready =  //div[@id='tabBar']/div[4]/span/a
+Press_MakeReady_Activity_Code = makeReadyActivityCode
+Press_MakeReady_Min_MakeReady_Time=minMakereadyTime
+Press_MakeReady_Include_MRSheets_In_Run = includeMRSheetsInRunBooleanCheck
+Press_MakeReady_Unit_Label=makeReadyUnitLabel
+Press_MakeReady_Initial=makeReadyInitial
+Press_MakeReady_SideGuide=makeReadySideGuide
+Press_MakeReady_Gripper_Change=makeReadyGripperChange
+Press_MakeReady_Initial_Sheets=makeReadyInitialSheets
+Press_MakeReady_SideGuide_Sheets=makeReadySideGuideSheets
+Press_MakeReady_Gripper_Change_Sheets=makeReadyGripperChangeSheets
+Press_MakeReady_Times_Per_Ink_Color_Easy=makeReadyInkNoRegister
+Press_MakeReady_Times_Per_Ink_Color_Medium=makeReadyInkMediumRegister
+Press_MakeReady_Times_Per_Ink_Color_Difficult=makeReadyInkTightRegister
+Press_MakeReady_Times_Per_Ink_Color_Coating=makeReadyCoating
+Press_MakeReady_Sheets_Per_Ink_Color_Easy=makeReadyInkNoRegisterSheets
+Press_MakeReady_Sheets_Per_Ink_Color_Medium=makeReadyInkMediumRegisterSheets
+Press_MakeReady_Sheets_Per_Ink_Color_Difficult=makeReadyInkTightRegisterSheets
+Press_MakeReady_Sheets_Per_Ink_Color_Coating=makeReadyCoatingSheets
+#Press_Washup = //a[text()='Washup']
+Press_Washup =  //div[@id='tabBar']/div[5]/span/a
+Press_Washup_Activity_Code =washupActivityCode
+Press_Washup_Hrs_Forced=washupTimeForced
+Press_Washup_Min_Washup_Time =minWashupTime
+Press_Washup_Max_Washup_Time=maxWashupTime
+Press_Washup_Hours_Per_Ink_Type_Black =washupTimeBlack
+Press_Washup_Hours_Per_Ink_Type_Standard=washupTimeStandard
+Press_Washup_Hours_Per_Ink_Type_Aqueous=washupTimeCoating
+Press_Washup_Hours_Per_Ink_Type_TimePMS=washupTimePMS
+Press_Washup_Hours_Per_Ink_Type_Process=washupTimeProcess
+Press_Washup_Hours_Per_Ink_Type_Varnish=washupTimeVarnish
+#Press_Dry = //a[text()='Dry']
+Press_Dry =  //div[@id='tabBar']/div[6]/span/a
+Press_Dry_Other_Activity_Code=dryOtherActivityCode
+Press_Dry_Time_Over_30=dryTimeOver30
+Press_Dry_Time_Over_60=dryTimeOver60
+Press_Dry_Time_Over_90=dryTimeOver90
+Press_Dry_Time_Over_120=dryTimeOver120
+#Press_Spoilage= //a[text()='Spoilage']
+
+
+Press_Spoilage=  //div[@id='tabBar']/div[7]/span/a
+Press_Spoilage_Spoil_Over_30=spoilOver30
+Press_Spoilage_Spoil_Over_60=spoilOver60
+Press_Spoilage_Spoil_Over_90=spoilOver90
+Press_Spoilage_Spoil_Over_120=spoilOver120
+Press_Spoilage_Include_Run_Spoilage_In_Run=includeRunSpoilageInRunBooleanCheck
+Press_Spoilage_MakeReady_Gripper_Chnage_Sheets=makeReadyGripperChangeSheets
+#Press_Speed = //a[text()='Speed']
+Press_Speed = //div[@id='tabBar']/div[8]/span/a
+Press_Speed_More_Than_30=speedDecreaseOver30
+Press_Speed_More_Than_60=speedDecreaseOver60
+Press_Speed_More_Than_90=speedDecreaseOver90
+Press_Speed_More_Than_120=speedDecreaseOver120
+Press_Speed_Run_Activity_Code = runActivityCode
+Press_Speed_Min_Run_Time=minRunTime
+Press_Speed_MakeReady_LiftChange=makeReadyLiftChange
+Press_Speed_MakeReady_LiftChange_Sheets=makeReadyLiftChangeSheets
+Press_Speed_Roll_Change_Length=rollChangeLength
+Press_Plates= //a[text()='Plates']
+Press_Plates_Plates_Per_Revolution = platesPerRevolution
+Press_Min_Difficulty =minDifficulty
+Press_Max_Difficulty=maxDifficulty
+Press_Set_Up_Hours=setupHours
+Press_MaterialCost=materialCost
+Press_per_BurnHours=perBurnHours
+Press_Plate_Life=plateLife
+Press_Labor_Activity_Code=laborActivityCode
+Press_Materials_Activity_Code =materialActivityCode
+Press_Unit_Label =unitLabel
+Press_Make_Ready_Hours_No_Register=makeReadyHoursNoRegister
+Press_Make_Ready_Hours_Medium_Register=makeReadyHoursMediumRegister
+Press_Make_Ready_Hours_Tight_Register=makeReadyHoursTightRegister
+Press_Make_Ready_Sheets_No_Register=makeReadySheetsNoRegister
+Press_Make_Ready_Sheets_Medium_Register=makeReadySheetsMediumRegister
+Press_Make_Ready_Sheets_Tight_Register=makeReadySheetsTightRegister
+Press_Make_Ready_Plate_Size_W=plateSizeW
+Press_Make_Ready_Plate_Size_H=plateSizeH
+Press_Events= //a[text()='Events']
+
+
+#FolderSetup
+Folder_GeneralMinSize_Width =minSizeW
+Folder_GeneralMinSize_Lenght = minSizeH
+Folder_GeneralMaxSize_Width =maxSizeW
+Folder_GeneralMaxSize_Lenght = maxSizeH
+Folder_General_Default_NumUp =defaultNumUp
+Folder_General_Use_Advanced=useAdvancedBooleanCheck
+Folder_Setting= //div[@id='tabBar']/div[4]/span/a[text()='Settings']
+Folder_Settings_Max_Units = maxUnits
+Folder_Settings_Max_Plates=maxPlates
+Folder_Settings_First_Unit_Setup=firstUnitSetup
+Folder_Settings_First_Unit_Setup_Sheets=firstUnitSetupSheets
+Folder_Setting_First_Unit_Spoilage=firstUnitSpoilage
+Folder_Setting_First_Unit_Gap=firstUnitGap
+Folder_Settings_Additional_Unit_Setup=additionalUnitSetup
+Folder_Settings_Additional_Unit_Setup_Sheets=additionalUnitSetupSheets
+Folder_Setting_Additional_Spoilage=additionalUnitSpoilage
+Folder_Setting_Additional_Gap=additionalUnitGap
+Folder_Setting_SetUp_Each_Plate=firstPlateSetup
+Folder_Setting_SetUp_Sheets=plateSetupSheets
+Folder_Setting_Plate_Spoilage=plateSpoilage
+Folder_Setting_Lift_Change=liftChange
+Folder_Setting_Lift_Change_Sheets=liftChangeSheets
+Folder_Setting_Lift_Height=liftHeight
+
+
+Folder_Setting_Initial_Setup = initialSetup
+Folder_Setting_Parallel_Angel_Setup=parallelAngleSetup
+Folder_Setting_Parallel_Angel_Spoilage=parallelAngleSpoilage
+Folder_Setting_Right_Angle_Setup=rightAngleSetup
+Folder_Setting_Right_Angle_Spoilage=rightAngleSpoilage
+Folder_Setting_2_Right_Angle_Slow=rightAngleSlow2
+Folder_Setting_3_Right_Angle_Slow=rightAngleSlow3
+Folder_Setting_4_Right_Angle_Slow=rightAngleSlow4
+Folder_Setting_Can_Gate_Fold=canGateFold1BooleanCheck
+Folder_Speed = //a[text()='Speed']
+Folder_Speed_Add_In_Grid = addGridRow_FolderSpeeds
+Folder_Speed_Up_To_Size=FolderSpeeds.upToSize
+Folder_Speed_Speed=FolderSpeeds.speed
+Folder_Speed_Units_Per_Hour=unitsPerHour
+Folder_Speed_Per_Unit_Speed_Adjust=perUnitSpeedAdjust
+Folder_Speed_Per_Plate_Speed_Adjust=perPlateSpeedAdjust
+
+Folder_Adjustment = //a[text()='Adjustments']
+Folder_Adjustment_Gate_Fold_Setup=gateFoldSetup
+Folder_Adjustment_Gate_Fold_Setup_Sheets=gateFoldSetupSheets
+Folder_Adjustment_Gate_Fold_Speed_Adjust=gateFoldSpeedAdjust
+Folder_Adjustment_Gate_Fold_Spoilage=gateFoldSpoilage
+Folder_Adjustment_Score_Fold_Setup=scoreSetup
+Folder_Adjustment_Score_Fold_Setup_Sheets=scoreSetupSheets
+Folder_Adjustment_Score_Fold_Speed_Adjust=scoreSpeedAdjust
+Folder_Adjustment_Score_Fold_Spoilage=scoreSpoilage
+Folder_Adjustment_Perf_Fold_Setup=perfSetup
+Folder_Adjustment_Perf_Fold_Setup_Sheets=perfSetupSheets
+Folder_Adjustment_Perf_Fold_Speed_Adjust=perfSpeedAdjust
+Folder_Adjustment_Perf_Fold_Spoilage=perfSpoilage
+Folder_Adjustment_Slit_Fold_Setup=slitSetup
+Folder_Adjustment_Slit_Fold_Setup_Sheets=slitSetupSheets
+Folder_Adjustment_Slit_Fold_Speed_Adjust=slitSpeedAdjust
+Folder_Adjustment_Slit_Fold_Spoilage=slitSpoilage
+Folder_Adjustment_Glue_Fold_Setup=glueSetup
+Folder_Adjustment_Glue_Fold_Setup_Sheets=glueSetupSheets
+Folder_Adjustment_Glue_Fold_Speed_Adjust=glueSpeedAdjust
+Folder_Adjustment_Glue_Fold_Spoilage=glueSpoilage
+
+#EstimatePage
+
+Estimate_Number =estimateNumber
+Estimate_Des = estimateDescription
+Estimate_SalePerson = salesPerson
+Estimate_Estimator = estimator
+Estimate_Debug = debugBooleanCheck
+Estimate_Add_Opportunity = addCRMOpportunityBooleanCheck
+Estimate_Add_Activity = addCRMActivityBooleanCheck
+Estimate_PartInfo = //a[text()='art Info']
+Estimate_Category = category
+Estimate_Product = product
+Estimate_Composit_Product = compositeProduct
+Estimate_ProductionType= productionType
+Estimate_ComponentType = componentType
+Estimate_Part_Desc =partDescription
+Est_Addl_Desc = additionalDescription
+Est_FinalSize_W = finalSizeW
+Est_FinalSize_H = finalSizeH
+Est_Qty_1 = quantity1
+Est_Qty_Desc=quantity1Desc
+Est_Pages = pages
+Est_Fold_Pattern = foldPattern
+Est_Tile_Product=tileProductBooleanCheck
+Est_Each_Of = eachOf
+Est_Original_Piles = numPlies
+Est_PrePress = prepressWorkflow
+Est_Press_Event_Workflow = pressEventWorkflow
+Est_Grain_Specification = grainSpecifications
+Est_Gripper_Color_Bar=gripperColorBar
+Est_Spine_Bleed=bleedsAlong
+Est_Width_Bleed=bleedsAcross
+Est_Finishing=bindingMethod
+Est_Ship_Mail = shippingWorkflow
+Est_Diffculty = difficulty
+Est_Press = primaryPress
+Est_Run_Method=pressTypeRunMethod
+Est_Gangable_Checkbox = gangableBooleanCheck
+Est_Sales_Category = salesCategory
+Est_Price_Level = priceLevel
+Est_Commission_Rate = commissionRate
+Est_Speed_Factor_1 = key1
+Est_Price_List = priceList
+Est_Item_Category = itemCategory
+Est_Product_Type = productType
+Est_Item_Discount = itemDiscountPercent
+
+Est_Material_Tab = //a[text()='aterials']
+Est_Material_Type = materialType
+Est_Std_Type_Weight = standardPaperType
+Est_Paper_Type = paperType
+Est_Paper_Weight = weight
+Est_Paper_Desc = paperDescription
+Est_Price_UOM = paperPrice
+Est_USD = uom
+Est_Currency = altCurrencyPaper
+Est_Buy_Size_W = buySizeW
+Est_Buy_Size_H =buySizeH
+Est_Run_Size_W = runSizeW
+Est_Run_Size_H = runSizeH
+Est_Vendor =paperSource
+Est_Quote = paperQuoteNum
+Est_Quoted_price  = paperQuotedPrice
+Est_Ink_Default=inkDefault
+Est_S1 = colorsSide1
+Est_S2 =colorsSide2
+Est_Total=totalColors
+Est_Ink_Type = inkType
+Est_Press_Ink_Type = pressInkType
+Est_Ink_Coverage_Front = inkCoverageFront
+Est_Ink_Coverage_Back=inkCoverageBack
+Est_Costing=coating
+Est_Vanish = varnish
+Ink_Default_Ink_Coverage_Front_Specify=inkCoverageFrontSpecify
+Ink_Default_Ink_Coverage_Back_Specify=inkCoverageBackSpecify
+Ink_Default_Varnish_Sides=varnishSides
+Ink_Default_Coating_Dry=coatingDryBooleanCheck
+Ink_Default_Varnish_Dry=varnishDryBooleanCheck
+
+#Materials Type
+PaperSetup_BasicSizeW = basicSizeW
+PaperSetup_BasicSizeH = basicSizeH
+PaperSetup_Name	= //div/h4[contains(label,'Name')]/following-sibling::div/input
+PaperSetup_BasisSheets = basisSheets
+PaperSetup_Weight_UOM=weightUOM
+PaperSetup_Basis_Weight_Abbreviation=basisWeightAbbreviation
+
+PaperSetup_Standard_Paper_Type =standardPaperType
+PaperSetup_WeightType = weightType
+PaperSetup_Paper_Ink_Mileage=paperInkMileage
+PaperSetup_Front_Coating=frontCoating
+PaperSetup_Back_Coating=backCoating
+Whether_Coating_Is_Permitted_For_This_Paper_Type=coatable
+PaperSetup_Textture=texture
+PaperSetup_RecycledPercentage = recycledPercentage
+PaperSetup_Stock_May_Be_Cut_Down=stockMayBeCutDownBooleanCheck
+PaperSetup_Front_And_Back_Same=frontAndBackSameBooleanCheck
+PaperSetup_Allow_Perfecting=allowPerfectingBooleanCheck
+
+
+PaperSize_CartonQty = cartonQty
+PaperSize_RollDiameter=rollDiameter
+PaperSize_RollLength=rollLengthMetric
+PaperCost_Qty = PaperCost.quantity
+PaperCost_Price = PaperCost.price
+PaperCost_UOM = PaperCost.uom
+
+InKToner_InkType = inkType
+InKToner_PressInkType=pressInkType
+InKToner_SetUpCost =setupCost
+InKToner_SetUpAmount=setupAmount
+InKToner_CostPerUnit=costPerUnit
+InkToner_InkMileage = inkMileage
+InKToner_WashupFactor=washupFactor
+InKToner_RunSpoilage=runSpoilage
+InKToner_RunSpeed_Adjustment=runSpeedAdjustment
+InkToner_DefaultCoverage = //a[contains(text(),'Default Coverage')]
+InkToner_DefaultCoverage_Light=lightCoverage
+InkToner_DefaultCoverage_Medium=mediumCoverage
+InkToner_DefaultCoverage_Heavy=heavyCoverage
+
+#PrePress Workflow
+Prep_Workflow = prepMethod
+Prep_Material_Provided =materialProvided
+Prep_Bindery_Only=prepBinderyOnly
+Add_New_Prep_Activity_Record=//fieldset[@id='prepActivities_fieldset']/div[1]/div[1]/div[2]/input
+Prep_Activity_Sequence=prepActivities.sequence
+Prep_Activity_PerPress_Item=prepActivities.prepressItem
+Prep_Activity_Quantity_Calc_Method=prepActivities.quantityCalcMethod
+Prep_Activity_Estimate_Expression=prepActivities.estimateExpression
+Prep_Activity_Size_Calc_Method=prepActivities.sizeCalcMethod
+
+
+#PressEventWorkflow
+
+Link_Press_Event_Order_Status = pressEventWorkflowItem.sequence
+Link_Press_Event_Device_Capability = pressEventWorkflowItem.deviceCapability
+Link_Press_Event_Delete = pressEventWorkflowItem.deleteBooleanCheck
+
+
+
+#EstimateExpression 
+Estimate_Expression_Name	= //div/h4[contains(label,'Name')]/following-sibling::div/input
+Estimate_Expression_Calculation_Type =calculationType
+Estimate_Expression_Expression_Prepress=expressionPrepress
+Estimate_Expression_Expression_Finishing=expressionFinishing
+
+
+#EstimateFolderPatterns
+Folder_Pattern_Page = pages
+Folder_Pattern_Number = patternNumber
+Folder_Pattern_Binding_Side = bindingSide
+Folder_Pattern_jog_Side=jogSide
+Folder_Pattern_Jdftype=jdfType
+Folder_Pattern_Specs_Tab = //a[text()='Specs']
+Folder_Pattern_Num_Pages_Spine_Edge=numPagesSpineEdge
+Folder_Pattern_Num_Parallel_Folds=numParallelFolds
+Folder_Pattern_Number_Scores=numberScores
+Folder_Pattern_Additional_Folder_Setup_Hours=additionalFolderSetupHours
+Folder_Pattern_Num_Folder_Units=numFolderUnits
+Folder_Pattern_Num_Folder_Plates=numFolderPlates
+Folder_Pattern_Must_Gate_Fold=canGateFoldBooleanCheck
+Folder_Pattern_Must_Die_Cut=mustDieCutBooleanCheck
+Folder_Pattern_Num_Pages_Width_Edge=numPagesWidthEdge
+Folder_Pattern_Num_Parallel_Folds_Pass2=numParallelFoldsPass2
+Folder_Pattern_Min_Stock_Caliper=minStockCaliper
+Folder_Pattern_Num_Right_Angle_Folds=numRightAngleFolds
+Folder_Pattern_Number_Perfs=numberPerfs
+Folder_Pattern_Max_Stock_Caliper=maxStockCaliper
+Folder_Pattern_Num_Right_Angle_Folds_Pass2=numRightAngleFoldsPass2
+Folder_Pattern_Ask_Plies=askPliesBooleanCheck
+Folder_Pattern_Number_Slits=numberSlits
+Folder_Pattern_Number_Glues=numberGlues
+Folder_Pattern_Allowance_Tab=//a[text()='Allowances']
+Trim_Spine = trimSpine
+Trim_Face=trimFace
+Trim_Head=trimHead
+Trim_Foot=trimFoot
+Margin_Right=marginRight
+Bleeds_Spine=bleedsSpine
+Bleeds_Face=bleedsFace
+Bleeds_Head=bleedsHead
+Bleeds_Foot=bleedsFoot
+Margin_Bottom=marginBottom
+Tab_Spine=tabSpine
+Tab_Face=tabFace
+Tab_Head=tabHead
+Tab_Foot=tabFoot
+OddPanelsSpine=numOddPanelsSpine
+Odd_Panel_Spine=oddPanelSpineSize
+OddPanelsWidth=numOddPanelsWidth
+Odd_Panel_Width = oddPanelWidthSize
+Has_Spine=hasSpineBooleanCheck
+Spine_Size=spineSize
+
+
+#JobProductType
+JobProductType_ID	= //div/h4[contains(label,'Product Type ID')]/following-sibling::div/input
+JobProductType_Settings_Pages=numPages
+JobProductType_Settings_Fold_Pattern=itemsFoldPattern
+JobProductType_Settings_Gangable =gangableBooleanCheck
+JobProductType_Settings_SecondWeb=secondWebBooleanCheck
+
+
+#Prepress item
+Activity_Code_Labor= activityCodeLabor
+Activity_Code_Materials=activityCodeMaterials
+Prepress_Type = prepressType
+Prepress_Unit_Label=unitLabel
+Prepress_Group = prepressGroup
+Min_Colors = minColors
+Max_Colors=maxColors
+Add_New_Prepress_Size = //fieldset[@id='prepressSize_fieldset']/div[1]/div[1]/div[2]/input
+Add_New_Prepress_Cost=//fieldset[@id='prepressCosts_fieldset']/div[1]/div[1]/div[2]/input
+Qty_Up_To = prepressCosts.quantity
+Set_Up_Hours=prepressCosts.setupHours
+Hours=prepressCosts.hours
+MaterialCost=prepressCosts.materialCost
+Use_Sizes_Chechbox = useSizesBooleanCheck
+
+
+#FinishingOperation
+Minimum_Run_Cost=minimumRunCost
+Customer_Viewable_Checkbox=customerViewableBooleanCheck
+Operation_Type=operationType
+Finishing_Group=finishingGroup
+Note=note
+NumUp=numUp
+Number_Helpers=numberHelpers
+Materials_Activity_Code=materialsActivityCode
+Quantity_Multiplier=quantityMultiplier
+Machine_Selection=//a[text()='Machine Selection']
+Machine_Selection_Cutter=cutter
+Machine_Selection_Folder=folder
+Machine_Selection_Binder=binder
+Machine_Selection_Three_Knife=threeKnife
+Machine_Selection_Padding=padding
+Specification=//a[text()='Specifications']
+Specification_Setup_Material_Cost=setupMaterialCost
+Specification_Material_Cost_PerM=materialCostPerM
+Specification_Make_Ready_Spoilage=makeReadySpoilage
+Specification_Setup_Time=setupTime
+Specification_Quantity=quantity
+Specification_Setup_Per_Signature=setupPerSignature
+Specification_Rounding_Mode=roundingMode
+Specification_Quantity_Calc_Method=quantityCalcMethod
+Finishing_operation_Other_Settings=//a[text()='Other Settings']
+Other_Settings_Rotate_Stack=rotateStackBooleanCheck
+Other_Settings_Stack_Amount=stackAmount
+Other_Settings_Cover_Fold_Width=coverFoldWidth
+Other_Settings_Numbering_Start=numberingStart
+
+
+#CutterSetup
+Max_Height=maxHeight
+Max_Weight=maxWeight
+Base_Setup_hours=baseSetupHours
+Additional_Setup_Per_Cut=additionalSetupPerCut
+Build_Lift_Time=buildLiftTime
+Per_Cut_Time=perCutTime
+Run_Spoilage_Percent=runSpoilagePercent
+Min_Cuts_Checkbox=minCutsBooleanCheck
+
+#BinderSEtup
+NumPockets=numPockets
+PocketSetup=pocketSetup
+BaseMakeReady=baseMakeReady
+PocketMakeReady=pocketMakeReady
+BaseSetup=baseSetup
+Cover_Feeder=coverFeederBooleanCheck
+
+#PaddingSetup
+Min_Bound_Edge_FinalSize=minBoundEdgeFinalSize
+Max_Bound_Edge_FinalSize=maxBoundEdgeFinalSize
+Make_Ready_Hours=makeReadyHours
+Pad_Speed_Per_Hour=padSpeedPerHour
+Material_Cost_Per_MPads=materialCostPerMPads
+
+#KnifeSetup
+Lifts_Per_Hour=liftsPerHour
+
+# Estimate Setup
+Base_Price_Level =basePriceLevel
+
+#Estimate Convert
+EstimateConvert_UpdateJobInfo = updateJobInfoBooleanCheck
+EstimateConvert_RemoveExtraJobParts = removeExtraJobPartsBooleanCheck
+
+#Customer 
+Customer_Id =//div/h4[contains(label,'Customer ID')]/following-sibling::div/Input 
+Customer_Name = custName
+Customer_FirstName = contactFirstName
+Customer_LastName=contactLastName
+Customer_Add1 =address1
+Customer_Add2=address2
+Customer_Add3=address3
+Customer_Phone = phoneNumber
+Customer_City = city
+Customer_SalesPerson = salesPerson
+Customer_Tax_Info = //a[text()='Tax Info']
+Customer_Sale_Category = salesCategory
+Customer_PickUp = //div/h4[contains(label,'Customer')]/following-sibling::div/div[3]
+Customer_Email = email
+
+#Account Payable
+AP_Settings_Default_Tab=//a[text()='Defaults']
+AP_Settings_Default_Terms=defaultTerms
+AP_Settings_Default_Vendor_Type=defaultVendorType
+AP_Settings_Default_1099_Type=default1099Type
+AP_Contact_LookupHint = lookupHint
+AP_Contact_Department =department
+AP_Contact_Company=companyName
+AP_Contact_Customer_Vendor_Info=//a[text()='Customer/Vendor Info']
+AP_Contact_Recent_Notes= //a[text()='Recent Notes']
+
+#EnterPaymentDetails
+InvoiceNumber = invoiceNumber
+PaymentDate=paymentDate
+CheckNumber=checkNumber
+BankAccount=bankAccount
+Amount_Currency=currencyAwareAmount
+Amount_Currency_Dropdown=currencyAwareAmountaltCurrency
+Method=receivableSelectionMethod
+DepositeBooleanCheck=depositBooleanCheck
+MiscReceiptBooleanCheck=miscReceiptBooleanCheck
+ApprovedBooleanCheck=approvedBooleanCheck
+
+
+#JobBilling
+EntryType = entryType
+JobBilling_Extra_Type_Sales_Category = salesCategory
+JobBilling_Extra_Type_Extra_Category = extraCategory
+InvoiceType= invoiceType
+InvoiceBatch=invoiceBatch
+SaleDistributionMethod =salesDistributionMethod
+DistributeTaxBooleanCheckBox=distributeTaxBooleanCheck
+PartiallyBillBooleanCheckBox=partiallyBillBooleanCheck
+CloseJobBooleanCheckBox=closeJobBooleanCheck
+PrecentWipToRelieve=percentWipToRelieve
+Job_Billing_Credit_Check =creditCheck
+Job_Billing_Consolidate_Invoices =consolidateInvoices
+Job_Billing_Change_Order=changeOrder
+Job_Billing_Commission_Basis_Type=commissionBasisType
+
+
+
+#DSF_Pace_Integration
+DSF_Logo = ctl00$ctl00$EFILogoImage
+DSF_UserName = ctl00$ctl00$C$W$_loginWP$_myLogin$_userNameTB
+DSF_Password = ctl00$ctl00$C$W$_loginWP$_myLogin$_passwordTB
+DSF_Login = ctl00$ctl00$C$W$_loginWP$_myLogin$Login
+Administration = //a[@href='Admin/AdminHome.aspx']
+Administration_Company = //div[@id='ctl00_ctl00_Tabs']/table/tbody/tr[2]/td[2]/a
+License = //a[@id='ctl00_ctl00_C_M_LinkColumn4_RepeaterCategories_ctl00_RepeaterItems_ctl09_HyperLinkItem']
+Fulfillment = //input[@id='ctl00_ctl00_C_M_platformOptions_ctl04_checkboxOption' and @checked='checked']
+
+License_String = ctl00$ctl00$C$M$TextBox1
+Manage_Communication_Channel = //a[@id='ctl00_ctl00_C_M_LinkColumn1_RepeaterCategories_ctl04_RepeaterItems_ctl00_HyperLinkItem']
+Add_New_Channel = //input[@id='ctl00_ctl00_C_M_btnAddNew']
+Channel_Type = //select[@id='ctl00_ctl00_C_M_ddlChannelTypes']
+Channel_Name = //input[@id='ctl00_ctl00_C_M_txtName']
+Channel_Description = //textarea[@id='ctl00_ctl00_C_M_txtDescription']
+Site_Default_Certificate = //input[@id='ctl00_ctl00_C_M_rdbSiteCert']
+Configuration_URL = //input[@id='ctl00_ctl00_C_M_txtConfigUrl']
+Register_New_Communication_Channel = ctl00$ctl00$C$M$btnSave
+Message_Table_Success = //table[@id='ctl00_ctl00_C_M_tblSuccess']/tbody/tr/td
+Message_Table_Failure = //table[2]/tbody/tr/td/table[@id='ctl00_ctl00_C_M_tblFailure']
+Check_Status = ctl00$ctl00$C$M$btnCheckStatus
+Unregister_Channel = ctl00$ctl00$C$M$btnUnregister
+Back_Channel = ctl00$ctl00$C$M$btnCancelAdd
+MIS_Systems = //a[@id='ctl00_ctl00_C_M_LinkColumn1_RepeaterCategories_ctl03_RepeaterItems_ctl01_HyperLinkItem']
+Add_New_MIS = ctl00$ctl00$C$M$ButtonAddAccount
+MIS_Type = ctl00$ctl00$C$M$DropDownListMISType
+MIS_Name = ctl00$ctl00$C$M$txtName
+MIS_Description = ctl00$ctl00$C$M$TextBoxMISDescription
+Routing_Identifier = ctl00$ctl00$C$M$TextBoxRoutingIdentifier
+Communication_Channel = ctl00$ctl00$C$M$ddlCommunicationChannels
+Asynchronous_Order_Submission = ctl00$ctl00$C$M$CheckBoxAsyncOrderSubmission
+Accepts_Single_Order = ctl00$ctl00$C$M$CheckBoxSingleOrder
+Update_Order_With_Final_Invoice = ctl00$ctl00$C$M$CheckBoxDoesBilling
+Display_MIS_Shipping_Amounts = ctl00$ctl00$C$M$CheckBoxDisplayMISShippingAmountsToBuyer
+MIS_URL = ctl00$ctl00$C$M$TxtMISURL
+MIS_User_Name = ctl00$ctl00$C$M$TxtMISUserName
+MIS_Password = ctl00$ctl00$C$M$TxtMISPassword
+MIS_Save = ctl00$ctl00$C$M$ButtonSave
+MIS_Register = ctl00$ctl00$C$M$ButtonRegisterWithMIS
+Print_Shops = //a[@id='ctl00_ctl00_C_M_LinkColumn1_RepeaterCategories_ctl02_RepeaterItems_ctl00_HyperLinkItem']
+Add_New_Print_Shop = ctl00$ctl00$C$M$LinkButtonNewFacility
+Print_Shop_Name = ctl00$ctl00$C$M$TextBoxDescription
+Accounting_Codes = ctl00$ctl00$C$M$CheckBoxListPaymentMethods$0
+Cost_Center = ctl00$ctl00$C$M$CheckBoxListPaymentMethods$1
+Credit_Card_Payment_Method = ctl00$ctl00$C$M$CheckBoxListPaymentMethods$2
+Other_Account = ctl00$ctl00$C$M$CheckBoxListPaymentMethods$3
+Pay_At_Store_Payment_Method = ctl00$ctl00$C$M$CheckBoxListPaymentMethods$4
+Pay_Pal = ctl00$ctl00$C$M$CheckBoxListPaymentMethods$5
+PO_Number_Payment_Method = ctl00$ctl00$C$M$CheckBoxListPaymentMethods$6
+Default_Payment_Method = ctl00$ctl00$C$M$DropDownDefaultPaymentMethod
+MIS_System_Checkbox = //input[@id='ctl00_ctl00_C_M_MIS_ChoiceIsOneOfThese']
+MIS_Dropdown = //select[@id='ctl00_ctl00_C_M_MIS_DropDownList1']
+PrintShop_Save = ctl00$ctl00$C$M$ButtonSave
+Contact_Information = //a[@id='ctl00_ctl00_C_M_LinkButtonEditContactInformation']
+Contact_Information_First_Name = ctl00$ctl00$C$M$ContactInformation1$textBoxFirstName
+Contact_Information_Last_Name = ctl00$ctl00$C$M$ContactInformation1$textBoxLastName
+Contact_Information_Addrss_1 = ctl00$ctl00$C$M$ContactInformation1$textBoxAddress1
+Contact_Information_City = ctl00$ctl00$C$M$ContactInformation1$textBoxCity
+Contact_Information_Zip_Code = ctl00$ctl00$C$M$ContactInformation1$textBoxZipPostalCode
+Contact_Information_Save = ctl00$ctl00$C$M$ButtonEditContactSave
+DSF_Customer_Name = custName
+DSF_Customer_Status = customerStatus 
+DSF_Contact_First_Name = contactFirstName 
+DSF_Contact_Last_Name = contactLastName
+DSF_Address1 = address1
+DSF_Phone = phoneNumber
+DSF_PaceConnect_Tab = //div[@id='tabBar']/div[8]/span/a
+DSF_Customer_Checkbox = dsfCustomerBooleanCheck
+DSF_Customer_ID = //fieldset[@class='header']/div[1]/div[1]/div[1]/div[1]
+DSF_Shared_Checkbox = dsfShared
+Active_Check = activeBooleanCheck
+Customer_Active = customerActiveBooleanCheck
+Credit_Hold = creditHoldBooleanCheck
+Customer_Search = searchField
+Customer_Context_Menu = //div[@id = 'contextBar']/span/a[2]
+Chargeback_Account_Number = accountNumber
+Chargeback_Account_Expiration_Date = expirationDate
+DSF_Delivery_Method = dsfDeliveryMethodBooleanCheck
+DSF_Companies = //a[@id='ctl00_ctl00_C_M_LinkColumn1_RepeaterCategories_ctl01_RepeaterItems_ctl00_HyperLinkItem']
+DSF_Company_Search = ctl00$ctl00$C$M$TextBoxSearch
+DSF_Company_Search_Button = ctl00$ctl00$C$M$ButtonSearch 
+Cost_Center_View = //a[@id='ctl00_ctl00_C_M_LinkButtonManageCostCenters']
+Cost_Center_Table = //table[@id='ctl00_ctl00_C_M_dataGridBillingEntities']/tbody/tr[2]/td[1]
+DSF_Delivery_Methods = //a[@id='ctl00_ctl00_C_M_LinkColumn4_RepeaterCategories_ctl00_RepeaterItems_ctl06_HyperLinkItem']
+DSF_Item_Description = description
+DSF_Paper = paperBooleanCheck 
+DSF_Catalog_Item = dsfCatalogItemBooleanCheck
+DSF_Products = //a[@id='ctl00_ctl00_C_M_LinkColumn3_RepeaterCategories_ctl00_RepeaterItems_ctl06_HyperLinkItem']
+DSF_Products_Search = ctl00$ctl00$C$M$TextBoxSearch
+DSF_Products_Search_Button = ctl00$ctl00$C$M$ButtonSearch
+DSF_Settings = //a[@id='ctl00_ctl00_C_M_ctl00_W_ctl01_RadTabStrip1_TabSettings']/span/span
+DSF_Inventory_Qty = ctl00$ctl00$C$M$ctl00$W$ctl01$txtInventory
+DSF_Create_Product = ctl00$ctl00$C$M$ButtonCreateProduct
+DSF_Product_Name = ctl00$ctl00$C$M$txtName
+DSF_Product_Type = ctl00$ctl00$C$M$drpProductTypes
+DSF_Next = ctl00$ctl00$C$M$btnNext
+DSF_Product_Next = ctl00$ctl00$C$M$ctl00$W$StartNavigationTemplateContainerID$Button1
+DSF_Add_File = ctl00$ctl00$C$M$ctl00$W$ctl02$Savedfiles1$btnAddFile
+DSF_Product_Setting_Next = ctl00$ctl00$C$M$ctl00$W$StepNavigationTemplateContainerID$StepNextButton
+DSF_Ticket_Dropdown = ctl00$ctl00$C$M$ctl00$W$ctl03$TicketTemplates
+DSF_Ticket_Dropdown_AdHoc = ctl00$ctl00$C$M$ctl00$W$ctl02$TicketTemplates
+DSF_Finish = ctl00$ctl00$C$M$ctl00$W$FinishNavigationTemplateContainerID$FinishButton
+DSF_Publish = //a[@id='ctl00_ctl00_C_M_ctl00_W_ctl04_HLPublish']
+DSF_Publish_AdHoc = //a[@id='ctl00_ctl00_C_M_ctl00_W_ctl03_HLPublish']
+DSF_ePace_Storefront = //div[@id='ctl00_ctl00_C_M_ctl00_W_ctl04_CategoryPopup_Categories_RadTreeView1_t0_t0']/span
+DSF_ePace_Storefront_AdHoc = //div[@id='ctl00_ctl00_C_M_ctl00_W_ctl03_CategoryPopup_Categories_RadTreeView1_t0_t0']/span
+DSF_Product_Publish = ctl00$ctl00$C$M$ctl00$W$ctl04$CategoryPopup$ButtonOK
+DSF_Product_Publish_AdHoc = ctl00$ctl00$C$M$ctl00$W$ctl03$CategoryPopup$ButtonOK
+DSF_Publish_Done = ctl00$ctl00$C$M$ctl00$W$ctl04$_Done
+DSF_Publish_Done_AdHoc = ctl00$ctl00$C$M$ctl00$W$ctl03$_Done
+DSF_Storefront = //div[@id='ctl00_ctl00_Tabs']/table/tbody/tr[2]/td[1]/a
+DSF_Storefront_Place_Order = //div[@id='ctl00_Tabs']/table/tbody/tr[2]/td[1]/a
+DSF_Show_Products_Dropdown = ctl00$ctl00$C$W$_FeaturedProductDisplayControlWP$_myFeaturedProducts$PagerUI1$PageSizesDropDown
+DSF_Product_Qty = ctl00$C$ctl00$ctl00$ItemQuantityControl$TextBoxQuantity
+DSF_Order_Next = //input[@id='ctl00_C_ctl00_W_StartNavigationTemplateContainerID_Button1']
+DSF_Add_To_Cart = ctl00$C$ctl00$W$FinishNavigationTemplateContainerID$FinishButton
+DSF_Shipping_Method = ctl00$C$DataGrid_Recipients$ctl02$ShoppingCart_DisplayRecipient$DropDownListDeliveryMethod
+DSF_Checkout = //div[@id='ctl00_C_DivPlaceOrderBottom']/a[@id='ctl00_C_ButtonPlaceOrderBottom']/span[@id='ctl00_C_spanButtonPlaceOrderBottom']
+DSF_Checkout_Top = //div[@id='ctl00_C_DivPlaceOrderTop']/a[@id='ctl00_C_ButtonPlaceOrderTop']/span[@id='ctl00_C_spanButtonPlaceOrderTop']
+DSF_Payment_Method = ctl00$C$CheckoutPaymentMethodControl$DropDownListPaymentMethod
+DSF_Payment_Method_Next = ctl00$C$ButtonPaymentContinue
+DSF_Place_Order = ctl00$C$ButtonPlaceOrderTop
+DSF_Continue_Shopping = //div[@class='cart-no-items ng-scope']/a/span[@class='ng-binding']
+DSF_PO_Number = ctl00$C$CheckoutPaymentMethodControl$txtPONum
+DSF_Account_Number = ctl00$C$CheckoutPaymentMethodControl$TextBoxFreeformAccountNumber
+DSF_Purchase_Order_Number = ctl00$C$CheckoutPaymentMethodControl$TextBoxPONumber   
+MIS_Payment_Method = //div[@id='contents']/div[4]/fieldset[3]/div[1]/div[1]/div[1]/div[1]/div[1]
+MIS_Job_Search = //div[1]/div[2]/div/select
+MIS_Job_Num = //fieldset[1]/div[1]/div[1]/div[1]/div[1]/div[1]
+MIS_Job_Parts_Info = //div[@id='tabBar']/div[2]/span/a
+MIS_Billing_Info = //div[@id='tabBar']/div[4]/span/a
+MIS_Total_Records = //fieldset[@id='shipmentGrid_fieldset']/div/div[1]/div/strong
+MIS_Ship_Via = shipVia
+MIS_Shipment_Address = //a[@id='shipmentAddress']
+MIS_Company = addContact_companyName
+MIS_Ship_To_Contact = jobContact_jobContact
+DSF_Search =ctl00_ctl00_C_W__searchControlWP__search_txtSearch
+DSF_Search_Go=ctl00_ctl00_C_W__searchControlWP__search_btnSearch
+DSF_Shipments_Company = ctl00$C$DataGrid_Recipients$ctl02$ShoppingCart_DisplayRecipient$TextBoxCompany
+DSF_First_Name = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$TextBoxFirstName
+DSF_Last_Name = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$TextBoxLastName
+DSF_Shipments_Email = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$TextBoxEmailAddress
+DSF_Shipments_Address = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$TextBoxAddressLineOne
+DSF_Shipments_City = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$TextBoxCity
+DSF_Shipments_State = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$DropDownListStateProvinceRegion
+DSF_Shipments_ZIP = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$TextBoxPostalCode 
+DSF_Shipments_Country = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$DropDownListCountries 
+DSF_Shipments_Method = ctl00$C$DataGrid_Recipients$ctl02$ShoppingCart_DisplayRecipient$DropDownListDeliveryMethod
+DSF_Shipments_Save = //input[@id='ctl00_C_DataGrid_Recipients_ctl02_ShoppingCart_DisplayRecipient_ButtonDeliveryAddressSaveRecipient']
+DSF_Add_Another_Recipient = ctl00$C$ButtonAddAnotherRecipient
+DSF_Shipments_Save_1 = //input[@id='ctl00_C_DataGrid_Recipients_ctl03_ShoppingCart_DisplayRecipient_ButtonDeliveryAddressSaveRecipient']
+DSF_Shipments_Method_1 = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$DropDownListDeliveryMethod
+DSF_Qty_1 = ctl00$C$DataGrid_Recipients$ctl02$ShoppingCart_DisplayRecipient$DataGrid_OrderItems$ctl02$CartItemQuantityControl$TextBoxQuantity
+DSF_Qty_2 = ctl00$C$DataGrid_Recipients$ctl02$ShoppingCart_DisplayRecipient$DataGrid_OrderItems$ctl03$CartItemQuantityControl$TextBoxQuantity
+DSF_Qty_3 = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$DataGrid_OrderItems$ctl02$CartItemQuantityControl$TextBoxQuantity 
+DSF_Qty_4 = ctl00$C$DataGrid_Recipients$ctl03$ShoppingCart_DisplayRecipient$DataGrid_OrderItems$ctl03$CartItemQuantityControl$TextBoxQuantity 
+DSF_Update_Price = //a[@id='ctl00_C_LinkButtonUpdatePriceBottom']
+DSF_Product_ID = ctl00$ctl00$C$M$ctl00$W$ctl01$_SKU
+DSF_AdHoc_Settings = //a[@id='ctl00_ctl00_C_M_ctl00_W_ctl01_RadTabStrip1_TabSettings']/span/span
+DSF_HTML_Interface = ctl00$ctl00$C$M$ctl00$W$ctl01$rblShowFlexTBSYesNo
+DSF_ADHoc_Information = //a[@id='ctl00_ctl00_C_M_ctl00_W_ctl01_RadTabStrip1_TabInfo']/span/span
+DSF_AdHoc_Pages = ctl00$C$ctl00$ctl00$txtNoOfPageDefault
+DSF_AdHoc_Job_Name = ctl00$C$ctl00$ctl00$txtJobName
+DSF_AdHoc_Upload_Files = //tbody[1]/tr[1]/td[2]/a[@id='lnkFile']
+DSF_AdHoc_Add_File = ctl00$C$ctl00$W$ctl01$FilesPanel1$Filecontrol1$Savedfiles1$btnAddFile
+DSF_Web_Shipment = webShipmentBooleanCheck
+DSF_Planned = plannedBooleanCheck
+DSF_Shipment_Type_Dropdown = shipmentTypefieldIteration0
+DSF_Order_Status = //td[@id='ctl00_ctl00_RightHandMenun4']/table/tbody/tr/td/a
+MIS_JobStatus_Settings = //div[@id='tabBar']/div[2]/span/a
+MIS_DSF_Completed = dsfCompletedBooleanCheck
+MIS_DSF_Cancelled = dsfCancelledBooleanCheck
+MIS_External_Status = externalStatus
+DSF_Change_Print_Shop = ctl00$ctl00$C$W$_myLocationWP$_myLocation$HyperLinkChange
+DSF_Selected_PrintShop = //span[@id='ctl00_ctl00_C_W__myLocationWP__myLocation_CompFacilityAddrCtrl_LabelFacilityName']
+DSF_Change_Print_Shop_OK = ctl00$ctl00$C$W$_myLocationWP$_myLocation$FacilityPickerPopup$btnOK
+DSF_My_Account = //td[@id='ctl00_ctl00_RightHandMenun2']/table/tbody/tr/td/a
+DSF_My_Account_Edit = ctl00$C$editProfileButton
+DSF_My_Account_First_Name = //input[@id='ctl00_C_contactInformationControl_textBoxFirstName']
+DSF_My_Account_Last_Name = ctl00$C$contactInformationControl$textBoxLastName
+DSF_My_Account_Company = ctl00$C$contactInformationControl$TextBoxCompany
+DSF_My_Account_Save = ctl00$C$buttonSaveProfile
+DSF_My_Account_View_Company = //tr[@id='ctl00_C_userProfile_View_Row_Company']/td[2]
+DSF_Users = //a[@id='ctl00_ctl00_C_M_LinkColumn2_RepeaterCategories_ctl00_RepeaterItems_ctl03_HyperLinkItem']
+DSF_Users_Dropdown = ctl00$ctl00$C$M$DropDownListFilterBy
+DSF_Users_Textbox = ctl00$ctl00$C$M$TextBoxFilter
+DSF_Users_Find = ctl00$ctl00$C$M$ButtonFilter
+MIS_DSF_Product_Types = //div[@id='buttonbox']/a[2]
+MIS_Product_Type = productType
+MIS_DSF_Mapping = //div[@id='tabBar']/div[7]/span/a
+MIS_DSF_Connect_Setup = //div[@id='tabBar']/div[6]/span/a
+MIS_DSF_Execution_Options = //div[@id='tabBar']/div[3]/span/a
+MIS_DSF_License_Mode = //div[@id='contents']/div[6]/div[1]/div[1]/div[1]/div[1]
+MIS_Default_Shipment_Type = DSFDefaultShipmentType
+MIS_Create_Cartons = createCartonsBooleanCheck
+MIS_Shipping_Invoice = estimatedShippingInvoiceExtraType
+MIS_Handling_Invoice = handlingInvoiceExtraType
+MIS_Event_Executions = //fieldset[@id='EventHandlerExecuteConnectDefinition_fieldset']/div/div[1]/div[1]/strong
+MIS_Job_Number = job
+MIS_PO_Number = poNumber
+MIS_Distribute_Tax = distributeTaxBooleanCheck
+MIS_Partially_Bill = partiallyBillBooleanCheck
+MIS_Close_Job = closeJobBooleanCheck
+MIS_Invoice_Batch = invoiceBatch
+MIS_Approved = approvedBooleanCheck
+MIS_Approved_Batches = batchType
+MIS_Invoice_Date = date
+MIS_Process_Invoice_Batches = //div[@id='buttonbox']/input[@value='Process Invoice Batches']
+MIS_Post_Invoice_Batches = //div[@id='buttonbox']/input[@value='Post Invoice Batches']
+
+DSF_Storefront1 = //div[@id='ctl00_Tabs']/table/tbody/tr[2]/td[1]/a
+Home_Administrator=//div/table/tbody/tr[2]/td[2]/a[@class='sectionTabLink']
+
+
+Kit_Add_Button = ctl00_ctl00_C_M_ctl00_W_ctl02_btnAddKitPart
+Kit_Product_Search = ctl00_ctl00_C_M_ctl00_W_ctl02_AddKitPartsPopup_Products_TextBoxSearch
+KIT_Search = ctl00_ctl00_C_M_ctl00_W_ctl02_AddKitPartsPopup_Products_ButtonSearch
+KIT_Product_Add_button = //Input[contains(@id,'AddKitPartsPopup_ButtonOK')]
+Products_In_Kit = //a[span[contains(text(),'Products in Kit')]]
+KIT_Job_Name = TxtKitJobName
+KIT_QTY = //table[@class='kit-jobs-quantity']/tbody/tr/td/ng-quantity-control/div/Input
+Kit_Add_to_Cart = //button[contains(text(),'Add to Cart')]
+Add_New_Product =ctl00_ctl00_C_M_ButtonCreateProduct
+Product_Search_TextBox 			= 	ctl00_ctl00_C_M_TextBoxSearch
+Product_Find_Button 			= 	ctl00_ctl00_C_M_ButtonSearch
+Product_Show_DropDown 			= 	ctl00_ctl00_C_M_TopPagerUI_PageSizesDropDown
+Product_Delete_Button 			= 	ctl00_ctl00_C_M_ButtonDelete_Bottom
+Product_Publish_Button			=	ctl00_ctl00_C_M_ButtonPublish_Bottom
+Product_Copy_Button				=	ButtonCopy_Bottom
+Product_Create_Product_Button	=	ctl00_ctl00_C_M_ButtonCreateProduct
+Product_Name					=	ctl00_ctl00_C_M_txtName
+Product_Type					=	ctl00_ctl00_C_M_drpProductTypes
+Product_Next					=	ctl00_ctl00_C_M_btnNext
+Product_Finish					=	ctl00_ctl00_C_M_ctl00_W_FinishNavigationTemplateContainerID_FinishButton
+ProductDetails 					=  //a/span/span[contains(text(),'Details')]                  
+Product_Publish_It				=	ctl00_ctl00_C_M_ctl00_W_ctl02_HLPublish
+#Product Auction Inc Settings
+SubWidth = ctl00_ctl00_C_M_ctl00_W_ctl01_DimensionCtrl__X__Length
+SubLength = ctl00_ctl00_C_M_ctl00_W_ctl01_DimensionCtrl__Y__Length
+SubHeight = ctl00_ctl00_C_M_ctl00_W_ctl01_DimensionCtrl__Z__Length
+QtyPerPack = ctl00_ctl00_C_M_ctl00_W_ctl01_WeightCtrl__Weight
+Product_Done					=	ctl00_ctl00_C_M_ctl00_W_ctl02__Done
+Product_Publish_Storefront 	=	 //div[@id='ctl00_ctl00_C_M_ctl00_W_ctl02_CategoryPopup_Categories_RadTreeView1_t0_t0']/span[text()='Storefront']
+Product_Publish				=	ctl00_ctl00_C_M_ctl00_W_ctl02_CategoryPopup_ButtonOK
+Product_Publish_Search		=	ctl00_ctl00_C_M_ctl00_W_ctl02_CategoryPopup_Categories_tbSearchText
+Product_Find				=	ctl00_ctl00_C_M_ctl00_W_ctl02_CategoryPopup_Categories_bnSearch
+Product_Select_RadioButton	=	ctl00_ctl00_C_M_ctl00_W_ctl02_CategoryPopup_Categories_CategoryListSearch_GridCategories_select1
+
+StaticBrowse = ctl00_ctl00_C_M_ctl00_W_ctl02_Fileupload1_htmlInputFileUpload
+StaticFileUpload = ctl00_ctl00_C_M_ctl00_W_ctl02_Fileupload1_ButtonUpload
+ChooseTicketTemplate = ctl00_ctl00_C_M_ctl00_W_ctl03_TicketTemplates
+ProductId = ctl00_ctl00_C_M_ctl00_W_ctl01__SKU
+ProductAlreadyExists = ctl00_ctl00_C_M__ItemNameMustBeUnique
+NextInformation = ctl00_ctl00_C_M_ctl00_W_StartNavigationTemplateContainerID_Button1
+NextFileUpload = ctl00_ctl00_C_M_ctl00_W_StepNavigationTemplateContainerID_StepNextButton
+PublishProduct = //td/a[contains(text(),"Publish It")]
+SearchProductPublish = //input[contains(@id,'CategoryPopup_Categories_tbSearchText')]
+
+PublishProductFind = //input[contains(@id,'CategoryPopup_Categories_bnSearch')]
+StorefrontSelectRadio = //input[contains(@name,'PublishingCategoryPicker$Categories$CategoryListSearch_dg_RadioButtonSelect')]
+PublishProductOk = //input[contains(@id,'CategoryPopup_ButtonOK')]
+TTSelection = //td/select[contains(@id,'TicketTemplates')]
+
+ProductSettings = //a/span/span[contains(text(),'Settings')]
+ProductPricing = //a/span/span[contains(text(),'Pricing')]
+ProdRegualPrice = tbl_0_PriceCatalog_regularprice_1
+ProdSetupPrice = tbl_0_PriceCatalog_setupprice_1
+CopyAll = //div[contains(descendant::*, 'Default Price Sheet') and @class="ctr-contentcontainer"]//img[contains(@src,'icon_copy.gif')]
+#PasteAll = //div[contains(descendant::*, 'Default Price Sheet') and @class="ctr-contentcontainer"]//img[contains(@src,'icon_paste_all_dis.gif')]
+PasteAll =  //div[contains(descendant::*, 'Default Price Sheet') and @class='ctr-contentcontainer']//img[@onclick='javascript:pasteallIPriceCatalog();']
+
+TATRadioNone = //td/input[contains(@id,'TurnAroundTimeCtrl_rdbNone')]
+TATRadioValue = //td/input[contains(@id,'TurnAroundTimeCtrl_rdbValue')]
+TATValue = //input[contains(@id,'TurnAroundTimeCtrl__Value')]
+TATDuration = //select[contains(@id,'TurnAroundTimeCtrl__Unit')]
+ProductDone = //input[contains(@id,'__Done')]
+
+
+#Product Quantities
+ByMultiples = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__Multiples
+Minimum = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__Minimum
+Maximum = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__Maximum
+Multiple = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__Multiple
+AllowBuyerToEdit = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__AllowBuyerToEditQty
+
+FixedQuantity = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__FixedQuantities
+FixedLevelOne = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__FixedQuantitiesValues_ctl02__Value
+FixedUpdateOne = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__FixedQuantitiesValues_ctl02_LinkButton1
+
+
+ProductKeywords = ctl00_ctl00_C_M_ctl00_W_ctl01__Keywords
+
+
+
+#DSF
+PrintShopsList	= ctl00_ctl00_C_M_TopPagerUI_PageSizesDropDown
+
+
+#NewlyAdded
+Estimate_New_Job = //div[@id='contents']/div/div[1]/div[1]/div/input[@value='New Job']
+Estimate_Existing_Job = //div[@id='contents']/div/div[1]/div[1]/div/input[@value='Existing Job']
+
+
+## New Additions
+Default_Inventory_Unit_Price = defaultInventoryUnitPrice
+
+#Job Planning
+Job_Part = jobPart
+Job_Component = jobComponent
+Manufacturing_Location = manufacturingLocation
+JobPlanning_ActivityCode = activityCode
+Start_Date = startDate
+Start_Time = startTime
+End_Time = endTime
+End_Date = endDate
+Earliest_StartDate = earliestStartDate
+Earliest_StartTime = earliestStartTime
+Planned_Hours = plannedHours
+Priority = priority
+Assigned_To = assignedTo
+Predecessor = predecessor
+Run = run
+Job_Part_Press = jobPartPressForm
+Actual_Times = Actual Times
+Estimated_Entries = Estimated Entries
+Actual_Entries = Actual Entries(Unposted/Posted)
+Stop_Time = stopTime
+Refresh_Plan = //input[@value='Refresh Plan' and @name='updateForm']
+Refresh_Schedule = //input[@value='Refresh Schedule' and @name='updateForm']
+
+#Cost Center
+Cost_Center_Type = costCenterType
+Cost_Center_Total_Impressions = totalImpressions
+Cost_Center_Hours_Available = hoursAvailable
+Cost_Center_Budgeted_Annual_Hours = budgetedAnnualHours
+Cost_Center_Budgeted_Hourly_Rate = budgetedHourlyRate
+Cost_Center_PrintFlow_Class = printFlowClass
+Cost_Center_Manufacturing_Location = manufacturingLocation
+Cost_Center_Add_Link = - Add Cost Center
+Cost_Center_CostMarkupCategory = costMarkupCategory
+
+#Manufacturing Location
+Manufacturing_LocationCode = code
+Manufacturing_Location_SiteLicenseType = siteLicenseType
+Manufacturing_Location_MaximumLoggedInUsers = maximumLoggedInUsers
+Manufacturing_Location_SchedulerInstance = schedulerInstance
+ManufacturingLocationGrid_SiteLicenseType = appbox_implicit.siteLicenseType
+ManufacturingLocationGrid_Description = appbox_implicit.description
+ManufacturingLocationGrid_SchedulerInstance = appbox_implicit.schedulerInstance
+ManufacturingLocationGrid_MaximumLoggedInUsers = appbox_implicit.maximumLoggedInUsers
+
+# Job Types
+Job_Type_JacketType = jacketType
+Job_Type_JobNumberSequence = jobNumberSequence
+Job_Type_JobNumberPrefix = jobNumberPrefix
+Job_Type_ManufacturingLocation = useManufacturingLocationPrefixBooleanCheck
+Job_Type_JobTypePlans = //a[text()='Job Type Plans']
+Job_Type_AddNewRecord = //div[@id='contents']/div[@class='active']//input[@name='addGridRow_jobTypePlans']
+
+# Job Plan Setup page
+JobPlanSetup_AllowJobPlanRefresh = allowJobPlanRefreshBooleanCheck
+JobPlanSetup_ExcludeDateInPlanningRecords = excludeDateInPlanningRecordsBooleanCheck
+JobPlanSetup_PlanJobsAutomatically = planJobsAutomaticallyBooleanCheck
+JobPlanSetup_NumberOfDays = numberOfDays
+JobPlanSetup_DefaultManufacturingLocation = defaultManufacturingLocation
+JobPlanSetup_ScheduledActivityCode = scheduledActivityCode
+JobPlanSetup_EdiLogLevel = ediLogLevel
+JobPlanSetup_MaximumIncrementAttempts = maximumIncrementAttempts
+
+# Post Job Costs
+PostJobCost_Button = //input[@value='Post Job Costs' and @name='updateForm']
+PostJobCost_TransactionType = transactionsToPost
+PostJobCost_CutoffDate = currentDate
+PostJobCost_SingleJobCostTypetoPost = singleTransactionType
+PostJobCost_WIPAccountingPeriod = currentPeriod
+PostJobCost_PostunapprovedJobCosts = postUnapprovedBooleanCheck
+JobCost_UnpostedJobCosts = //a[text()='Unposted Job Costs']
+
+# Job Plan Scan
+Job_Plan_Scan_ID = JobPlan.id
+Job_Plan_Scan_Job = JobPlan.job
+Job_Plan_Scan_Part = JobPlan.part
+Job_Plan_Scan_PlannedHours = JobPlan.plannedHours
+Job_Plan_Scan_Status = JobPlan.status
+Job_Plan_Scan_AssignedTo = JobPlan.assignedTo
+Job_Plan_Scan_ControlScan = JobPlan.controlScan
+Job_plan_Scan_UpdatePlanRecords = //input[@value='Update plan records' and @name='updateForm']
+
+# Job Part - Job Cost
+Last_Act_Date = lastActDate
+Last_Act_Time = lastActTime
+Last_Act_Code = lastActCode
+
+# Non Planned Reason
+Schedule_Status = scheduleStatus
+Bill_Rate = billRate
+Included_In_WIP = includedInWIPBooleanCheck
+
+# Job Cost Setup 
+JobCostSetup_AskJobPartNumber  = askJobPartNumberInDCBooleanCheck
+JobCostSetup_AllowProcessAll = allowProcessAllBooleanCheck
+JobCostSetup_ValidateMaterial = validateMaterial
+JobCostSetup_ValidatePlannedQuantity = validatePlannedQuantity
+JobCostSetup_StockPullActivityCode = stockPullActivityCode
+JobCostSetup_OffsetActivityCode = offsetActivityCode
+JobCostSetup_LastActionFromJobCost = lastActionFromJobCostBooleanCheck
+JobCostSetup_UseDirectLabor = useDirectLaborBooleanCheck
+JobCostSetup_WIPEntryFormat = wipEntryFormat
+JobCostSetup_CheckPlannedWork = checkPlannedWorkBooleanCheck
+
+#Job Status
+JobStatus_AdminToProduction = adminToProductionBooleanCheck
+JobStatus_Admin = adminBooleanCheck
+JobStatus_Production = productionBooleanCheck
+JobStatus_OpenJob = openJobBooleanCheck
+JobStatus_SchedOK = schedOKBooleanCheck
+JobStatus_ReadyForDeviceSubmission = readyForDeviceSubmissionBooleanCheck
+JobStatus_Editable = editableBooleanCheck
+JobStatus_BillingOK = billingOKBooleanCheck
+JobStatus_JobChargesOK = jobChargesOKBooleanCheck
+JobStatus_AutoChangeable = autoChangableBooleanCheck
+JobStatus_AskCommnets = askComments
+JobStatus_AskReason = askReason
+
+#New Job Cost
+Job_Cost_ChargeClass = chargeClass
+Job_Cost_TransactionType = transactionType
+Job_Cost_OverrideJobStatus = overrideJobStatusBooleanCheck
+Job_Cost_Posted = posted
+Job_Cost_EmployeeTime = employeeTime
+
+#Add Job Part Press Form
+PressForm_Form = formNum
+PressForm_Run = run
+PressForm_Passes = numPasses
+PressForm_Quantity = qtyToMfg
+PressForm_Up = numUp
+PressForm_NumAlong = numAlong
+PressForm_NumAcross = numAcross
+PressForm_JobMaterial = jobMaterial1
+PressForm_MaterialUp = materialUp
+PressForm_Press = press
+PressForm_Plate = plate
+PressForm_RunSizeWidth = runSizeW
+PressForm_RunSizeHeight = runSizeH
+PressForm_Pages = pages
+PressForm_FoldPattern = foldPatternKey
+PressForm_PrintRunMethod = printRunMethod
+PressForm_S1 = colorsSide1
+PressForm_S2 = colorsSide2
+PressForm_Total = colorsTotal
+PressForm_NumPlates = numPlates
+PressForm_Aq = coatingBooleanCheck
+PressForm_Registration = registration
+PressForm_SheetstoPress = pressSheets
+PressForm_MR = makeReadySheets
+PressForm_RunSpoilageSheets = runSpoilageSheets
+PressForm_OffPressQty = offPressQty
+PressForm_MakeReadyHours = makeReadyHours
+PressForm_RunHours = runHours
+PressForm_WashupHours = washupHours
+PressForm_OtherHours = otherHours
+
+#Job Shipments
+Job_Shipment_ShipmentType = //select[contains(@name,'shipmentType')]
+Job_Shipment_Planned = plannedBooleanCheck
+
+#Payroll
+Payroll_UseGeneralLedger = useGeneralLedgerBooleanCheck
+Payroll_UseDataCollection = useDataCollectionBooleanCheck
+Payroll_UseAccountsPayable = useAccountsPayableBooleanCheck
+Payroll_UseBankRec = useBankRecBooleanCheck
+Payroll_RegularPay = regularPayType
+Payroll_OvertimePay = overtimePayType
+Payroll_SalaryPay = salaryPayType
+Payroll_ComissionPay = commissionPayType
+Payroll_VacationPay = vacationPayType
+Payroll_SickPay = sickPayType
+Payroll_PeriodBeginDate = periodBeginDate
+Payroll_Code = code
+Payroll_GLAccount = glAccountID
+Payroll_PrintSequence = printSequence
+Payroll_Employee = employeeID
+Payroll_CheckType = payrollCheckTypeID
+Payroll_CheckNumber = checkNumber
+Payroll_BankAccount = bankAccountID
+Payroll_CreateChecks = //input[@value='Create checks' and @name='updateForm']
+Payroll_CalculateChecks = //input[@value='Calculate Checks' and @name='updateForm']
+Payroll_ReturntoCheckBatch = //a[text()='Return to Check Batch']
+Payroll_Calculate = //input[@value='Calculate' and @name='updateForm']
+
+
+
+
+#1*****************************************************
+# Framework - Grazitti Automation Selenium Testing
+# Version - 2.0
+# Creation Date - Oct, 2012
+# Author - Grazitti Interactive
+# Copyright © 2012 Grazitti Interactive. All right reserved.
+
+
+# Properties file contain base configuration for GUI automation
+# scripts.
+#
+
+#Title
+Company_Add_New_Company=ctl00_ctl00_C_M_LinkButtonNewCompany 
+						
+Add_New_Department=ctl00_ctl00_C_M_LinkButtonNewDepartment
+Add_New_Categories=ctl00_ctl00_C_M_bnCreate 
+                   
+Add_New_TicketTemplate=ctl00_ctl00_C_M_ManageTemplates_btnCreate
+Media_Show_All_Media=ctl00_ctl00_C_M_MediaCharSearch_ButtonShowAll
+User_Link =ctl00_ctl00_C_M_ButtonAddUser
+Pricing_Delete_Button =ButtonDelete
+Groups_Add_New_Group=ctl00_ctl00_C_M_buttonAddGroup
+Printshop_Link =//a[@href='ManageFacilitiesLanding.aspx']
+Printshop_Add_New_Printshop =ctl00_ctl00_C_M_LinkButtonNewFacility
+
+#TextBoxField
+Home_Userid =ctl00_ctl00_C_W__loginWP__myLogin__userNameTB
+Home_Password  = ctl00_ctl00_C_W__loginWP__myLogin__passwordTB
+EmailSetting_EnterEmailAddress=ctl00_ctl00_C_M_TextBoxEmailRecipient
+
+
+#LoginPage
+Home_Login_UserName = ctl00_ctl00_C_W__loginWP__myLogin__userNameTB
+Home_Login_Password = ctl00_ctl00_C_W__loginWP__myLogin__passwordTB
+Home_Login_Button = ctl00_ctl00_C_W__loginWP__myLogin_Login
+Home_Login_Register_Link = ctl00_ctl00_C_W__loginWP__myLogin_notAMemberLB
+Home_Login_ForgotPassword_Link =	ctl00_ctl00_C_W__loginWP__myLogin_forgotPasswordLB
+Home_Login_Remember_Me = ctl00_ctl00_C_W__loginWP__myLogin_rememberNameCB
+Home_Logout_Link=ctl00_ctl00_TopMessage_logoutHL
+Home_Login_Invalid_User_Warning_Message = ctl00_ctl00_C_W__loginWP__myLogin_Message
+Home_Login_ContactUs_Link =	Contact Us
+#Home_Login_Help_Image = //td[@id='ctl00_ctl00_RightHandMenun6']/table/tbody/tr/td/a/img
+Home_Login_Help_Image = ctl00_ctl00_RightHandMenun6
+Home_Login_Language_Selection = ctl00_ctl00_HLLanguage
+OrderView_Configure=ctl00_ctl00_C_M_ButtonConfigure
+MerchantAccount_Add_New_Account=ctl00_ctl00_C_M_ButtonAddAccount
+Reports_Display_Reports =ctl00_ctl00_C_M_ButtonDisplayReport
+MyAccount_Upload_Button=ctl00_C_FileUploadControl1_htmlInputFileUpload
+EmailSetting_Test =ctl00_ctl00_C_M_HyperLinkTestEmail
+EmailSetting_TestMail =ctl00_ctl00_C_M_ButtonTest
+EmailSetting_Close =ctl00_ctl00_C_M_btnCloseTestEmailConfigurationPopUp
+Home_CopyRight	=	ctl00_ctl00_copyRightLBL
+Home_Version	=	ctl00_ctl00_custVer
+Home_Windows_32bit_PrintMessenger	=	ctl00_ctl00_C_W__printMessenger__printMessenger_HyperLinkWindows
+Home_Windows_64bit_PrintMessenger	=	ctl00_ctl00_C_W__printMessenger__printMessenger_HyperLinkWindows64
+Home_Windows_Mac_PrintMessenger		=	ctl00_ctl00_C_W__printMessenger__printMessenger_HyperLinkMac
+
+#Link
+Continue_To_This_WebSite_Security_Link = Continue to this website (not recommended).
+Storefront_SiteSettings =ctl00_ctl00_C_M_LinkColumn4_RepeaterCategories_ctl00_RepeaterItems_ctl00_HyperLinkItem
+Storefront_Installers = ctl00_ctl00_C_M_LinkColumn4_RepeaterCategories_ctl00_RepeaterItems_ctl15_HyperLinkItem
+Storefront_CreditCart_Link=ctl00_ctl00_C_M_LinkColumn4_RepeaterCategories_ctl00_RepeaterItems_ctl05_HyperLinkItem
+MerchantAccountLink= ctl00_ctl00_C_M_HLCCMerchantAccounts
+MyAccount_File_Link=ctl00_C_LeftMenu_RepeaterCategories_ctl00_RepeaterItems_ctl03_HyperLinkItem
+Home_Administrator=//div/table/tbody/tr[2]/td[2]/a[@class='sectionTabLink']
+SF_Confirmation_button = //div[@class='modal confirm-modal ng-scope in']//a[@Class='OK-button']
+CCTransactions = ctl00_ctl00_C_M_HLCCTransactions
+
+
+#Text
+SiteSettings_About_DBVersion=ctl00_ctl00_C_M_AboutIt_LabelDBVersion
+SiteSettings_About_SoftwareVersion=ctl00_ctl00_C_M_AboutIt_LabelSoftVersion
+OrderView_Text = ctl00_ctl00_C_M_LabelFacilityOrderView
+CopyRight =EFI Digital StoreFront
+Operator_View=ctl00_W_LBL_OPV
+Home_EmailSetting=Email Settings
+EmailSetting_Emailserversettings=Email server settings
+Email_Sent_Success_Msg=No problems occurred when sending the email message. However, please verify receipt of the test email messages to ensure the system is working properly.
+Installer_Windows_PrintMessenger_32bit_Status =ctl00_ctl00_C_M_G1_ctl02_Progress
+Installer_RPC_Status=ctl00_ctl00_C_M_G1_ctl05_Progress
+Installer_Windows_PrintMessenger_64bit_Status=ctl00_ctl00_C_M_G1_ctl07_Progress
+
+#Installer_Page
+Installer_Refresh = ctl00_ctl00_C_M_Refresh
+Installer_RPC_Download_Link=ctl00_ctl00_C_M_G1_ctl05_SingleLink
+Installer_PrintMessenger_32bit_Download_Link=ctl00_ctl00_C_M_G1_ctl02_All_ctl02_InstallLink2
+Installer_PrintMessenger_64bit_Download_Link=ctl00_ctl00_C_M_G1_ctl07_All_ctl03_InstallLink2
+
+
+#DropDown
+Order_ViewBy=ctl00_ctl00_C_M_DataGridOrders_ctl02_OrderViewHeader_DropDownListFilterBy
+Order_SortBy=ctl00_ctl00_C_M_DataGridOrders_ctl02_OrderViewHeader_DropDownListSortBy
+Report_ReportCategory=ctl00_ctl00_C_M_DropDownListCategories
+Report_ReportType=ctl00_ctl00_C_M_DropDownListReports
+
+
+#RadioButton
+Report_Company_All=ctl00_ctl00_C_M_RepeaterReportData_ctl00_FilterFieldControl_RadioButtonAll
+
+
+
+
+
+
+
+#Product
+Product_Search_TextBox 			= 	ctl00_ctl00_C_M_TextBoxSearch
+Product_Find_Button 			= 	ctl00_ctl00_C_M_ButtonSearch
+Product_Show_DropDown 			= 	ctl00_ctl00_C_M_TopPagerUI_PageSizesDropDown
+Product_Delete_Button 			= 	ctl00_ctl00_C_M_ButtonDelete_Bottom
+Product_Publish_Button			=	ctl00_ctl00_C_M_ButtonPublish_Bottom
+Product_Copy_Button				=	ButtonCopy_Bottom
+Product_Create_Product_Button	=	ctl00_ctl00_C_M_ButtonCreateProduct
+
+StaticBrowse = ctl00_ctl00_C_M_ctl00_W_ctl02_Fileupload1_htmlInputFileUpload
+StaticFileUpload = ctl00_ctl00_C_M_ctl00_W_ctl02_Fileupload1_ButtonUpload
+ChooseTicketTemplate = ctl00_ctl00_C_M_ctl00_W_ctl03_TicketTemplates
+ProductId = ctl00_ctl00_C_M_ctl00_W_ctl01__SKU
+ProductAlreadyExists = ctl00_ctl00_C_M__ItemNameMustBeUnique
+NextInformation = ctl00_ctl00_C_M_ctl00_W_StartNavigationTemplateContainerID_Button1
+CancelButton_For_CreateNewProduct=ctl00_ctl00_C_M_btnCancel
+NextFileUpload = ctl00_ctl00_C_M_ctl00_W_StepNavigationTemplateContainerID_StepNextButton
+PublishProduct = //td/a[contains(text(),"Publish It")]
+SearchProductPublish = //input[contains(@id,'CategoryPopup_Categories_tbSearchText')]
+
+PublishProductFind = //input[contains(@id,'CategoryPopup_Categories_bnSearch')]
+StorefrontSelectRadio = //input[contains(@name,'PublishingCategoryPicker$Categories$CategoryListSearch_dg_RadioButtonSelect')]
+PublishProductOk = //input[contains(@id,'CategoryPopup_ButtonOK')]
+TTSelection = //td/select[contains(@id,'TicketTemplates')]
+
+ProductSettings = //a//span[contains(text(),'Settings')]
+ProductPricing = //a//span[contains(text(),'Pricing')]
+#ProdRegualPrice = tbl_0_regularprice_1
+ProdRegualPrice =tbl_0_PriceCatalog_regularprice_1
+#ProdSetupPrice = tbl_0_setupprice_1
+ProdSetupPrice=tbl_0_PriceCatalog_setupprice_1
+CopyAll = //div[contains(descendant::*, 'Default Price Sheet') and @class="ctr-contentcontainer"]//img[contains(@src,'icon_copy.gif')]
+#PasteAll = //div[contains(descendant::*, 'Default Price Sheet') and @class="ctr-contentcontainer"]//img[contains(@src,'icon_paste_all_dis.gif')]
+PasteAll =//div[contains(descendant::*, 'Default Price Sheet') and @class='ctr-contentcontainer']//img[@onclick='javascript:pasteallIPriceCatalog();']
+
+TATRadioNone = //td/input[contains(@id,'TurnAroundTimeCtrl_rdbNone')]
+TATRadioValue = //td/input[contains(@id,'TurnAroundTimeCtrl_rdbValue')]
+TATValue = //input[contains(@id,'TurnAroundTimeCtrl__Value')]
+TATDuration = //select[contains(@id,'TurnAroundTimeCtrl__Unit')]
+ProductDone = //input[contains(@id,'__Done')]
+
+
+#Product Quantities
+ByMultiples = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__Multiples
+Minimum = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__Minimum
+Maximum = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__Maximum
+Multiple = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__Multiple
+AllowBuyerToEdit = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__AllowBuyerToEditQty
+
+FixedQuantity = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__FixedQuantities
+FixedLevelOne = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__FixedQuantitiesValues_ctl02__Value
+FixedUpdateOne = ctl00_ctl00_C_M_ctl00_W_ctl01_OrderQuantitiesCtrl__FixedQuantitiesValues_ctl02_LinkButton1
+
+
+ProductKeywords = ctl00_ctl00_C_M_ctl00_W_ctl01__Keywords
+
+
+#LoginBypass page
+URLForSite = signinurl
+UserToken = token
+ByPassPwd = pwd
+LoginLinkByPass = //a[@href='javascript:Login()']
+
+
+#Product Auction Inc Settings
+SubWidth = ctl00_ctl00_C_M_ctl00_W_ctl01_ShipmentDimensionCtrl__BoxX__Length
+SubLength = ctl00_ctl00_C_M_ctl00_W_ctl01_ShipmentDimensionCtrl__BoxY__Length
+SubHeight = ctl00_ctl00_C_M_ctl00_W_ctl01_ShipmentDimensionCtrl__BoxZ__Length
+QtyPerPack = ctl00_ctl00_C_M_ctl00_W_ctl01_ShipmentDimensionCtrl_txtLotSize
+
+
+#Delivery Methods
+DeliveryMethods = //a[@href='ManageDeliveryMethods.aspx']
+DelMethodsText = //td/span[contains(text(),'Delivery Methods')]
+UseAuctionInc = ctl00_ctl00_C_M_chkUseAuctioninc
+CarrierSelection = ctl00_ctl00_C_M_ddlCarrier
+SaveDelMethod = ctl00_ctl00_C_M_BtnSave
+
+#Url rewriter settings
+UrlRewriter = Url Rewriter Settings
+LoginBypass = ctl00_ctl00_C_M_SSOEnabled
+LoginBypassReservedAcct = ctl00_ctl00_C_M_SSOEnableReservedAccounts
+SaveRewriterSettings = ctl00_ctl00_C_M_GlobalSettingBtn
+
+
+#Design Studio Product/Template
+ManageDesignTemplate = Manage Design Templates
+CreateNewDesign = ctl00_ctl00_C_M_ucTemplateList_btnNewTemplate
+
+
+#Added by Mahantesh
+Edit_ProductIcon_Large      = ctl00_ctl00_C_M_ctl00_W_ctl01__BigIconByItself_EditBigImage
+ProductIconLarge_RadioButton     = ctl00$ctl00$C$M$ctl00$W$ctl01$_BigIconByItself$BigIcon$CHOICE
+ProductIconLarge_DropDown    = ctl00_ctl00_C_M_ctl00_W_ctl01__BigIconByItself_BigIcon_IconBankChoice
+ChooseFile_Product_LargeIcon = ctl00$ctl00$C$M$ctl00$W$ctl01$_BigIconByItself$BigIcon$_uploadedFile$ctl01
+UploadFile_Product_LargeIcon = ctl00_ctl00_C_M_ctl00_W_ctl01__BigIconByItself_BigIcon_Upload
+ProductDetails_Tab = ctl00_ctl00_C_M_ctl00_W_ctl01_RadTabStrip1_TabDetails
+
+Edit_Product_Detail_Image = ctl00_ctl00_C_M_ctl00_W_ctl01__MainImageAndThumbnail_EditFullImage
+ProductDetail_Image_RadioButton = ctl00$ctl00$C$M$ctl00$W$ctl01$_MainImageAndThumbnail$FullImageIcon$CHOICE
+ChooseFile_Product_Detail_Image = ctl00$ctl00$C$M$ctl00$W$ctl01$_MainImageAndThumbnail$FullImageIcon$_uploadedFile$ctl01
+UploadFile_Product_Detail_Image = ctl00_ctl00_C_M_ctl00_W_ctl01__MainImageAndThumbnail_FullImageIcon_Upload
+
+
+
+
+
+
+
+#Storefront
+Storefront_Home_Link_By_Xpath 	=	//td[@id='ctl00_ctl00_LeftHandMenun0']/table/tbody/tr/td/a[text()='Home']
+Storefront_Cart_Link_By_Xpath	=	
+
+#Printshop
+Add_New_Printshop			=	ctl00_ctl00_C_M_LinkButtonNewFacility
+PrintShop_Name					=	ctl00_ctl00_C_M_TextBoxDescription
+Printshop_Store_Number			=	ctl00_ctl00_C_M_TextBoxStoreNumber
+Printshop_Diable_Printshop		=	ctl00_ctl00_C_M_CheckBoxInactive
+Printshop_Copy_Payment_and_Delivery_Options_from_PrintShop =	ctl00_ctl00_C_M_DropDownListCopyFromFacility
+Printshop_Initial_Group_Access		=	ctl00_ctl00_C_M_DropdownlistGroupAccess
+Printshop_Supported_Payment_Methods_Accounting_Codes	=	ctl00_ctl00_C_M_CheckBoxListPaymentMethods_0
+Printshop_Supported_Payment_Methods_Cost_Center		=	ctl00_ctl00_C_M_CheckBoxListPaymentMethods_1
+Printshop_Supported_Payment_Methods_Credit_Card		=	ctl00_ctl00_C_M_CheckBoxListPaymentMethods_2
+Printshop_Supported_Payment_Methods_Other_Accounts	=	ctl00_ctl00_C_M_CheckBoxListPaymentMethods_3
+Printshop_Supported_Payment_Methods_Pay_At_Atore	=	ctl00_ctl00_C_M_CheckBoxListPaymentMethods_4
+Printshop_Supported_Payment_Methods_PayPal			=	ctl00_ctl00_C_M_CheckBoxListPaymentMethods_5
+Printshop_Supported_Payment_Methods_PO_Number		=	ctl00_ctl00_C_M_CheckBoxListPaymentMethods_6
+Printshop_Zero_Payment_Method						=	ctl00_ctl00_C_M_chkZeroPaymentEnabled
+Printshop_Other_Accounts							=	ctl00_ctl00_C_M_chkValidateOtherAccount
+Printshop_Handling_Charges_Textbox					=	ctl00_ctl00_C_M_txtHandlingChargesShipment
+Printshop_Handling_Charges_DropDown					=	ctl00_ctl00_C_M_ddlPercentageAmount
+Printshop_Display_Handling_Charges_As_Separate_Item_In_ShoppingCart	=	 ctl00_ctl00_C_M_cbDisplayHandlingCharges
+Printshop_Display_Turnaround_Time_At_Each_Line_Item_In_ShoppingCart =	ctl00_ctl00_C_M_cbDisplayToT
+Printshop_Calendar_Date								=	ctl00_ctl00_C_M_DropDownCalendarDateOptions
+Printshop_Default_Payment_Method					=	ctl00_ctl00_C_M_DropDownDefaultPaymentMethod		
+Printshop_Default_Tax_Group							=	ctl00_ctl00_C_M_DropDownTaxGroup
+Printshop_Contact_Information						=	ctl00_ctl00_C_M_LinkButtonEditContactInformation
+Printshop_Save										=	ctl00_ctl00_C_M_ButtonSave
+Printshop_Back										=	ctl00_ctl00_C_M_ButtonBack
+PrintShopsList										= 	ctl00_ctl00_C_M_TopPagerUI_PageSizesDropDown
+Printshop_Reassign_Printshop						=	ctl00_ctl00_C_M_DropDownListDelete_ReassignFacility
+Printshop_Delete_After_Reassign						=	ctl00_ctl00_C_M_ButtonDeleteFacility
+PrintShop_Cancel_Rush_Job_Set = //input[contains(@id,'btnCancelOrderType')]
+
+PrintshopTimezone = ctl00_ctl00_C_M_DropDownTimeZone
+EnableZeroPayment = ctl00_ctl00_C_M_chkZeroPaymentEnabled
+PrintShop_Cancel_Rush_Job_Set = //Input[contains(@id,'btnCancelOrderType')]
+ReorderUserApproved = //table[@id='ctl00_ctl00_C_M_DgBuyerCancellationStatuses']/tbody/tr[td[text()='User Approved']]/td[2]/input
+ReorderApproved = //table[@id='ctl00_ctl00_C_M_DgBuyerCancellationStatuses']/tbody/tr[td[text()='Approved']]/td[2]/input
+ReorderInProduction = //table[@id='ctl00_ctl00_C_M_DgBuyerCancellationStatuses']/tbody/tr[td[text()='In Production']]/td[2]/input
+#AssignDelMethodPrintshop = ctl00_ctl00_C_M_LBEditShippingMethodsForFacility
+AssignDelMethodPrintshop = .//*[contains(@id,'LBEditShippingMethods')]
+CompanySave = ctl00$ctl00$C$M$ButtonCompanyInformationSave
+#General_Contact_Information
+
+FirstName	=	ctl00_ctl00_C_M_ContactInformation1_textBoxFirstName
+MiddleName	=	ctl00_ctl00_C_M_ContactInformation1_textBoxMiddleName
+LastName	=	ctl00_ctl00_C_M_ContactInformation1_textBoxLastName
+                ctl00_ctl00_C_M_ContactInformationControl_textBoxLastName
+Address1	=	ctl00_ctl00_C_M_ContactInformation1_textBoxAddress1
+Address2	=	ctl00_ctl00_C_M_ContactInformation1_textBoxAddress2
+Address3	=	ctl00_ctl00_C_M_ContactInformation1_textBoxAddress3
+City		=	ctl00_ctl00_C_M_ContactInformation1_textBoxCity
+State		=	ctl00_ctl00_C_M_ContactInformation1_DropDownListStateProvinceRegion
+ZipPostalCode		=	ctl00_ctl00_C_M_ContactInformation1_textBoxZipPostalCode
+Country		=	ctl00_ctl00_C_M_ContactInformation1_dropDownListCountry
+PhoneNumber1	=	ctl00_ctl00_C_M_ContactInformation1_textBoxPhoneNumber1
+PhoneNumber2	=	ctl00_ctl00_C_M_ContactInformation1_textBoxPhoneNumber2
+FaxNumber		=	ctl00_ctl00_C_M_ContactInformation1_textBoxFaxNumber
+Title			= 	ctl00_ctl00_C_M_ContactInformation1_textBoxTitle
+Company			=	ctl00_ctl00_C_M_ContactInformation1_TextBoxCompany
+Department		=	ctl00_ctl00_C_M_ContactInformation1_textBoxDepartment
+EmailAddress	=	ctl00_ctl00_C_M_ContactInformation1_textBoxEmail
+Save_Button		=	ctl00_ctl00_C_M_ButtonEditContactSave
+Back_Button	=	ctl00_ctl00_C_M_ButtonEditContactBack
+
+
+#Company
+Company_Search_Textbox	= 	ctl00_ctl00_C_M_TextBoxSearch
+Company_Search_Button	=	ctl00_ctl00_C_M_ButtonSearch
+Company_Show_All_DropDown		=	ctl00_ctl00_C_M_TopPagerUI_PageSizesDropDown
+Company_Delete_Button	=	ButtonDeleteCompany
+Company_Delete_Alert_delete = ctl00_ctl00_C_M_Button_DeleteSelected
+Company_Name = ctl00_ctl00_C_M_TextBoxDescription
+Company_Name_For_Url_Branding = ctl00_ctl00_C_M_UrlName
+Company_Supported_Payment_Method_Accounting_Codes =ctl00_ctl00_C_M_paymentMethodsCntrl_rptPaymentMethods_ctl01_chkPaymentMethod
+Company_Supported_Payment_Method_Credit_Card = ctl00_ctl00_C_M_paymentMethodsCntrl_rptPaymentMethods_ctl03_chkPaymentMethod
+Company_Supported_Payment_Method_Other_Account = ctl00_ctl00_C_M_paymentMethodsCntrl_rptPaymentMethods_ctl04_chkPaymentMethod
+Company_Supported_Payment_Method_Pay_At_Store = ctl00_ctl00_C_M_paymentMethodsCntrl_rptPaymentMethods_ctl05_chkPaymentMethod
+Company_Supported_Payment_Method_PayPal = ctl00_ctl00_C_M_paymentMethodsCntrl_rptPaymentMethods_ctl06_chkPaymentMethod
+Company_Supported_Payment_Method_PO_Number = ctl00_ctl00_C_M_paymentMethodsCntrl_rptPaymentMethods_ctl07_chkPaymentMethod
+Company_Donot_Allow_Order_Cancellation	=	ctl00_ctl00_C_M_CbDoNotAllowOrderCancellation
+Company_Initial_Group_Access	=	ctl00_ctl00_C_M_DropdownlistGroupAccess
+Company_Contact_Information		=	ctl00_ctl00_C_M_LinkButtonEditContactInformation
+Company_Assign_Delivery_Method	=	ctl00_ctl00_C_M_LBEditShippingMethodsForCompany
+Company_Assign_Delivery_Method_Save	=	ctl00_ctl00_C_M_UCEditShippingMethods_btnSave
+Company_Save					=	ctl00_ctl00_C_M_ButtonCompanyInformationSave
+Courier = //span[text()='Courier']
+
+#Categories
+Category_Title 			= ctl00_ctl00_C_M_lblTitle
+Category_Create_Category = ctl00_ctl00_C_M_bnCreate
+Category_Name			=	ctl00_ctl00_C_M_tbNameNew
+Category_Save_And_Continue	= ctl00_ctl00_C_M_bnSaveNew
+Category_Manage			=	ctl00_ctl00_C_M_bnManageNew
+Category_Cancel	=	ctl00_ctl00_C_M_bnCancelNew
+Category_Active_Yes	= ctl00_ctl00_C_M_rbActiveYes
+Category_Active_No	=	ctl00_ctl00_C_M_rbActiveNo
+Category_Edit		= ctl00_ctl00_C_M_bnEdit
+Category_Delete		=	ctl00_ctl00_C_M_bnDelete
+Category_Information_Title	=	ctl00_ctl00_C_M_ctl00_W_ctl01_lblInfoTitle
+Category_Manage_Category_Next	=	 ctl00_ctl00_C_M_ctl00_W_StartNavigationTemplateContainerID_Button1
+Category_Storefront = //div[@id='ctl00_ctl00_C_M_RadTreeView1_t0_t0']/span[text()='Storefront']
+Category_Next	=	ctl00_ctl00_C_M_ctl00_W_StartNavigationTemplateContainerID_Button1
+Category_Save_And_Exit	=	ctl00_ctl00_C_M_ctl00_W_StartNavigationTemplateContainerID_ctl00_BtnSaveAndExit
+Category_Cancel		=	ctl00_ctl00_C_M_ctl00_W_StartNavigationTemplateContainerID_BtnCancel
+Category_Add_Category	= ctl00_ctl00_C_M_ctl00_W_ctl02_ButtonAddCategories
+Category_Search_Category	=	ctl00_ctl00_C_M_ctl00_W_ctl02_AddCategoriesPopup_Categories_tbSearchText
+Category_Find_Button	=	ctl00_ctl00_C_M_ctl00_W_ctl02_AddCategoriesPopup_Categories_bnSearch
+Category_Select_All	=	ctl00_ctl00_C_M_ctl00_W_ctl02_AddCategoriesPopup_Categories_CategoryListSearch_GridCategories_ctl02_CheckBoxSelectAll
+Category_Add_Button	= ctl00_ctl00_C_M_ctl00_W_ctl02_AddCategoriesPopup_ButtonOK
+Category_Finish_Button	=	ctl00_ctl00_C_M_ctl00_W_FinishNavigationTemplateContainerID_FinishButton
+Category_Manage_Category_Next_In_Feature_Category	=	ctl00_ctl00_C_M_ctl00_W_StepNavigationTemplateContainerID_StepNextButton
+Category_Add_Product			=	ctl00_ctl00_C_M_ctl00_W_ctl03_ButtonAddProducts
+Category_Add_Product_Search		=	ctl00_ctl00_C_M_ctl00_W_ctl03_AddProductsPopup_Products_TextBoxSearch
+Category_Add_Product_Find		=	ctl00_ctl00_C_M_ctl00_W_ctl03_AddProductsPopup_Products_ButtonSearch
+Category_Add_Select_All_CheckBox		=	ctl00_ctl00_C_M_ctl00_W_ctl03_AddProductsPopup_Products_GridProducts_ctl02_CheckBoxSelectAll
+Category_Add_Button_Product		=	ctl00_ctl00_C_M_ctl00_W_ctl03_AddProductsPopup_ButtonOK
+Category_Add_Product_To_Category	=	ctl00_ctl00_C_M_ctl00_W_ctl02_PublishedProducts_ButtonAddProducts
+Category_Add_Product_Search1		=	ctl00_ctl00_C_M_ctl00_W_ctl02_AddProductsPopup_Products_TextBoxSearch
+Category_Add_Product_Find1			=	ctl00_ctl00_C_M_ctl00_W_ctl02_AddProductsPopup_Products_ButtonSearch
+Category_Add_Product_Select_All		=	ctl00_ctl00_C_M_ctl00_W_ctl02_AddProductsPopup_Products_GridProducts_ctl02_CheckBoxSelectAll
+Category_Add_Product_Add			=	ctl00_ctl00_C_M_ctl00_W_ctl02_AddProductsPopup_ButtonOK
+Category_Search_Button				=	ctl00_ctl00_C_M_ButtonSearch
+Category_Select_All_Categories		=	ctl00_ctl00_C_M_CategoryListSearch_GridCategories_ctl02_CheckBoxSelectAll
+Category_Delete_Button				=	ctl00_ctl00_C_M_bnDelete
+Category_Edit_Button				=	ctl00_ctl00_C_M_bnEdit
+Category_Back_To_The_Category_Tree	=	ctl00_ctl00_C_M_ButtonBackToTreeView
+Category_Show_All					=	ctl00_ctl00_C_M_CategoryListSearch_TopPagerUI_PageSizesDropDown
+Category_category_Name				=	ctl00_ctl00_C_M_ctl00_W_ctl01_tbCatName
+Category_Display_Name				=	ctl00_ctl00_C_M_ctl00_W_ctl01_tbSFName
+Category_Brief_Description			=	RadEContentIframectl00_ctl00_C_M_ctl00_W_ctl01_RadShortDesc
+Category_Brief_Description_Textarea	=	RadEContentTextareactl00_ctl00_C_M_ctl00_W_ctl01_RadShortDesc
+Category_Brief_Description_Design = RadEDesignButtonctl00_ctl00_C_M_ctl00_W_ctl01_RadShortDesc
+Category_Brief_Description_Preview	=	RadEPreviewButtonctl00_ctl00_C_M_ctl00_W_ctl01_RadShortDesc
+Category_Brief_Description_Html				=	RadEHtmlButtonctl00_ctl00_C_M_ctl00_W_ctl01_RadShortDesc
+Category_Icon_Large_RadioButton 	= ctl00$ctl00$C$M$ctl00$W$ctl01$BigIconImgSelector$ImgSelectorCtrl$CHOICE
+ChooseFile_LargeIcon		=	ctl00$ctl00$C$M$ctl00$W$ctl01$BigIconImgSelector$ImgSelectorCtrl$_uploadedFile$ctl01
+UploadButton_LargeIcon		 = ctl00_ctl00_C_M_ctl00_W_ctl01_BigIconImgSelector_ImgSelectorCtrl_Upload
+Category_Details				=	ctl00_ctl00_C_M_ctl00_W_ctl01_RadTabStrip1_TabDetails
+Category_Long_Description_Html_Button	=	RadEHtmlButtonctl00_ctl00_C_M_ctl00_W_ctl01_RadLongDesc
+Category_Long_Description_TextArea	=		RadEContentTextareactl00_ctl00_C_M_ctl00_W_ctl01_RadLongDesc
+Category_Long_Description_Design_Button	=	RadEDesignButtonctl00_ctl00_C_M_ctl00_W_ctl01_RadLongDesc
+Category_Long_Description_Text	=	ctl00_ctl00_C_M_ctl00_W_ctl01_lblLongDescUsage
+Category_Display_Priority	=	ctl00_ctl00_C_M__Rank_DropDownListRank
+Category_Search_Textbox = ctl00_ctl00_C_M_TextBoxSearch
+Category_SKU = ctl00_ctl00_C_M_ctl00_W_ctl01_txtSKU
+
+#Added by Mahantesh
+Category_Icon_Large_RadioButton    = ctl00$ctl00$C$M$ctl00$W$ctl01$BigIconImgSelector$ImgSelectorCtrl$CHOICE
+Category_Icon_Large_DropDown       = ctl00_ctl00_C_M_ctl00_W_ctl01_BigIconImgSelector_ImgSelectorCtrl_IconBankChoice
+ChooseFile_LargeIcon               = ctl00$ctl00$C$M$ctl00$W$ctl01$BigIconImgSelector$ImgSelectorCtrl$_uploadedFile$ctl01
+UploadButton_LargeIcon             = ctl00_ctl00_C_M_ctl00_W_ctl01_BigIconImgSelector_ImgSelectorCtrl_Upload
+
+Category_Detail_Image_RadioButton  = ctl00$ctl00$C$M$ctl00$W$ctl01$MainImageImgSelector$ImgSelectorCtrl$CHOICE
+Detail_Image_DropDown              = ctl00_ctl00_C_M_ctl00_W_ctl01_MainImageImgSelector_ImgSelectorCtrl_IconBankChoice
+ChooseFile_DetailImage             = ctl00$ctl00$C$M$ctl00$W$ctl01$MainImageImgSelector$ImgSelectorCtrl$_uploadedFile$ctl01
+UploadButton_DetailImage           = ctl00_ctl00_C_M_ctl00_W_ctl01_MainImageImgSelector_ImgSelectorCtrl_Upload
+Category_Details_Tab               = ctl00_ctl00_C_M_ctl00_W_ctl01_RadTabStrip1_TabDetails
+ChooseFile_DetailFlashImage        = ctl00$ctl00$C$M$ctl00$W$ctl01$MainImageImgSelector$ImgSelectorCtrl$_uploadedFlash$ctl01           
+UploadButton_DetailFlash           = ctl00_ctl00_C_M_ctl00_W_ctl01_MainImageImgSelector_ImgSelectorCtrl_UploadFlash
+
+
+Category_Icon_Small_RadioButton    = ctl00$ctl00$C$M$ctl00$W$ctl01$SmallIconImgSelector$ImgSelectorCtrl$CHOICE
+Category_Icon_Small_DropDown       = ctl00_ctl00_C_M_ctl00_W_ctl01_SmallIconImgSelector_ImgSelectorCtrl_IconBankChoice
+ChooseFile_SmallImage              = ctl00$ctl00$C$M$ctl00$W$ctl01$SmallIconImgSelector$ImgSelectorCtrl$_uploadedFile$ctl01
+UploadButton_SmallImage            = ctl00_ctl00_C_M_ctl00_W_ctl01_SmallIconImgSelector_ImgSelectorCtrl_Upload
+ 
+
+#My Account
+My_Account_Link                   = //a[@href='MyAccount/AccountInformation.aspx']
+
+
+#Groups
+Add_New_Group = ctl00_ctl00_C_M_buttonAddGroup
+Group_Name = ctl00_ctl00_C_M_textBoxGroupName
+Save_Group = ctl00_ctl00_C_M_buttonCreateGroup
+Manage_Page_Access = Manage Page Access
+Select_All = ctl00_ctl00_C_M_btnSelectAll 
+Clear_All = ctl00_ctl00_C_M_btnClearAll
+Update	=	//input[@name='updateForm' and @value='Update']
+Back = ctl00_ctl00_C_M_ButtonBack
+Group_Already_Exists = This name already exists
+
+Converters_Diagnostics = Converters Diagnostics
+Converters_Main = Converters Main
+Custom_Tracking = Custom Tracking
+DesignStudio_Dashboard = DesignStudio Dashboard
+Dynamic_Query_Tool = Dynamic Query Tool
+File_Types_Management = File Types Management
+Google_Analytics_Tracking = Google Analytics Tracking
+Manage_Design_Templates = Manage Design Templates
+Manage_Registration = Manage Registration
+Message_Routing =Message Routing
+PlugIns_Management = PlugIns Management
+Preflight_Profiles = Preflight Profiles
+Promo_Codes = Promo Codes
+Queues = Queues
+XMPie_Configuration = XMPie Configuration
+
+#Within groups -- Registered Users group related
+Address_Book = Address Book
+Approvals = Approvals
+Company_Order_History = Company Order History
+Order_Quote_Confirmation = Order/Quote Confirmation
+Profile = Profile
+Saved_Jobs = Saved Jobs
+Selected_Print_Shop=Selected Print Shop
+Spending_Accounts_Usage = Spending Accounts Usage
+Storefront = Storefront
+PageAccess = //span[text()='"Page Access"']"
+
+
+
+
+
+
+
+#Storefront Customization
+StorefrontCustomization = //a[@href='StoreFront/Managestorefront.aspx']
+Add_New_Storefront	=	ctl00_ctl00_C_M_ButtonAddStoreFront
+Storefront_Name		=	ctl00_ctl00_C_M_tbNameNew
+Storefront_Cancel	=	Go222
+Storefront_Save_And_Continue	=	ctl00_ctl00_C_M_bnSaveNew 
+Storefront_Manage		=	ctl00_ctl00_C_M_bnManageNew
+AddSmartStore = ctl00_ctl00_C_M_btnCreateGen2SF
+
+SaveSmartStorefront = //input[@ng-click='SaveNExit(step)']
+AssociateCompanies = //span[@ng-localize='AdminCust.AssociateCompanyStep']
+CloseSmartStorefront = //input[@value='Close']
+
+SearchStorefrontField = ctl00_ctl00_C_M_TextBoxSearch
+SearchStorefront = ctl00_ctl00_C_M_ButtonSearch
+StorefrontExists = //td/span[contains(text(),'This name already exists')]
+SetAsDefault = ctl00_ctl00_C_M_ButtonSetDefault2
+
+#Storefront customization - Associate Companies Page
+AssociateComp = //button[@ng-click='openAssoCompDialog()']
+SearchComp = //input[@placeholder='Search']
+SaveCompSF = //button[@ng-click='addComapnies()']
+CancelCompAddition = //button[@ng-click='closeDialog()']
+
+
+#Storefront customization - Theme selection page
+ChooseTheme  = //select[@ng-options='layout.LayoutId as layout.LayoutName for layout in LayoutsToShow']
+ChooseColor = //select[@ng-options='style.StyleId as style.StyleName for style in Styles']
+ProductsCategories = //a/div/span[contains(text(),'Products & Categories')]
+DefaultProdCat = chkDefaultProdCat
+
+smart_store_Productsandcategrories = //a[@ng-click='CheckChanges(step,3)']
+smart_store_default_Products = chkDefaultProdCat
+
+
+#Diagnostics
+Diagnostics = //a[@href='dsfdashboard.aspx']
+ClearCache = //input[@value='Clear All Cached Data (Advanced)']
+
+
+
+#******* Responsive UI Login Page ******
+
+#Linktext
+#MyAccountResp = My account
+RegisterUserResp = Register
+AddFile = Add File
+
+#xpath
+UserNameResp = //input[@ng-model='data.UserName']
+PasswordResp = //input[@ng-model='data.password']
+SignOutResp = //div/ul/li[@ng-click='DoSignOut();']
+LogOutLink = ctl00_ctl00_TopMessage_logoutHL
+InvalidUNPWDResp = //ng-error-control[@message='LoginMessageInvalidCredentialsmessage']/div[@class='error-message-control']/span[@class='error-message ng-binding']
+
+SavedFiles = //div/ul/li/a[@ng-click='openPage(data.SiteLevelRouterPaths.MySavedFiles)']
+MySavedFilesText = //div/div/span[@ng-localize=Mobile.SavedFiles.MySavedFiles]
+AddFiles = //table/thead/tr/td[2]/a[@ng-click='OpenUploadPopup()']
+Browse = //div/div/input[@ng-model='data.SelectedFileToUpload']
+Upload = //div/button[@ng-click='OnUploadClick()']
+Close = //div/a[@ng-click='closeDialog()']
+ MyAccountResp = //*[@class='icon-user-male']
+ MyAccountAfterLogin = //div[@class='myaccount-label']//span[@class='icon-select-bottom']
+ 
+
+HomeStorefront = //div[@class="logo ng-scope"]
+SearchField = //input[@ng-model='searchText']
+SearchButton = //button[@ng-click='SearchProducts(searchText)']
+AddToCart =//button[@class='btn']
+
+
+#Media = //a/label[@id='span-1']
+#MediaType = //td[contains(text(),'Banner Vinyl (60 inch / 91 cm)')]
+
+Media = //a/label[(@id='spanFC-1') or (@id='span-1')]
+#Media = //a/label[@id='span-1']
+MediaTable = //div[@class="modaltable"]/table
+MediaFirstrow = //div[@class="modaltable"]/table/tbody/tr[1]/td[2]
+MediaRows = //div[@class="modaltable"]/table/tbody/tr
+MediaScaleToFit = //input[@ng-model="PerformAutomaticScaling"]
+SelectMediaOkBtn = //div[@class='modal-footer']/a[1]/.[@ng-click='saveMedia()']
+
+FrontCoverDefault = //label[@id='spanFC74' or @id='span74' ]
+#FrontCoverDefault = //label[@id='span74']
+BackCoverDefault = //label[@id='spanFC75' or @id='span75']
+#BackCoverDefault = //label[@id='span75']
+PerfectBindDefault = //label[@id='spanFC68' or @id='span68']
+#PerfectBindDefault = //label[@id='span68']
+CollateDefault = //label[@id='spanFC60' or @id='span60']
+#CollateDefault = //label[@id='span60']
+CuttingDefault = //label[@id='spanFC54' or @id='span54']
+#CuttingDefault = //label[@id='span54']
+FoldingDefault = //label[@id='spanFC55' or @id='span55']
+#FoldingDefault = //label[@id='span55']
+OrientationDefault = //label[@id='spanFC76'or @id='span76']
+#OrientationDefault = //label[@id='span76']
+ClearCoatDefault = //label[@id='spanFC111' or @id='span111' ]
+#ClearCoatDefault = //label[@id='span111']
+FinalWidthandHeightDefault = //label[@id='spanFC71'or @id='span71']
+#FinalWidthandHeightDefault = //label[@id='span71']
+InputWidth = //input[@id='txtCustomWidth']
+InputHeight = //input[@id='txtCustomHeight']
+SelectWidthUnit = //select[@id='cmbWidthUnit']
+SelectHeightUnit =//select[@id='cmbHeightUnit']
+FinalWidthAndHeightOkBtn =//a[@id='okFWHA']
+CoilBindxPath =//ul[@id='ulFC68' or @id='ul68']//a[@title='Coil Bind']
+CombBindxPath =//ul[@id='ulFC68' or @id='ul68']//a[@title='Comb Bind']
+GBCBindxPath =//ul[@id='ulFC68' or @id='ul68']//a[@title='GBC']
+RingBindxPath =//ul[@id='ulFC68' or @id='ul68']//a[@title='Ring Binder']
+TapeBindxPath =//ul[@id='ulFC68' or @id='ul68' ]//a[@title='Tape Bind']
+VeloBindxPath =//ul[@id='ulFC68' or @id='ul68' ]//a[@title='Velo Bind']
+WireBindxPath =//ul[@id='ulFC68' or @id='ul68']//a[@title='Wire Bind']
+
+FcoverPrintonOutside = //ul[@id='ulFC74' or @id='ul74' ]//a[@title='Print on Outside']
+FcoverPrintonOutsideandInside = //ul[@id='ulFC74' OR @id='ul74']//a[@title='Print on Outside and Inside']
+BcoverPrintonOutside = //ul[@id='ulFC75' or @id='ul75']//a[@title='Print on Outside']
+BcoverPrintonOutsideandInside = //ul[@id='ulFC75' or @id='ul75'OR @id='Span75' ]//a[@title='Print on Outside and Inside']
+FCoverPrintinBlackandWhite =//*[@id='featureList']/ul/li[1]
+FCoverPrintinColor =//*[@id='featureList']/ul/li[2]
+BCoverPrintinBlackandWhite =//*[@id='featureList']/ul/li[1]
+BCoverPrintinColor =//*[@id='featureList']/ul/li[2]
+DropDownIcon = //span[@class='dropdown-icon']
+
+LaminationDefault = //label[@id='span81']
+NoLamination = //label[@id='span568']
+
+LaminateBothSides = //label[@id='span-196']
+LaminateBothTrimLarger = //label[@id='span572']
+LaminateBothTrimPaper = //label[@id='span571']
+
+LaminateOneSide = //label[@id='span-198']
+LaminateOneTrimLarger = //label[@id='span570']
+LaminateOneTrimPaper = //label[@id='span569']
+
+CuttingMargin = inputMargin
+CuttingOkBtn = //span[@id='okCuttingSpan']
+CuttingWidth = CutWidth
+CuttingHeight = CutHeight
+
+# Color or B&W
+
+ColorBWDefault = //label[@id='span69']
+# ShrinkWrap
+ShrinkWrapDefault = //label[@id='span85']
+Duplexdefault = //label[@id='span70']
+CalltoDisDefauilt = //label[@id='span87']
+DrillDefault  =//label[@id='span52']
+
+RequestforProofDefault  =//label[@id='span86']
+ShrinkWrapSets = //*[@id="txtSetCount"]
+ShrinkWrapSetsOKbtn =//*[@id="okSWA"]
+SlipsheetsDefault =//label[@id='span61']
+
+
+
+
+#Aug - 27th onwards - mahantesh
+JobUploadFiles = //div[@class='modalcontent']/div[@ng-click='OpenUploadFilesDialog()']
+##//a[@ng-click="OpenUploadFilesDialog()" and @class="btn"]
+
+NumOfPages = UploadRow0
+BW = img482
+Color = img483
+DefaultColorBW = img69
+DefaultGrommets = img78
+DefaultWindSlit = img90
+WindSlitYes = img625
+DefaultLargeLamination = //label[@id='span80']
+DefaultNoLargeLamination = //label[@id='span561']
+GlossLamination = //ul[@id='ul80']//a[@title='Gloss']
+LustreLamination =  //ul[@id='ul80']//a[@title='Lustre']
+MatteLamination = //ul[@id='ul80']//a[@title='Matte']
+DefaultLeftFinish = img93
+DefaultRightFinish = img94
+DefaultBottomFinish = img92
+DefaultTopFinish = img91
+
+
+DefaultMount = img83
+NoMount = //label[@id='span576']
+#FoamCore = //li[@id="83"]//ul[@id='ul83']//a/label[contains(.,'Foam Core (3/16")')]
+FoamCore = //ul[@id='ul83']//a[@title='Foam Core (3/16")']
+#FoamCore =          //ul[@id='ul83']//a[@title='Foam Core (3/16")']//div//img
+fm =       //ul[@id='ul68']//a[@title='Wire Bind']
+Gator = //ul[@id='ul83']//a[@title='Gator (1/2")']
+Sintra1 = //ul[@id='ul83']//a[@title='Sintra 1mm']
+Sintra3 = //ul[@id='ul83']//a[@title='Sintra 3mm']
+
+MediaSizeSWF = filterSizeCombo
+MediaWeightSWF = //td[4][@ng-localize='Weight']
+
+#User registration Page
+RFirstName = txtFirstName
+RMiddleName = txtMiddleName
+RLastName = txtLastName
+REmailId = txtEmailAddress
+RConfirmEmailId = txtConfirmEmailAddress
+RPhone1 = txtPhone1
+RPhone2 = txtPhone2
+RFax = txtFax
+RuserName = txtUserName
+RPassword = txtProfilePassword
+RConfirmPassword = txtConfirmPassword
+RSecurityQuestion = ddlSecurityQuestion
+RSecurityAnswer = txtSecurityQuestion
+RTitle = txtTitle
+RCompany = txtCompany
+RDepartment = txtDepartment
+RAddress1 = txtAddress1 
+RAddress2 = txtAddress2
+RAddress3 = txtAddress3
+RCountry = ddlCountry
+RZipCode = txtZip
+RCity = txtCity
+RStateProvince = //select[@ng-model='objRegisterUser.State_Province_Region']
+RCancel = //button[contains(.,'Cancel')]
+#RSubmit = //button[contains(.,'Submit')]
+RSubmit = //button[contains(.,'Save')]
+
+
+RChoosePrintshop = //div/a[@ng-click='OpenFacility()']
+RSelectPrintshopt = select
+UserConfirmationMessage = //div/div[@class="modal-body"]
+#RGetStarted = //div/div[@class="modal-footer"]/button[@class="btn"] 
+RGetStarted = //button[contains(.,'Get Started')]
+
+ViewAllCategories = //div/span/a[@ng-click='browseCategory();']
+RHome = //div/div/div/span[@class='icon-home']
+AdminArea = //div/div/div[@class="ctr-adminsidecontent"]
+AllCategories = //a[text()='All Categories' and @ng-click='browseCategory();']
+
+MiniCart = //div[@ng-click='OpenShoppingCart()']
+##NppQty = //div/input[@class='input-small']
+NppQty = //div[@class="modalContent"]//input
+BuyNow = //div/div[@class="product-details-page-actions"]/button[@ng-click="openProductDialog('/ProductCustomization',product,0)"]
+
+ClearCart = //div/a[@class='cart-clear-button ng-scope']
+ClearCartYes = //div/a[@ng-click="ClearCart()"]
+#ProceedToCheckout = //div/a[@ng-click='Proceed()']/span[@ng-localize="RS.Cart.Proceed"]
+ProceedToCheckout = //a[@ng-click='Proceed(data.ShoppingCartData._EnableCheckout)']
+SelectShipment = //select[@ng-model='delivery.SelectedDeliveryMethodId']
+#ProceedToPayment = //div/a[@ng-click="IsCheckoutDisabled || $emit('ProceedToPayment');"]/span
+ProceedToPayment = //a[@ng-click='OnProceedToPayment()']
+PaymentMethod = //div/ul/li/input[@name='PaymentMethod']
+PlaceMyOrder = //div[@ng-cntrl='controllers/ShoppingCart/ProceedToPlaceOrderCntrl']/a[@class='cart-checkout-button ng-scope']/div/span
+OrderConfirmationText = //div[@class='order-thank-you']/div[@ng-cntrl='controllers/OrderConfirmation/OrderConfirmationHeaderCntrl']
+OrderNumber = //div[@class='checkout-order-info']//div[@class='order-no']/h3[@class='ng-binding']
+CannotChangePassword = //div[@id='errorDiv']/label[@ng-show='ErrorInRetrievingSecretQuestion']
+
+SpendingAcctBal = //div/div[@class='myspending-label']/span[@class='label ng-binding']
+SpendingAcctName =  //div/div[@class='myspending-label']/span[@class='ng-binding']
+
+CategoryLongDesc = //div[@class='category-description-long']/span
+
+SelectMediaSize = //select[@ng-model='data.MediaSize']
+SelectMediaWeight = //select[@ng-model='data.mediaWeight']
+OKButton = //a[@class='OK-button']
+ClickAdministration = //div[@class='myadmin-label']
+ClickCart = //*[@id='ctl00_ctl00_RightHandMenun0']/table/tbody/tr/td/a
+
+AddresFirstName = ctl00_C_DataGrid_Recipients_ctl02_ShoppingCart_DisplayRecipient_TextBoxFirstName
+AddressTextBoxLastName = ctl00_C_DataGrid_Recipients_ctl02_ShoppingCart_DisplayRecipient_TextBoxLastName
+AddressTextBoxAddressLineOne = ctl00_C_DataGrid_Recipients_ctl02_ShoppingCart_DisplayRecipient_TextBoxAddressLineOne
+AddressTextBoxCity = ctl00_C_DataGrid_Recipients_ctl02_ShoppingCart_DisplayRecipient_TextBoxCity
+AddressTextBoxPostalCode = ctl00_C_DataGrid_Recipients_ctl02_ShoppingCart_DisplayRecipient_TextBoxPostalCode
+AddressTextBoxEmailAddress = ctl00_C_DataGrid_Recipients_ctl02_ShoppingCart_DisplayRecipient_TextBoxEmailAddress
+AddressState = ctl00_C_DataGrid_Recipients_ctl02_ShoppingCart_DisplayRecipient_DropDownListStateProvinceRegion
+CalenderSaveBtn = ctl00_C_CalendarDueDate_Go23
+
+
+JobAddFiles =//div[@class='files-panel-title-holder']//a[@class="add-files-link"]
+#JobSavedFiles = //a[@ng-click="OpenSavedFilesDialog()" and @class="btn"]
+JobSavedFiles = .//*[@id='DivAddFiles']/div[3]/div[2]/div[1]/a/img
+
+JobName = //input[@id="jobInput"]
+QuantityJob = //div[span[text()='Quantity']]/ng-quantity-control/div/Input[1]
+P = //label[@id='spanFC73' or @id='span73' ]
+PinColor = //label[@id='span-4']
+SingleSided = //label[@id='span535']
+PrintInColorBW = //*[@id="ul-4" and (contains(@style,'display: none'))]//img[@id='img535']
+PC = //a/label[@id='span-4']
+ColorDoubleSide = //img[@id='img536']
+Orientation = //img[@id='img76']
+Portrait = //*[@id="ul76" and (contains(@style,'display: block;'))]//img[@id='img550']
+Landscape = //*[@id="ul76" and (contains(@style,'display: block;'))]//img[@id='img550']
+Drill = //img[@id='img52']
+ThreeHolesDrill =//*[@id="ul52" and (contains(@style,'display: block;'))]//img[@id='img34']
+
+ColorDoubleSide = //img[@id='img536']
+Orientation = //img[@id='img76']
+Portrait = //*[@id="ul76" and (contains(@style,'display: block;'))]//img[@id='img550']
+Landscape = //*[@id="ul76" and (contains(@style,'display: block;'))]//img[@id='img550']
+Drill = //img[@id='img52']
+ThreeHolesDrill =//*[@id="ul52" and (contains(@style,'display: block;'))]//img[@id='img34']
+
+
+
+
+
+
+SavedFilesCount =//div[@class='modaltable']/table/tbody/tr
+GetSavedFileName =//div[@class='modaltable']/table/tbody/tr[i]/td[3]/span[1]
+SelectCheckBox = //div[@class='modaltable']/table/tbody/tr[i]/td[1]/input
+
+SavedFilesCancelBtn = //div/a/span[@ng-localize="Shared.Cancel"]
+
+#SavedFilesOKBtn = //div[@class='modal-footer']/a[1]/.[@ng-click='selectFiles()']
+SavedFilesOKBtn = //a[@ng-click='selectFiles()']
+##SavedFilesCancelBtn = //div[@class='modal-footer']/a[1]
+
+
+NextBtnForgotPwd = //button[@ng-click='SubmitUserName(username)']
+EnterUsername = //div/label[@ng-localize="Mobile.ForgotPassword.UserName"]
+SecretQuestion = //div/label[@class='ng-binding']
+SecretQuestionText = //div/label[@ng-localize='Mobile.ForgotPassword.SecretQuestionPrompt']
+AllCategoriesLink = //ul/li/a[contains(text(),'All Categories')]
+
+AdminLink = //*[@class='icon-settings']
+CustomerOrderHistory = Customer Order History
+#temp krishna
+SignOutResp = //li[@ng-click='DoSignOut();']
+
+LoginText = //div/div/div[@class='myaccount-label']/span[@class='label ng-binding']
+
+#UserNameResp = //input[@ng-model='username']
+#SignOutResp = //div/ul/li[@ng-click='DoSignOut()']
+
+
+#id
+RememberMeResp = chkRememberME
+SearchOrderButton = ctl00_ctl00_C_M_bnSearchOrderNo
+OrderNumberField = ctl00_ctl00_C_M_txOrderNo
+OrderLink = ctl00_ctl00_C_M_ucOrderHistoryItem_Repeater1_ctl00_Hyperlink1
+ForgotPWDUsername = fpUserName
+
+
+#class names
+LoginResp = login-button
+ForgotPasswordResp = forgot-password 
+SearchResults = search-results-title
+Add = btn
+
+
+#Taxes
+Taxes = Taxes
+TaxesLabel = //span[@id='ctl00_ctl00_C_M_LabelTaxes'] 
+TaxSettings = Settings
+TaxSettingslabel = //span[@id='ctl00_ctl00_C_M_LabelTaxSettingsHeader']
+EnableExtTax = ctl00_ctl00_C_M_CheckBoxExternalIntegration
+ExternalPlugin = ctl00_ctl00_C_M_RBPlugIn
+EnableCCH = ctl00_ctl00_C_M_CheckBoxCCH
+ClickHereCCH = ctl00_ctl00_C_M_LinkButtonConfigure
+CCHNumberField = ctl00_ctl00_C_M_Configs_ctl00_WFE_CCHSerialNumber4
+CCHSave = ctl00_ctl00_C_M_Save
+TestCCH = ctl00_ctl00_C_M_Test
+CCHTestSuccess = ctl00_ctl00_C_M_FeedBack_LabelSuccessful
+SaveTaxSettings = ctl00_ctl00_C_M_ButtonSaveSettings
+
+
+#Site Settings
+SiteSettings = //a[@href='configuredsf.aspx']
+ShippingConfig=//a//span[(text()='Shipping Cost Configuration')]
+#ShippingConfig = ctl00_ctl00_C_M_RadTabStrip1_ShippingSettings
+#ShippingConfig=ShippingSettings
+EnableAuctionInc = ctl00_ctl00_C_M_chkUseAuctioninc
+UseEFIAccount = ctl00_ctl00_C_M_chkEFIAccount
+AuctionIncIdField = ctl00_ctl00_C_M_txtAuctionincId
+SaveShippingConfig = ctl00_ctl00_C_M_btnSaveShippingConfiguration
+ShippingConfigLabel = ctl00_ctl00_C_M_lblShippingConfig
+SessionTimeOutText = ctl00_ctl00_C_M_lblSTO
+CSREmailId = ctl00_ctl00_C_M_txtCSRMailId
+AuctionIncConfigMsg = ctl00_ctl00_C_M_FeedbackMessage_LabelSuccessful
+
+#CostCenters
+ViewManageCostCenter = ctl00_ctl00_C_M_LinkButtonManageCostCenters
+CCenterDispNameLabel = ctl00_ctl00_C_M_LabelCostCenterName
+CCenterDispNameField = ctl00_ctl00_C_M_TextBoxCostCenterName
+CCenterDispNameSave = ctl00_ctl00_C_M_ButtonSaveCostCenterDisplayName
+AddCostCenter = ctl00_ctl00_C_M_ButtonAddCostCenter
+CCenterPersonalAcctLabel = ctl00_ctl00_C_M_ModifyBillingEntityControl_billingEntityInformationControl_labelIsPersonal
+PersonalAcct = ctl00_ctl00_C_M_ModifyBillingEntityControl_billingEntityInformationControl_CheckBoxPersonalAccount
+CCenterAcctNum = ctl00_ctl00_C_M_ModifyBillingEntityControl_billingEntityInformationControl_textBoxAccountNumber
+AcctStatus = ctl00_ctl00_C_M_ModifyBillingEntityControl_billingEntityInformationControl_DropDownListAccountStatus
+CreditLimit = ctl00_ctl00_C_M_ModifyBillingEntityControl_billingEntityInformationControl_TextBoxCreditLimit
+OrderLimit = ctl00_ctl00_C_M_ModifyBillingEntityControl_billingEntityInformationControl_TextBoxOrderLimit
+SaveCCenter = ctl00_ctl00_C_M_ModifyBillingEntityControl_ButtonSaveBillingEntity
+BackCCenter = ctl00_ctl00_C_M_ModifyBillingEntityControl_ButtonCancel
+
+
+#Promocodes
+PromoCodes = //a[@href='PromoCodesLandingPage.aspx']
+
+AddPromoCode = ctl00_ctl00_C_M_addgiftcards
+PromoCodeName = ctl00_ctl00_C_M_txtGCName
+PromoCode = ctl00_ctl00_C_M_txtGCCode
+Amount = ctl00_ctl00_C_M_txtAmount
+SearchCompanyField = ctl00_ctl00_C_M_mapCompany_txtCompanyName
+AddCompButton = ctl00_ctl00_C_M_mapCompany_btnFindCompany
+Stackable = ctl00_ctl00_C_M_CB_STCK
+MultipleUsage = ctl00_ctl00_C_M_CB_AMUP
+SavePromoCode = ctl00_ctl00_C_M_btnSave 
+
+
+#Users
+Users = //a[@href='ManageUsers.aspx']
+Username = ctl00_ctl00_C_M_TextBoxEmail
+UserPassword = ctl00_ctl00_C_M_TextBoxPassword
+UserVerifyPwd = ctl00_ctl00_C_M_TextBoxVerifyPassword
+UserComp = ctl00_ctl00_C_M_DropDownListCompanies
+UserPrintshop = ctl00_ctl00_C_M_DropDownListFacilities
+UserGroups = ctl00_ctl00_C_M_DropDownListGroups
+UserNext = ctl00_ctl00_C_M_ButtonNext
+UserSecretQuestion = ctl00_ctl00_C_M_DropDownListSecretQuestion
+UserSecAnswer = ctl00_ctl00_C_M_textBoxSecretAnswer
+UserAnswerNext = ctl00_ctl00_C_M_ButtonSecretQuestionNext
+SaveUser = ctl00_ctl00_C_M_SaveNewUser
+
+#User Contact Information
+UserFname = ctl00_ctl00_C_M_ContactInformationControl_textBoxFirstName
+UserMName = ctl00_ctl00_C_M_ContactInformationControl_textBoxMiddleName
+UserLName = ctl00_ctl00_C_M_ContactInformationControl_textBoxLastName
+UserAddLineone = ctl00_ctl00_C_M_ContactInformationControl_textBoxAddress1
+UserAddLinetwo = ctl00_ctl00_C_M_ContactInformationControl_textBoxAddress2
+UserAddLineThree = ctl00_ctl00_C_M_ContactInformationControl_textBoxAddress3
+UserCity = ctl00_ctl00_C_M_ContactInformationControl_textBoxCity
+UserState = ctl00_ctl00_C_M_ContactInformationControl_DropDownListStateProvinceRegion
+UserZipCode = ctl00_ctl00_C_M_ContactInformationControl_textBoxZipPostalCode
+UserCountry = ctl00_ctl00_C_M_ContactInformationControl_dropDownListCountry
+UserPhoneOne = ctl00_ctl00_C_M_ContactInformationControl_textBoxPhoneNumber1
+UserPhoneTwo = ctl00_ctl00_C_M_ContactInformationControl_textBoxPhoneNumber2
+UserFax = ctl00_ctl00_C_M_ContactInformationControl_textBoxFaxNumber
+UserTitle = ctl00_ctl00_C_M_ContactInformationControl_textBoxTitle
+UserEmail = ctl00_ctl00_C_M_ContactInformationControl_textBoxEmail
+UserDepartment = ctl00_ctl00_C_M_ContactInformationControl_textBoxDepartment
+UserCompany = ctl00_ctl00_C_M_ContactInformationControl_TextBoxCompany
+UserCostCenter = ctl00_ctl00_C_M_ContactInformationControl_TestBoxBillingEntity
+LoginBypassUniqueId = ctl00_ctl00_C_M_ContactInformationControl_TextBoxSSOToken
+
+UserSuccess = ctl00_ctl00_C_M_LabelAddAnotherUser
+UserAlreadyExists = ctl00_ctl00_C_M_LabelMessage
+
+
+#CSR
+AssignCSR = ctl00_ctl00_C_M_ButtonManageCSR
+SelectCompany = ctl00_ctl00_C_M_ddlCompanies
+AssignSelected = ctl00_ctl00_C_M_Apply
+
+
+#Image Gallery
+ManageGallery = //a[@href='ManageImagesGallery.aspx']
+CreateGallery = ctl00_ctl00_C_M_ImageGallery1_CreateGallery
+GalleryName = ctl00_ctl00_C_M__ImageGalleryInfo_txtGalleryName
+SaveGallery = ctl00_ctl00_C_M__ImageGalleryInfo_btnSave
+AddImage = ctl00_ctl00_C_M__ImageGalleryInfo_btnAddImage
+AssociateImage = ctl00_ctl00_C_M__ImageGalleryInfo_btnAssociate
+BrowseToAddImage = ctl00$ctl00$C$M$_ImageGalleryInfo$_uploadedFile$ctl01
+AddImageOK = ctl00_ctl00_C_M__ImageGalleryInfo_ButtonPopUpOk
+
+
+#--------------------------------------------------------------------------------------------------
+#krishna - Locators - Start
+#---------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------
+#CreditCard Setup 
+#----------------------------------------------------------------------
+CCDemomode = ctl00_ctl00_C_M_CheckBoxCCDemoMode
+CCSavebutton = ctl00_ctl00_C_M_btnCCShippingConfig
+CCSavemsg = ctl00_ctl00_C_M_FeedbackMessage_LabelSuccessful
+ccpaymentGateways = //select[@id = 'ctl00_ctl00_C_M_DDLPaymentGateways']
+ccAddAccount = ctl00_ctl00_C_M_ButtonAddAccount
+CCNewAccount = ctl00_ctl00_C_M_AccountName
+ccAddNewACbtn = ctl00_ctl00_C_M_FinalAdd
+CCPGinfo= //span[contains(text(),'Payment Gateway Information')]
+CCACInfo = //span[contains(text(),'Account Information')]
+CCConfig= //span[contains(text(),'Credit Cards are configured at the Ogone site')]
+ACMand = //span[contains(text(),'Account Setup (Mandatory Fields)')]
+#----------------------------------------------------------------------
+# Account Mandatory information fields
+#----------------------------------------------------------------------
+PSPID = //*[contains(@id, 'ctl00_ctl00_C_M_Configs_ctl03_WFE_PSPID')]
+SHA_IN = //*[contains(@id, 'ctl00_ctl00_C_M_Configs_ctl03_WFE_SHAKey')] 
+SHA_OUT = //*[contains(@id, 'ctl00_ctl00_C_M_Configs_ctl03_WFE_SHAKeyout')] 
+CCUserid = //*[contains(@id, 'ctl00_ctl00_C_M_Configs_ctl03_WFE_USERID')] 
+CCPwdEditbtnname = //*[contains(@name, 'ctl00$ctl00$C$M$Configs$ctl03$WFE$PSWD')] 
+CCPWDEdittxtname = //*[contains(@name, 'ctl00$ctl00$C$M$Configs$ctl03$WFE$PSWD')] 
+CCEnablement_Chkbox = //*[contains(@id, 'ctl00_ctl00_C_M_Configs_ctl01_WFE_Status')] 
+CCSavebtn = ctl00_ctl00_C_M_Save
+CCChangeMsg = ctl00_ctl00_C_M_FeedBack_LabelSuccessful
+
+#----------------------------------------------------------------------
+#DropDown Accounting Code Setup
+#----------------------------------------------------------------------
+
+DAC_Disp_As = ctl00_ctl00_C_M_ctl00_ctl02_txtBoxDisplayAs
+DAC_Status = ctl00_ctl00_C_M_ctl00_ctl02_ddlStatus
+DAC_CompareSet = ctl00_ctl00_C_M_ctl00_ctl02_rdCompareDataset
+DAC_Savebtn = ctl00_ctl00_C_M_ctl00_Section0Button0
+DAC_Save_Msg = ctl00_ctl00_C_M_ctl00_ctl02_lblUpdateTime
+DAC_Cancelbtn = ctl00_ctl00_C_M_ctl00_Section0Button1
+DAC_CSVUpload = ctl00_ctl00_C_M_ctl00_ctl03_FileUpload
+DAC_Specify_Column = ctl00_ctl00_C_M_ctl00_ctl03_TextBoxColumnNameValue
+DAC_Showas_Dropdown_chkbox = ctl00_ctl00_C_M_ctl00_ctl03_chkShowAsDropDown
+DAC_Default_Value = ctl00_ctl00_C_M_ctl00_ctl03_txtDef
+DAC_Upload_Message = ctl00_ctl00_C_M_ctl00_ctl03_LabelDataStatusValue
+DAC_Update_Acc_Codes = ctl00_ctl00_C_M_ctl00_Section1Button0
+DAC_Current_Records = ctl00_ctl00_C_M_ctl00_ctl03_LabelCurrentDataRecordsValue
+DAC_Records_Updated_On = ctl00_ctl00_C_M_ctl00_ctl03_LabelDateAndTimeLastUploadValue
+DAC_Company_AC_Setup = //tr[td[*[text()='Accounting Codes']]]/td/Input[@type='checkbox']
+#----------------------------------------------------------------------
+#Spening Account - @ User Level
+#----------------------------------------------------------------------
+SP_Name_Edit_Box = ctl00_ctl00_C_M_txtName
+SP_Company_List_Box = ctl00_ctl00_C_M_ddlCompany
+SP_comp_Users_Combo_Box = ctl00_ctl00_C_M_RadComboBox1_Input
+SP_Email_Text_area = ctl00_ctl00_C_M_txtEmailId
+SP_Display_Name = ctl00_ctl00_C_M_txtDisplayName
+SP_Display_chk_box = ctl00_ctl00_C_M_chkDisplayBalance
+SP_Amt_Edit_box = ctl00_ctl00_C_M_txtSpAmount
+SP_Allow_Auto_Reload = ctl00_ctl00_C_M_chkAutoReload
+SP_User_level = ctl00_ctl00_C_M_rbUser
+SP_Add_New_btn = ctl00_ctl00_C_M_btnAddNew 
+SP_Save_btn = ctl00_ctl00_C_M_btnSave
+SP_Cancel_btn = ctl00_ctl00_C_M_btnCancel
+SP_AC_Table = ctl00_ctl00_C_M_SpendingAccountsGrid
+Spending_Instr = ctl00_ctl00_C_M_lblActiveWindowInstr
+
+Ac_Disp_name = ctl00_ctl00_C_M_ProjectCodeSetupBox_ctl02_txtBoxDisplayAs
+Ac_Save_btn = //Input[@value ='Save']
+Ac_Cancel_btn = //Input[@value ='Cancel']
+Create_New_AC_Code = ctl00_ctl00_C_M_ButtonCreateNewAccountingCode
+AddNewAddress = //button[contains(text(),'Add New')] 
+
+Cancel_Address = //button[@ng-click='CancelPage()']
+Save_Address = //button[@ng-click='Submit()']
+
+#Address Fields
+txtMiddlename = //Input[@id = 'txtMiddleName']
+txtFirstName = //Input[@id = 'txtFirstName']
+txtLastName = //Input[@id = 'txtLastName']
+txtEmailAddress = //Input[@id = 'txtEmailAddress']
+txtAddress1 = //Input[@id = 'txtAddress1']
+
+txtZip= //Input[@id = 'txtZip']
+txtCity = //Input[@id = 'txtCity']
+
+Address_Book_Title = //div[@Class = 'myaccount-page-title']//Span[contains(text(),'Address Book')]
+Address_Book_Register_Titile = //div[@Class = 'register-page-title']//Span[contains(text(),'Address Book')]
+Address_Remove = //tr[td[div[contains(text(), 'First_Name_Test Last_Name_Test')]]]/td/a[text()='Remove']
+
+# Saved Files
+
+Add_File_Button = //button[text()='Add Files']
+Supported_File_Formats = //a[text()='Supported File Formats']
+#Close_Button = //*[@id='uploadFileDiv']//button[Contains(text(),'Close') and @class='Cancel-button ng-binding']
+Close_Button = //div/div/button[@class = 'Cancel-button ng-binding']
+Adhoc_Upload_Files_Done_button =//button[contains(@class,'OK-button') and (@ng-click='OnAssociateFilesClick()')] 
+# //button[contains(text(),'Done') and @ng-click='OnAssociateFilesClick()']
+Convert_all_to_PDF = //input[@ng-click='OnConvertAllToPDFClick()']
+#changed @ build # 20319
+Add_more_Files_label =//div/div/button[@class ='ng-binding add-files-button']
+#Upload_button = //div/div/button[@id ='btnOnlineUpload']
+Upload_button = //*[@id='DivAddFiles']//span[text()='Upload Files']
+
+Upload_Files_Dialog_Title = //div/div/span[text() = 'Upload Files']
+
+#Quantity Verification
+NPP_Fixed = //*[contains(text(),'NPP_Fixed_Automation')]
+NPP_Multiple = //*[contains(text(),'NPP_Multiple_Automation')]
+NPP_Advanced = //*[contains(text(),'NPP_Advanced_Automation')]
+
+#For Search Button
+Edit_Seach_Products = //Input[@ng-model='searchText']
+Search_Button  = //button[@class='search-button']
+
+#Comboboxes for NPP_Multiple
+cbox_NPP_Multiple_Qty = //h5[contains(text(),'NPP_Multiple_Automation')]/following::select[@class='input-small'][1]
+cbox_NPP_Advanced_Qty = //h5[contains(text(),'NPP_Advanced_Automation')]/following::select[@class='input-small'][1]
+NPP_Fixed_Qty = //h5[contains(text(),'NPP_Fixed_Automation')]/following::div/span[contains(text(), '15')]
+
+Company_Accounting_Codes = ctl00_ctl00_C_M_LinkButtonManageProjectCodes
+Company_Page = //span[contains(text(),'Manage Company')]
+setup_AC_code = ctl00_ctl00_C_M_ButtonEditAccountinCode
+Ac_Disp_name = ctl00_ctl00_C_M_ProjectCodeSetupBox_ctl02_txtBoxDisplayAs
+Ac_Save_btn = //Input[@value ='Save']
+Ac_Cancel_btn = //Input[@value ='Cancel']
+Create_New_AC_Code = ctl00_ctl00_C_M_ButtonCreateNewAccountingCode
+
+
+#Locators - TicketTemplate
+#ADV_Copies = //tr[td[contains(text(),'Advanced Copies V3.0')]]/td/input  Not identified on 8.0 build onwards due to object tree change
+ADV_Copies  = .//*[*[*[contains(text(),'Advanced Copies V3.0')]]]/td/input  
+BID_COLOR_COPIES = //tr[td[contains(text(),'Advanced Copies V3.0')]]/td/input
+Copies_Ver3 = //tr[td[contains(text(),'Advanced Copies V3.0')]]/td/input
+copybtn = ctl00_ctl00_C_M_ManageTemplates_ButtonCopy
+deletebtn = ctl00_ctl00_C_M_ManageTemplates_ButtonDelete
+editbtn = ctl00_ctl00_C_M_ManageTemplates_ButtonEdit
+ManageTicket_btn = ctl00_ctl00_C_M_ManageTemplates_ButtonCopyAndManage
+SaveNClose_btn = ctl00_ctl00_C_M_ManageTemplates_ButtonPopUpOk
+TT_Cancel_btn_Xpath = //Input[@value='Cancel']
+SaveAs_Edit_box =ctl00_ctl00_C_M_ManageTemplates_TextBoxTemplateName
+TT_Page_Txt_Name = ctl00_ctl00_C_M_TextBoxTemplateName
+Add_PS_btn = ctl00_ctl00_C_M_printOpt_0_btnAddPrintService
+Create_Ticket_Template = ctl00_ctl00_C_M_ManageTemplates_btnCreate
+Ticket_Template_Name = ctl00_ctl00_C_M_TextBoxTemplateName
+TT_Print_Service_Section = //tr[td[Input[contains(@id,'btnAddPrintService')]]]/td/Input[@type='text']
+
+PS_Search_Text = ctl00_ctl00_C_M_AddPrintServices_TextBoxSearch
+PS_Add =  ctl00_ctl00_C_M_AddPrintServices_ButtonAdd
+PS_Search_btn = ctl00_ctl00_C_M_AddPrintServices_ButtonSearch
+Show_All_Services_Dropdown = ctl00_ctl00_C_M_AddPrintServices_TopPagerUI_PageSizesDropDown
+PrintService_Configure_btn =  //tr[td[span[span[starts-with(text(),'Color or B&W')]]]]/td[@nowrap="nowrap"]/input[@value='Configure']
+Show_All_Config_PageSizes_Dropdown = //select[@id="ctl00_ctl00_C_M_configPS_TopPagerUI_PageSizesDropDown"]
+Config_btn_save= ctl00_ctl00_C_M_configPS_btnSave
+Requires_Job_Approval = ctl00_ctl00_C_M_Reviewjob_ckApproval
+Show_Price_Summary = ctl00_ctl00_C_M_Reviewjob_ckPriceSummary
+Show_Special_Instructions = ctl00_ctl00_C_M_Reviewjob_chkSpecialInstruction
+TT_Main_Save_btn = ctl00_ctl00_C_M_btnSave
+TT_Disp_Main_Table = ctl00_ctl00_C_M_ManageTemplates_AllTicketTemplates
+
+
+#Export & Import
+Export_Import_lnk = Export / Import
+#import_Rad_tab = //a[@id='ctl00_ctl00_C_M_RadTabStrip1_ImportTab']/span/span
+#import_Rad_tab=//a[@id='ImportTab']/span/span
+import_Rad_tab=//a//span[(text()='Import')]
+Import_Template_List_box = ctl00_ctl00_C_M__ddlWhatToImport
+Template_File_upload = ctl00_ctl00_C_M_FileUpload
+Delimiter_Type_List_box = ctl00_ctl00_C_M_drpImportEncoding
+Delimiter_Selector_List_box = ctl00_ctl00_C_M_drpImportSeparator
+OverrideDuplicates_check_box =  ctl00_ctl00_C_M_ctl00_OverrideDuplicates
+import_Template_btn = ctl00_ctl00_C_M_btnImportTemplate
+Records_Added_Count = ctl00_ctl00_C_M_lblInsertedCount
+Invalid_Records_Count = ctl00_ctl00_C_M_lblInvalidRecordCount
+
+
+#PrintShop - Rush Fee - Setup
+#-------------------------------------------------------------------------------------------------
+PS_Order_type_View_Manage_Link = ctl00_ctl00_C_M_linkOrderTypeInfo
+PS_Regular_Job_Editbox = ctl00_ctl00_C_M_objFacilityOrderTypesConfiguration_DataGridJobLifeTime_ctl02_TextBoxTime
+PS_Rush_Job_Editbox = ctl00_ctl00_C_M_objFacilityOrderTypesConfiguration_DataGridJobLifeTime_ctl03_TextBoxTime
+PS_Regular_Job_Units_list_box = ctl00_ctl00_C_M_objFacilityOrderTypesConfiguration_DataGridJobLifeTime_ctl02_dropdownTimeUnit
+PS_Rush_Job_Units_list_box = ctl00_ctl00_C_M_objFacilityOrderTypesConfiguration_DataGridJobLifeTime_ctl03_dropdownTimeUnit
+RushFee_Percentage_Text_Box = ctl00_ctl00_C_M_objFacilityOrderTypesConfiguration_DataGridJobLifeTime_ctl03_txtPercentage
+RushFee_Percentage_Chk_box = ctl00_ctl00_C_M_objFacilityOrderTypesConfiguration_DataGridJobLifeTime_ctl03_chkPercentage
+RushFee_Amount_Text_box = ctl00_ctl00_C_M_objFacilityOrderTypesConfiguration_DataGridJobLifeTime_ctl03_txtValue
+RushFee_Amount_Chk_box = ctl00_ctl00_C_M_objFacilityOrderTypesConfiguration_DataGridJobLifeTime_ctl03_chkValue
+Rush_Setup_savebtn = ctl00_ctl00_C_M_btnSaveOrderType
+#Smart Store - Rush Fee Selection - Locators
+Default_PS_xpath = //a[@class='print-shop-selected']/span[@ng-click='changePrintShop()']
+Default_Delivary_Date_xpath = //a[contains(@class,'due-date-picker')]/span[@class='ng-binding']
+ForceUser_Default_Delivary_Date_xpath = //a[@class='due-date-picker']
+Calender_Time_Picker_xpath = //div[@class='time-picker']//select
+Default_Delivary_Date_selection_xpath = //a[@class='due-date-picker']/span[@class='icon_table']
+Default_Del_date_For_Forceuser = //a[@class='due-date-picker input-for-error']/span[@class='icon_table']
+Due_Date_Calender_Rush_Fee_Information_xpath =//div[@class='legend']/span
+Rush_Calender_Date_Selection_xpath = (//button[contains(@class,'btn btn-rush')])[1]
+Rush_Calender_Choose_Next_xpath = //button [@class='btn pull-right']
+Calender_save_button_xpath = //button[contains(text(),'Save')]
+Proceed_To_CheckOut_link = //a[@class='cart-checkout-button ng-scope']
+
+PS_Calender_Selection = ctl00_ctl00_C_M_DropDownCalendarDateOptions
+
+
+
+#Credit_Card_Setup
+#===================================================================================
+PS_Calender_Selection = ctl00_ctl00_C_M_DropDownCalendarDateOptions
+Cart_Total = //tr[td[div[h2[text()='Total:' or text()='Total' ]]]]/td/div/h2[@ng-class='currentClass']
+#Cart_Total =//div[@class='order-summary-pricing ng-scope']//tr[2]/td[2]
+Cart_Shipping_value = //tr[td[div[h2[text()='Shipping:' or text()='Shipping' or text()='*Estimated Shipping:']]]]/td/div/h3[@class='ng-binding']
+Cart_Subtotal_value = //tr[td[div[h2[text()='Subtotal:' or text()='Subtotal' ]]]]/td/div/h3[@class='ng-binding']
+
+Cart_Tax_Auth_Label= //tr/td[@class='cart-summary-subtotal-label']/small[text()='Auto_Tax_Auth:' or text()='Auto_Tax_Auth']
+Cart_Tax_Auth_Value=//tr[td[@class='cart-summary-subtotal-label']/small[text()='Auto_Tax_Auth:' or text()='Auto_Tax_Auth']]/td[@class='cart-summary-subtotal-value']/small
+Cart_Place_Order = //a[@class='ng-scope cart-checkout-button']
+Credit_Card_Option_Radio = //li[span[contains(text(),'Credit Card')]]/Input
+CC_FName = id_FirstName
+CC_Lname = id_LastName
+CC_Addr1 = id_AddressLine1
+CC_City = id_City
+CC_Zip = id_Zip_PostalCode
+
+Payment_Confirmation_Page = //strong[contains(text(),'Payment confirmation')]
+Ogone_Visa_xpath = //Input[@name='VISA_brand']
+Ogone_Title_Img = //img[@title='Payment processed by Ogone']
+Order_Ref = //tr[td[small[contains(text(),'Order reference')]]]/td[2]/small
+Order_Amount = //tr[td[small[contains(text(),'Total charge')]]]/td[2]/small
+Order_Beneficiary = //tr[td[small[contains(text(),'Beneficiary')]]]/td[2]/small
+CC_Card_Name= Ecom_Payment_Card_Name
+CC_Card_Num = Ecom_Payment_Card_Number
+CC_CVV_code = Ecom_Payment_Card_Verification
+CC_Month = Ecom_Payment_Card_ExpDate_Month
+CC_Year= Ecom_Payment_Card_ExpDate_Year
+CC_confirm_Payment = submit3
+
+Order_confirmation = //span[contains(text(),'Order Confirmation')] 
+Order_confirmation_French = //span[contains(text(),'Confirmation de commande')] 
+Order_Number = //div[@class='order-no']/h3
+ex_xpath = //div[contains(descendant::*, 'Default Price Sheet') and @class="ctr-contentcontainer"]//img[contains(@src,'icon_paste_all_dis.gif')]
+
+
+
+#---------------------------------------------------------------------------------
+# Approval Work Flow
+#---------------------------------------------------------------------------------
+
+approval_Required_Link = //a[@ng-click='ShowApprovalDetails()']
+Approval_Association = //td[label[@ng-localize='Approvals.Association']]/span
+Approval_Status =  //td[label[@ng-localize='PendingOrderApprovals.ApprovalStatus']]/span
+Approval_Window = //a[@ng-click='Close()']
+
+Apr_Pending_approvals_Link = //span[contains(text(),'Pending Approvals')]
+German_Apr_Pending_approvals_Link = //span[contains(text(),'Ausstehende Bewilligungen')]
+French_Apr_Pending_approvals_Link = //span[contains(text(),'Acceptation en attente')]
+	
+Click_onOrder = //a[contains(text(),23)]
+
+Apr_status = //a[@ng-click='ShowApprovalDetails()']
+Approve_button = //button[text()='Approve']
+Decline_button = //button[text()='Decline']
+
+German_Approve_button = //button[text()='Freigeben']
+German_Decline_button = //button[text()='Ablehnen']
+
+French_Approve_button = //button[contains(text(),'Approuver')]
+French_Decline_button = //button[contains(text(),'Refuser')]
+approval_Comments_text_area_id = txtMsg
+#---------------------------------------------------------------------------------------------------
+
+
+#-----------------------------------------------------------------------------------------
+#05-02-2014 - krishna locators - till this point we have updated
+#Order_App_status = //div[@class='order-status']//h3[@class='ng-binding'] -- used earlier //a[@ng-click='ShowApprovalDetails()']
+Order_App_status = //div[*[span[contains(text(),'Status')]]]/div[contains(@ng-hide,'data.OrderDetails._AwaitingBuyerApproval')]/h3
+Order_Manual_Quote_Required = //div[*[span[contains(text(),'Status')]]]/div[contains(@ng-show,\"data.OrderDetails._AwaitingBuyerApproval == 'true'\")]/h3 
+smart_store_Productsandcategrories = //a[@ng-click='CheckChanges(step,3)']
+smart_store_default_Products = chkDefaultProdCat
+SmartdefaultProduct_cat_check=.//*[@id='chkDefaultProdCat']/../../../../div[2]//input
+
+#buyyer work flow..
+product_Buy_Now_option = //div[contains(@ng-if,'ProductListingStyle')]/div[1]//a[span[contains(text(),'Buy Now')]]
+Item_Found_Check = //span[contains(text(),'items found')]
+product_customize_close_btn = //span[@ng-localize='Shared.Close']
+Review_Job = //a[@ng-click='reviewJob()']
+Static_No_Of_Pages_id = pagesdisableInput
+add_To_Cart = //a[contains(@ng-click, 'AddtoCart')]
+Save_btn = //a[text()='Save']
+Job_Summary = //div[@id='JobSummary']/table/tbody/tr/td
+#Print Options
+Media_Option = //a[contains(@title,'Media')]/div
+#adding KIT product
+Kit_Add_Button = ctl00_ctl00_C_M_ctl00_W_ctl02_btnAddKitPart
+Kit_Product_Search = ctl00_ctl00_C_M_ctl00_W_ctl02_AddKitPartsPopup_Products_TextBoxSearch
+KIT_Search = ctl00_ctl00_C_M_ctl00_W_ctl02_AddKitPartsPopup_Products_ButtonSearch
+KIT_Product_Add_button = //Input[contains(@id,'AddKitPartsPopup_ButtonOK')]
+Products_In_Kit = //a[span[contains(text(),'Products in Kit')]]
+KIT_Job_Name = TxtKitJobName
+KIT_QTY = //table[@class='kit-jobs-quantity']/tbody/tr/td/ng-quantity-control/div/Input
+Kit_Add_to_Cart = //button[contains(text(),'Add to Cart')]
+#Cost Center options
+id_CC_AccountNumber = id_CC_AccountNumber
+CostCenterPurchaseOrdNo = id_CC_PONumber
+
+#Price-Sheet-Managment
+DSFSample_Pricing_Sheet_Radio_Button = //tr[td[contains(text(),'DSF 3.0 Sample Pricing')]]/td/Input
+Pricing_Copy_Button = //Input[@value='Copy']
+Price_Text_box = ctl00_ctl00_C_M_TextBoxPriceSheetName
+Price_OK_Button = ctl00_ctl00_C_M_ButtonPopUpOk
+Price_Header = ctl00_ctl00_C_M_LabelManagePriceSheetsHeader
+Pricing_Open_Button = ctl00_ctl00_C_M_ButtonEdit
+Item_type = ctl00_ctl00_C_M_DropDownItemType
+Item_value = ctl00_ctl00_C_M_DropDownItems
+btn_saveandgoback = ctl00_ctl00_C_M_DSF_ButtonSaveGoBack
+btn_done = ctl00_ctl00_C_M_ButtonDone
+
+#publish the price sheet
+publish_link = //a[text()='Published']
+Create_New_btn = //Input[@value='Create New']
+
+PriceSheet_Selection = //select[contains(@id,'_PriceSheetEdit')]
+Publish_Edit_Name =//tr[td[select[contains(@id,'_PriceSheetEdit')]]]/td/Input[@type='text']
+Price_Sheet_Save_btn = //Input[contains(@id,'_ButtonEditPublishSave')]
+publish_Link = //a[text()='Published']
+
+#Add From Google Drive.
+GoogleDrive_Link = //a[contains(text(),'Google Drive')]
+Gmail_User_Id = Email
+Gmail_pwd = Passwd
+Gmail_signin = signIn
+Google_Cloud_Access = allow
+Google_File = //tr[td[span[contains(text(),'bear.pdf')]]]/td/Input[@type='checkbox']
+Google_File_Upload_done_button = //div[@ng-hide='IsInNoncontentMode']/button[contains(text(),'Done') and @ng-click='OnAssociateFilesClick()']
+total_Price = totalPrice
+Calender_select_By_user_Error = //span[contains(text(),'Choose a Requested Due Date & Time')]
+
+#Auction INC - Delivary methods- Buyyer Side
+Buyyer_Delivary_Method = //select[@ng-change='ChangeDeliveryMethod(delivery)']
+Shipping_Charges = //tr[td[div[h2[contains(text(),'Shipping')]]]]/td/div/h3[@class='ng-binding']
+Tax_Charges = //tr[td[div[h2[contains(text(),'Taxes')]]]]/td/div/h3[@class='ng-binding']
+Handling_Charges = //tr[td[div[h2[contains(text(),'Handling')]]]]/td/div/h3[@class='ng-binding']
+Proceed_to_Payment_Button  = //a[@ng-click='OnProceedToPayment()']
+
+KIT_Show_All_Selection = //select[contains(@id,'AddKitPartsPopup_Products_TopPagerUI_PageSizesDropDown')]
+KIT_All_Products_Job_qty = //tr[td[div[a[contains(text(),'Static_Auto_15')]]]]/td[@class ='kit-td-item-quantity']/ng-quantity-control/div/Input
+Company_Price_Sheet_Selection = //Input[contains(@id,'CheckBoxPriceSheet')]
+Company_Button_Search = ctl00_ctl00_C_M_ButtonSearch
+Company_Input_Search = ctl00_ctl00_C_M_TextBoxSearch
+Price_Sheet_Selection = ctl00_ctl00_C_M_DropDownPriceSheets
+
+Create_Ticket_Template = ctl00_ctl00_C_M_ManageTemplates_btnCreate
+Ticket_Template_Name = ctl00_ctl00_C_M_TextBoxTemplateName
+TT_Print_Service_Section = //tr[td[Input[contains(@id,'btnAddPrintService')]]]/td/Input[@type='text']
+Company_Input_Search = ctl00_ctl00_C_M_TextBoxSearch
+Price_Sheet_Selection = ctl00_ctl00_C_M_DropDownPriceSheets
+Company_Price_Sheet_Selection = //Input[contains(@id,'CheckBoxPriceSheet')]
+Company_Button_Search = ctl00_ctl00_C_M_ButtonSearch
+
+#quote journey
+Order_view_Link = //a[contains(text(),'Order View')]
+PS_Selection_xpath = //select[contains(@id,'C_M_DropDownListFacilities')]
+Order_Selection_xpath = //select[contains(@id,'OrderViewHeader_DropDownListFilterBy')]
+Order_Input_xpath = //input[contains(@id,'OrderViewHeader_TextBoxFilter')]
+Order_Search_button = //input[contains(@id,'OrderViewHeader_ButtonFilter')]
+order_requires_manual_quote = //h3[contains(text(),'Order requires manual quote')]
+Order_quote_price_link_xpath = // a[contains(@id,'OrderViewItem_HyperlinkPrice')]
+
+PS_Bottom_finish_priceperunit = //tr[td[span[contains(text(),'Bottom Finish')]]][1]/td/Input[contains(@id,'TextBoxPricePerUnit')]
+PS_Bottom_finish_TextBoxComponentPrice =  //tr[td[span[contains(text(),'Bottom Finish')]]][1]/td/Input[contains(@id,'TextBoxComponentPrice')]
+
+PS_NoBottomfinish_TextcomponentPrice =//tr[td[span[contains(text(),'No Bottom Finish (Setup Fee)')]]][1]/td/Input[contains(@id,'TextBoxComponentPrice')]
+
+PS_correct_xpath = //tr[td[span[contains(text(),'Bottom Finish')]] and td[span[contains(text(),'Currency')]]]//Input[contains(@name,'TextBoxComponentPrice')]
+
+Quote_Shipping_Price = //tr[td[span[contains(text(),'Shipping')]]]/td/span/Input[contains(@id,'TextBoxPrice')]
+Quote_handling_Price = //tr[td[span[contains(text(),'Handling')]]]/td/span/Input[contains(@id,'TextBoxPrice')]
+Quote_Fee_Price = //tr[td[span[contains(text(),'Fee')]]]/td/span/Input[contains(@id,'TextBoxPrice')]
+Quote_Refresh = ctl00_ctl00_C_M_SummaryControl_ButtonRefreshTotals
+Quote_Total_amount =//tr[td[span[contains(text(),'Total')]]]/td/span[contains(@id,'LabelAmount')]
+Quote_Save = ctl00_ctl00_C_M_ButtonSave
+Quote_SuccessMessage = ctl00_ctl00_C_M_LabelWarningMessage_LabelSuccessful
+
+Order_Approved_By_customer = //div[@class = 'order-status']//h3[contains(text(),'Order requires approval from customer')]
+Auto_Drop_Down_Select_Account = //div[label[contains(text(),'Auto DropDown_1')]]/select
+
+PS_No_Calender = //a[@class='due-date-picker']/span[@aria-hidden='true']
+My_Saved_files = //div[@id='myAccountLinkDropDown']//li[contains(text(),'My Saved Files')]
+Logout_From_Smart_Store = //div[@id='myAccountLinkDropDown']//li[@ng-click='DoSignOut();']
+#Quote Request
+Request_Quote_Page = //h3[@ng-localize='OrderCheckout.RequestQuote']
+#Send_Quote_Request_Button =//a[@class='ng-scope cart-checkout-button']
+#Send_Quote_Request_Button = //a/div/span[contains(text(),'Send Quote Request')]
+Send_Quote_Request_Button = //a//span[contains(text(),'Send Quote Request')]
+c:\\WorkSpace_KK\\ResponsiveUI\\InputTestData\\Data\\Jpeg\\Before_Winter.jpg
+#Order_Status = //div[@class='order-status']//h3[@class='ng-binding']
+Order_Status = //a[@ng-click='ShowApprovalDetails()']
+
+#upload files
+Adhoc_Upload_Files = //div[@ng-open-file-dialog="addFilesFileUpload"]/div[@class='add-item-actions']/a
+Adhoc_SavedFiles = //span[text()='Saved Files']
+
+#print services
+Tabs_Option = //a[contains(@title,'Tabs')]/div
+Insert_Tabs = //a[contains(@title,'Insert Tabs')]/div
+No_tabs = //a[contains(@title,'No Tabs')]/div
+InsertTabs_Dropdown = //*[@id='tabsPopupContainer']//div[contains(@ng-click,'tabTypeList')]/span[@class='dropdown-icon']
+Tabs_3_across = //*[@id='tabTypeList']//td[contains(text(),'Tabs (3 Across)')]
+Tabs_5_across = //*[@id='tabTypeList']//td[contains(text(),'Tabs (5 Across)')]
+
+NoofTabs = cmbPageno 
+tabtext1 = txtTabText0
+tabtext2 = txtTabText1
+tab1_Insert_Before_or_after = //div[Input[@id='txtPageNo0']]//select[@ng-model='tab.afterOrBefore']
+tab2_Insert_Before_or_after = //div[Input[@id='txtPageNo1']]//select[@ng-model='tab.afterOrBefore']
+tab_page_Number1 = txtPageNo0
+tab_page_Number2 = txtPageNo1
+tab_Accept = //a[@class='add-more-files']
+tab_cancel_button = //a[@class='Cancel-button']
+tab_OK_Button = //a[@class='OK-button']
+
+special_pages_Option = //a[contains(@title,'Special Pages')]/div
+Spl_Pages = //a[contains(text(),'Pages')]
+Spl_Files = //a[contains(text(),'Files')]
+Spl_Add = //*[@id='specialPage']//a[@class='add-more-pages']
+Spl_Close = //*[@id='specialPage']//a[@class='Cancel-button']
+Spl_Save = //*[@id='specialPage']//a[@class='OK-button']
+
+spl_Page_from =txtPageFrom
+spl_Page_to = txtPageTo
+spl_Scale_to_fit_Option = //input[@ng-model='pageEntry.scaleImageToFit']
+spl_Media_to_Update = //div[div[@ng-localize='Media']]//span[@class='dropdown-icon']
+spl_color_to_Update = //div[div[contains(text(),'Color/B&W')]]//span[@class='dropdown-icon']
+spl_color_BlackandWhitechoose = //li[@popupid='spMediaDisabledDetail']//td[@title='Print In Black and White']
+spl_color_Colorchoose = //li[@popupid='spMediaDisabledDetail']//td[@title='Print in Color'] 
+
+
+spl_sides_to_Update = //div[div[contains(text(),'Sides')]]//span[@class='dropdown-icon']
+spl_Single_side = //li[@popupid='spMediaDisabledDetail']//td[@title='Single Sided']
+spl_Double_side = //li[@popupid='spMediaDisabledDetail']//td[@title='Double Sided']
+spl_Double_sided_tumble = //li[@popupid='spMediaDisabledDetail']//td[@title='Double Sided (Tumble)']
+
+spl_media_choose = (//li[@popupid='spMediaDisabledDetail']//td[contains(text(),'Blue')])[1] 
+
+
+
+
+
+special_Instructions = //a[contains(@title,'Special Instructions')]/div
+special_Instructions_text_area = //*[@id='Instruction']//textarea
+SP_Inst_OK = //*[@id='Instruction']//a[@id = 'okInsA']
+SP_Inst_Cancel = //*[@id='Instruction']//a[@id = 'cancelInsA']
+
+#xmpie - Calender - Input Fields.
+TC6_Xmpie_Calender_Text = //input[@name="fieldName"]
+XMPIE_Update_Preview_btn = //div[@class='preview-panel-title-holder']//a[contains(@ng-click,'updatePrieview')]
+XMPIE_PDF_Proof = //div[@class='pdfproof' and @ng-show='vdp.EnablePDFProof']/a
+
+#Associate-company - To Smart Store
+Comp_Search_box = ctl00_ctl00_C_M_SCAssociation_TextBoxSearch
+Search_button = ctl00_ctl00_C_M_SCAssociation_ButtonSearch
+Association_button_xpath = //Input[contains(@id,'C_M_SCAssociation_ButtonAsso')]
+
+#Promocodes
+Buyyer_Promocode_Editbox_In_Payment_Page = //input[@ng-model='data.PromoCode']
+Buyyer_Promocode_Apply_Button = //button[@ng-click='OnApplyPromoCodeClick()']
+
+Buyyer_Discount_tag = //span[@compile-html="priceItem._Description"]//span[contains(text(),'Discount applied for')]
+Buyyer_Discount_value = //tr[td//span[@compile-html="priceItem._Description"]//span[contains(text(),'Discount applied for')]]/td[@class='order-summary-discount-value']//span
+Remove_Promocode_Link = //td[@class='order-summary-discount-label']//a[@ng-click='RemovePromoCode(priceItem)']
+#-----------------------------------------------------------------------------------------
+#Language - Selection - Locators
+Change_Language = //div[@class='mylanguage-label']/span[@class='icon-flag']
+Language_Selection = //div[@class='modal mylanguage-list-modal']//select[@ng-model='CurrentLanguage']
+Language_Save_Button = //div[@class='modal mylanguage-list-modal']//button[contains(text(),'Save') or contains(text(),'Speichern')  or contains(text(),'Enregistrer')]
+
+#DeepLiniking - Buy Now Option
+#Deeplink_Product_BuyNow = //div[@class="product-details-page-actions"]/button[contains(text(),'Buy Now')]
+Deeplink_Product_BuyNow =//div[@class="product-details-page-actions"]/button/span[contains(text(),'Buy Now')]
+unitprice_Id = unitPrice
+TotalPrice_Id = totalPrice
+
+#FP_Auto_MCD
+FP_BatchMode_Radio_xp = //Input[@value='BM']
+FP_Select_MCD = //div[@class='personalization-filter-section ng-scope']//select
+FP_BatchMode_Mapping_XP=//a[span[contains(text(),'Mapping')]]
+FP_BatchMode_Cancel_XP=//a[span[contains(text(),'Cancel')]]
+FP_Select_All_Records_Checkbox_xp= //td[@ng-show='vdp.UseMode']/Input[@ng-model='vdp.Headselected']
+FP_BatchMode_FillForm_XP=//a[span[contains(text(),'Fill Form')]]
+FP_NO_of_Records = txtGoToRecord
+FP_DataSource_window = //div[@id='selectdata']
+FP_Datatable = //*[@ng-show='vdp.UseMode']/input[@ng-change='HeaderSelected()']
+FP_Map_Data = //div[@ng-show='ShowMap']/table
+FP_GoTo_Records_id= txtGoToRecord
+FP_Pagination_control_MoveFirst = //div[@ng-show='vdp.ShowDataPagination']/a[@ng-click='moveDataFirst()']
+FP_Pagination_control_MoveLast = //div[@ng-show='vdp.ShowDataPagination']/a[@ng-click='moveDataLast()']
+FP_Pagination_control_MovePrevious = //div[@ng-show='vdp.ShowDataPagination']/a[@ng-click='moveDataPrevious()']
+FP_Pagination_control_MoveNext = //div[@ng-show='vdp.ShowDataPagination']/a[@ng-click='moveDataNext()']
+FP_Map_Data_tab = //a[span[contains(text(),'Map Template Data') or contains(text(),'Map Data')]]
+
+#Fussion Pro - Settings
+#FP_Site_Settings_Tab_ID = ctl00_ctl00_C_M_RadTabStrip1_FusionProLowResTab
+#FP_Site_Settings_Tab_ID=FusionProLowResTab
+FP_Site_Settings_Tab_ID=//a//span[text()='Fusion Pro Settings']
+FP_SuppressStaticPDFContent_ID = ctl00_ctl00_C_M_FusionProGenerationSettings1_CheckSupressStaticPdf
+FusionProLowResolutionEnable_ID= ctl00_ctl00_C_M_FusionProGenerationSettings1_Enabled
+
+#FP-classic Attributes
+FP_Qty = //Input[contains(@id,'quantityInput')]
+Save_Job = //a[contains(text(),'Save')]
+
+#Customer Order History - Verification of production Job Ticket
+Customer_Order_History = //a[contains(text(),'Customer Order History')]
+Administration = //a[contains(text(),'Administration')]
+OrderNumber_Search = //Input[contains(@id,'C_M_txOrderNo')]
+SearchButton=//Input[contains(@id,'bnSearchOrderNo')]
+Preserve_Original_Files = ctl00_ctl00_C_M_CheckBoxPreserveOrigDocumentFiles
+
+SelectFromGallery = Select from Gallery
+
+#cfg.aspx?customersupport=true page
+paswordfield_id = ctl00_ctl00_C_M_passwordControl_tb_PWD
+Pwdsubmit_id = ctl00_ctl00_C_M_passwordControl_btn_Submit
+label_tile_id = ctl00_ctl00_C_M_labelTitle
+Keyvalue_Search_id = ctl00_ctl00_C_M_tbSearch
+KeySearch_Find_id= ctl00_ctl00_C_M_buttonFind
+Name_Search_id = ctl00_ctl00_C_M_TextBoxWho
+Email_id= ctl00_ctl00_C_M_TextBoxEmail
+Reason_id =ctl00_ctl00_C_M_TextBoxReason
+Final_submit_id = ctl00_ctl00_C_M_buttonSubmit
+
+
+#New Changes - 18-07-2014 - Need to review - Aravint
+
+Quote_Product_Price_xpath=//tr[td[a[contains(text(),'Edit')]]][1]/td[7]/span/Input[contains(@id,'TextBoxPrice')]
+Calendar_date_selsction_xpath =(//button[contains(@class,'btn btn-info')])
+
+#New Locators for regression testcases
+#For Tax
+TaxAuthorityTab=//a[text()='Tax Authorities']
+CreateNewTaxAuthorityButton=ctl00_ctl00_C_M_ButtonNew
+Tax_TextBox_Description=//input[contains(@id,'textDescription')]
+Tax_Text_Rate=//input[contains(@id,'textTaxRate')]
+Tax_Auth_Save_Button=ctl00_ctl00_C_M_ButtonSave
+Enable_Product_Level_taxing_CheckBox=//td[label[text()='Enable Product Level Taxing' or text()='Use VAT Taxation model']]/input
+Show_AllPrices_Including_tax=//td[label[text()='Show All Prices Including Tax' or text()='Show all prices including VAT']]/input
+Show_Tax_Product_Builer_CheckBox=//td[label[text()='Show Tax In Product Builder' or text()='Show VAT in product builder']]/input
+Show_item_level_tax_authority_name=//td[label[text()='Show item level tax authority name'] or text()='Show item level VAT Rate name']/input
+
+#For Pricing
+Pricing_Link=//a[text()='Pricing']
+Pricing_Settings=//a[text()='Settings']
+Perform_Tax_Calc_CheckBox=//td[label[text()='Perform Tax Calculations']]/input
+Pricing_Setting_Save_Button=ctl00_ctl00_C_M_PriceSettingButtonSave
+Product_Tax_DropDown=ctl00_ctl00_C_M_ctl00_W_ctl01_DropDownTaxGroup
+
+#Added by Aravinth For New Set Of Regression TestCases
+Shipping_Tax_Exempt_Checkbox=//input[@id='ctl00_ctl00_C_M_ctl00_W_ctl01_chkShippingExempt']
+
+#done by phani-25-02-2015
+product_level_taxes_By_Id = ctl00_ctl00_C_M_CheckBoxTaxEnableAdvancedTax
+taxauthority_creation_from_PS_xpath = //a[contains(text(),'Add New')]
+tax_desc_PS_ID = ctl00_ctl00_C_M_TextBoxNewTaxGroupName
+tax_percentage_ID= ctl00_ctl00_C_M_TextBoxNewTaxGroupPercentage
+shipping_caliculations_Id= ctl00_ctl00_C_M_PriceSettingCheckboxDoShipping
+Caliculate_tax_shipping = //td[label[contains(text(),'Charge Taxes For Shipping')]]//Input
+
+#Added By Aravinth
+unitSystem=//a//span[text()='Unit System']
+unitSytsemDropDown_id=ctl00_ctl00_C_M__UnitSystem
+unitsystemSaveButton_id=ctl00_ctl00_C_M_btnSaveUnitSystem
+dsfVerdion_id=ctl00_ctl00_custVer
+shippingAccountDropdown_id=ctl00_ctl00_C_M_DdlShipmentTypesList
+ShippingAccountAddNewButton_id=ctl00_ctl00_C_M_BtnAddNewShipmentAccount
+shipmentAccountName_id=ctl00_ctl00_C_M_txtAuctionIncAccountName
+shippmentaccountselectiondropDown_id=ctl00_ctl00_C_M_DDLAuctionIncShipmentAccount
+shipmentSettingsSaveButton_id=ctl00_ctl00_C_M_BtnSaveShipmentSettings
+CategoryNewButton_id=ctl00_ctl00_C_M_bnCreate
+CateGoryEdit_Button_id=ctl00_ctl00_C_M_bnEdit
+CateGory_OwnerName_id=ctl00_ctl00_C_M_ctl00_W_ctl01_ObjectSecurity1_OwnerLabel
+langMgnt_SearcBy_Value_RadioButton_Id=ctl00_ctl00_C_M_rdbSearchBy_0
+langMgnt_SearcBy_Key_RadioButton_Id=ctl00_ctl00_C_M_rdbSearchBy_1
+LangMgnt_SearcIn_TextBoxid=ctl00_ctl00_C_M_txtFindText
+LangMgnt_SelectByLang_DropDown_id=ctl00_ctl00_C_M_drpSelectLanguage
+LangMgnt_SearchButton_id=ctl00_ctl00_C_M_btnSearchString
+LangMgnt_DigitalStoreFrontWordsAndPharases_Checbox_id=ctl00_ctl00_C_M_chkSystemStrings
+LangMgnt_UserAddedWordsAndPhrases_CheckBox_id=ctl00_ctl00_C_M_chkUserStrings
+LangMgnt_MatchExactWords_CheckBox_id=ctl00_ctl00_C_M_chkExactMatch
+User_DropDownFilter_id=ctl00_ctl00_C_M_DropDownListFilterBy
+User_SearchTextBox_id=ctl00_ctl00_C_M_TextBoxFilter
+User_FindButton_id=ctl00_ctl00_C_M_ButtonFilter
+Prod_CopyButton_id=ButtonCopy_Bottom
+Prod_SaveAsTextBox_id=ctl00_ctl00_C_M_TextBoxProductName
+Prod_SaveAndCloseButton_id=ctl00_ctl00_C_M_ButtonPopUpOk
+Prod_DeleteButton_id=ctl00_ctl00_C_M_ButtonDelete_Bottom
+prod_Auctioninc_WeightTextBox_id=ctl00_ctl00_C_M_ctl00_W_ctl01_WeightCtrl__Weight
+prod_Auctioninc_WidthTextBox_id=ctl00_ctl00_C_M_ctl00_W_ctl01_ShipmentDimensionCtrl__BoxX__Length
+prod_Auctioninc_LengthTextBox_id=ctl00_ctl00_C_M_ctl00_W_ctl01_ShipmentDimensionCtrl__BoxY__Length
+prod_Auctioninc_HeightTextBox_id=ctl00_ctl00_C_M_ctl00_W_ctl01_ShipmentDimensionCtrl__BoxZ__Length
+prod_Auctioninc_MaximumContainerTextBox_id=ctl00_ctl00_C_M_ctl00_W_ctl01_ShipmentDimensionCtrl_txtLotSize
+prod_Auctioninc_CongigSuccess_Image_id=ctl00_ctl00_C_M_GridProducts_ctl03_ImgAuctionConfigStatus
+prod_PriceStataus_Yes_id=ctl00_ctl00_C_M_GridProducts_ctl03_PriceLabel
+Prod_Security_AddUser_Group_Comp_Dept_Button_id=ctl00_ctl00_C_M_ctl00_W_ctl01__Security_AddPrincipalButton
+Prod_Security_DropDown_id=ctl00_ctl00_C_M_ctl00_W_ctl01__Security_PrincipalSelector_PrincipalTypeDropDown
+prod_Security_SearchBox_id=ctl00_ctl00_C_M_ctl00_W_ctl01__Security_PrincipalSelector_SearchTextBox
+Prod_Security_FindButton_id=ctl00_ctl00_C_M_ctl00_W_ctl01__Security_PrincipalSelector_SearchButton
+prod_Security_CompanyDropDown_id=ctl00_ctl00_C_M_ctl00_W_ctl01__Security_PrincipalSelector_SuperPrincipalDropDown
+Prod_SaveAndExit_button_id=ctl00_ctl00_C_M_ctl00_W_FinishNavigationTemplateContainerID_ctl00_BtnSaveAndExit
+
+#For VdpCases
+uploadFiles_button_Xpath=.//*[@id='ctl00_ctl00_C_M__UploadFiles']
+Browse_FileType_Element=.//*[@id='ctl00_ctl00_C_M_FileUpload1']
+ImportFile_Ok_Buton_Xpath=.//*[@id='ctl00_ctl00_C_M__UploadFilesOkBtn']
+ImportedFileName_Xpath=//table[@id='ctl00_ctl00_C_M__FilesInStagingArea']//tr[2]/td[2]/span
+ImportedProductNameXpath=//table[@id='ctl00_ctl00_C_M__FilesInStagingArea']//tr[2]/td[3]/input
+ImportedProductSelectCheckbox_Xpath=//table[@id='ctl00_ctl00_C_M__FilesInStagingArea']//tr[2]/td[1]/input
+ImportAsProductButton_Xpath=.//*[@id='ctl00_ctl00_C_M__ImportAsProducts']
+SelectTicketTemplate_id=ctl00_ctl00_C_M__PickTicket
+ActivateProductWhenImportingCheckBox_Xpath=.//*[@id='ctl00_ctl00_C_M__ActivateProductWhenImporting']
+HideProductExtensionCheckBox_xpath=.//*[@id='ctl00_ctl00_C_M__HideExtensionChk']
+BrowseCateGoriesButton_Xpath=.//*[@id='ctl00_ctl00_C_M__BrowseForCategories']
+StartImportXpath=.//*[@id='ctl00_ctl00_C_M__StartImport']
+ProductImportSuccessfulMessage_id=ctl00_ctl00_C_M__SuccessMessage
+ProductNextButtonXpath_TemplatePage=.//*[@id='ctl00_ctl00_C_M_ctl00_W_StartNavigationTemplateContainerID_Button1']
+
+#ForAddressBook
+AddressBookCompAddNew_id=ctl00_ctl00_C_M_AddressBook1_ButtonAddNew
+FirstNameXpath_AB=//input[contains(@id,'FirstName')]
+LastNameXpath_AB=//input[contains(@id,'LastName')]
+Address1Xpath_AB=//input[contains(@id,'txtAddress1')]
+Address2Xpath_AB=//input[contains(@id,'txtAddress2')]
+Address3Xpath_AB=//input[contains(@id,'txtAddress3')]
+
+# DSF Credit Card Payment method
+DSF_CreditCardType = ctl00_C_CheckoutPaymentMethodControl_DropDownListCreditCardType
+DSF_CreditCardNumber = ctl00_C_CheckoutPaymentMethodControl_TextBoxCreditCardNumber
+DSF_CreditCardCSV = ctl00_C_CheckoutPaymentMethodControl_TextBoxCvvNumber
+DSF_CreditCardExpiryMonth = ctl00_C_CheckoutPaymentMethodControl_DropDownListCreditCardExpirationMonth
+DSF_CreditCardExpiryYear = ctl00_C_CheckoutPaymentMethodControl_DropDownListCreditCardExpirationYear
+
+KitProduct_Description =  description
+KitProduct_QtyRemaining = qtyRemaining
+Credit_Card_Merchant = ctl00$ctl00$C$M$paymentMethodsCntrl$DropDownCreditCardPublicMerchantID
+
+#FedEX Integration
+ShipmentAccountTypeDropDown_Xpath=.//*[contains(@id,'ShipmentTypesList')]
+AddNewShipmentAccount_xpath=.//*[contains(@id,'AddNewShipmentAccount')]
+FedExAccountName_xpath=.//*[contains(@id,'FedexAccName')]
+FedExAccNumber_xpath=.//*[contains(@id,'FedexAccNum')]
+FedExMeterNumber_xpath=.//*[contains(@id,'txtFedexMeterNum')]
+FedExUserCredentialKey_Xpath=.//*[contains(@id,'txtFedexUCKey')]
+FedExUserCredentialpwd_Xpath=.//*[contains(@id,'txtFedexUCPwd') or contains(@id,'txtFedexUCPWD')]
+FedExSuccessfulValidationSuccess_msg=.//*[contains(text(),'FedEx Account validated successfully')]
+UseFedExForShippinCost_DropDown_Xpath=.//*[contains(@id,'FedexSA')]
+UseFedExForShippingCost_Checkbox_Xpath=.//*[contains(@id,'chkUseFedexConnect')]
+ShippingSettingsSavebutton_Xpath=.//*[contains(@id,'BtnSaveShipmentSettings')]
+FedExConfigStatusLabel_Xpath=.//*[text()='FedEx Config. Status.']
+
+
+#EstimatePage
+Create_EstimateandConvert=.//*[@value='Create Estimate and Convert']
+

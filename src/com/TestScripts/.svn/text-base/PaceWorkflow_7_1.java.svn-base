@@ -1,0 +1,440 @@
+package com.TestScripts;
+
+import java.io.File;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.DSF_Integration_Page;
+import com.gui_auto.pages.ICPage;
+import com.gui_auto.pages.JobBillingPage;
+import com.gui_auto.pages.Login;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.Storefront;
+import com.gui_auto.pages.Users;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+
+public class PaceWorkflow_7_1  extends GUI_automation_base
+{
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+		return sdf.format(date);
+	}
+	
+	public static int randInt(int min, int max) 
+	{
+
+		// Usually this can be a field rather than a method variable
+		Random rand = new Random();
+
+		// nextInt is normally exclusive of the top value,
+		// so add 1 to make it inclusive
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+
+		return randomNum;
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{		   
+		_driver.quit();
+	}
+	
+	
+	public void TC_7() throws Exception
+	{
+		long startTime = System.nanoTime();
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String  sTestcase = "TC_7_a";
+		String dater = dateReturn();
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		//========================================================================	
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+
+			try{
+
+				//=====================Data required========================================	 
+				String ProductName=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ProductName");
+				String SiteUrl=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "SiteUrl"); 
+				String Server=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Server");
+				String userName=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "USERNAME");
+				String passWord=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PASSWORD");
+				String product_qty=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product_Qty");
+				String DeliveryMethod=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DeliveryMethod");
+			    String PaymentMethod=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PaymentMethod");
+				String CreditCardNumber=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "CreditCardNumber");
+				String code1=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "code1");
+				String code2=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "code2");
+				
+				String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+				String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+				String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+				String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+				String PACEServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+				
+				//Instantiate the Forefox profile
+				//==========================================================================
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(SiteUrl);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				//==========================================================================
+				//All Constructors
+				Login Login1 = new Login(_driver);
+				Users us = new Users(_driver);
+				Buyyer_Work_flow bwf = new Buyyer_Work_flow();
+				Storefront sfront = new Storefront(_driver);
+				 
+				//==========================================================================
+
+				//Login as user
+				Login1.LoginToDSF(sSheetName, sScenario, sTestcase, userName, passWord);
+
+				//Clear Cart
+				CommonFunctions.ClearCart(_driver);
+				
+				bwf.searchProductAndBuy(ProductName);
+				
+				bwf.clickOn_PrintandDownLink();
+				
+				bwf.Addto_Cart();
+				
+				bwf.changeQty_From_Cart(product_qty);
+				
+				bwf.Click_On_ProceedTOCheckOut();
+
+			    //Select a deliverymethod
+				sfront.choose_ShipmentMethodBasedOnValue(DeliveryMethod);
+				
+				//Click on proceed to payment button
+				sfront.ProceedToPayment(); 
+				
+				//Choose the credit card payment option
+				bwf.choose_AccoutingCodePayment(PaymentMethod);
+				
+				bwf.enter_AccountingCodes(code1, code2);
+				
+	         	bwf.click_on_PlaceMyOrder();
+				
+				String orderNum=bwf.fetch_OrderNumber();
+				
+				String subTotalValue_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Subtotal_value))).getText();
+				String ShippingAmount_Before_code_apply= _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Shipping_value))).getText();
+				String TotalValue_Before_code_apply =	 _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Total))).getText();
+				String TaxCharge_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Tax_Charges))).getText();
+				String HandlingCharge_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Handling_Charges))).getText();
+				System.out.println("Shipping amount before Discount::"+ShippingAmount_Before_code_apply);
+				System.out.println("SubTotal Value Before Discount::"+subTotalValue_Before_code_apply);
+				System.out.println("Total Value Before Discount::"+TotalValue_Before_code_apply);
+				System.out.println("Tax Charge Before Discount::"+TaxCharge_Before_code_apply);
+				System.out.println("Handling Charge Before Discount::"+HandlingCharge_Before_code_apply);
+				
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFSubTotal",subTotalValue_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFShippingAmount",ShippingAmount_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFTotalAmt",TotalValue_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFTaxAmount",TaxCharge_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFHandlingAmount",HandlingCharge_Before_code_apply);
+								
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "Order_Number", orderNum);
+				
+				bwf.End_Print_Console(sTestcase);
+
+				long endTime = System.nanoTime();		
+				long durations = (endTime - startTime);
+				double durations1 = (double)durations / 1000000000.0;
+				System.out.println("Execution Time in Seconds::"+new DecimalFormat("#.###").format(durations1));
+				durations1 = durations1/60;	
+				String ExecutionTimeInMinutes=new DecimalFormat("#.###").format(durations1);
+				System.out.println("Execution Time In minutes::"+ExecutionTimeInMinutes);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "ExecutionTime",ExecutionTimeInMinutes);
+
+				
+				
+				//==========================================================================
+				///   Start PACE flow ////
+				//==========================================================================
+				String sJobNumber="";
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				ICPage IC = new ICPage(_driver);
+				DCPage DC = new DCPage(_driver);
+				JobBillingPage  JB = new JobBillingPage(_driver);
+				DSF_Integration_Page DSF = new DSF_Integration_Page (_driver);
+
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				String orderNumber = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Order_Number");
+				
+				System.out.println("Fetch Job Number using order number");
+				//==========================================================================
+				// Fetch Job Number using order number // 
+				//==========================================================================
+				
+				sJobNumber = DSF.FetchJobNumber(orderNumber);
+				if(!sJobNumber.equals(""))
+				{
+					dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "PACE_Job_Num", sJobNumber);
+				}
+				else
+				{
+					Assert.fail("Job Not Created for above Order Number");
+				}
+				
+				//==========================================================================				
+				//==========Verify Job Value,W2P Shipping,W2P Handling and W2P Taxes AMount in Billing Tab==========//
+				//==========================================================================
+				System.out.println("Verify Job Value,W2P Shipping,W2P Handling and W2P Taxes AMount in Billing Tab");
+
+				String sJobValue = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFSubTotal");
+				String sTax = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFTaxAmount");
+				String sShipping = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFShippingAmount");
+				String sHandling = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DSFHandlingAmount");
+
+				
+				boolean IsSuccess =DSF.Verify_JobValue_Shipping_Handling_Taxes_Amount_On_Job_Billing_Tab(sJobValue, sTax, sShipping, sHandling);
+				//==========================================================================
+				//==========Verify Job Value,W2P Shipping,W2P Handling and W2P Taxes field is not editable in Billing Tab==========//
+				//==========================================================================
+				System.out.println("Verify Job Value,W2P Shipping,W2P Handling and W2P Taxes field is not editable in Billing Tab");
+				boolean IsNotEditableSuccess =DSF.Verify_JobValue_Shipping_Handling_Taxes_Amount_On_Job_Billing_Tab(sJobValue, sTax, sShipping, sHandling);
+
+				
+				if(IsSuccess==true && IsNotEditableSuccess==true)
+				{
+					System.out.println("Verified Job Value,W2P Shipping,W2P Handling and W2P Taxes field is not editable in Billing Tab");
+				}
+				else
+				{
+					Assert.fail("Failed to Verify Job Value,W2P Shipping,W2P Handling and W2P Taxes AMount in pace. IsSuccess is "+IsSuccess+" IsNotEditableSuccess is "+IsNotEditableSuccess);
+				}
+
+				//==========================================================================
+				// ========Verify Job Products==============
+				//==========================================================================
+				System.out.println("========Verify Job Products==============");
+
+				System.out.println("Click on Products Tab");
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Products']"));
+				Thread.sleep(2000);
+
+				String totalRecordsProducts = _driver.findElement(By.xpath("//fieldset[@id='JobProducts_fieldset']/div/div[1]/div[1]/strong")).getText();
+				System.out.println("totalProducts: "+totalRecordsProducts);
+				if (totalRecordsProducts.equals("1"))
+				{
+					String product1Name = _driver.findElement(By.xpath("//div[@class='table-contents']/table[@id='JobProducts']/tbody/tr[1]/td[3]/input")).getAttribute("value");
+					Thread.sleep(1000);
+					String sProd = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ProductName");
+					boolean jobProductNames = false;
+					if(product1Name.equals(sProd))
+					{
+						jobProductNames = true;
+						System.out.println("jobProductNames: " +jobProductNames);
+						System.out.println("Job Product Name has been verified");
+					}
+					else
+					{
+						System.err.println("jobProductNames: " +jobProductNames);
+					}
+
+					Thread.sleep(1000);
+
+				}
+				else
+				{
+					System.err.println("Total Products created are incorrect");
+				}
+				
+				String accountingCode = "12345";
+				String code1Name = "";
+				String code1Value = "";
+				String code2Name = "";
+				String code2Value = "";
+				
+				System.out.println("Verify the Payment Mode In Billing Info");
+				
+				System.out.println("Click on Billing Info Tab");
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Billing Info']"));
+				Thread.sleep(2000);
+
+				String sDSF_Payment_Mode = CommonFunctions.GetText(_driver, By.xpath("//div/h4[contains(label,'DSF Payment Method')]/following-sibling::div/div"));
+				sDSF_Payment_Mode=sDSF_Payment_Mode.trim();
+				System.err.println("DSF Payment Mode on pace is "+sDSF_Payment_Mode);
+				if(sDSF_Payment_Mode.equals("Accounting Codes"))
+				{
+					code1Name = _driver.findElement(By.xpath("//table[@id='JobBillingAccountingCode']/tbody/tr[1]/td[2]/div")).getText().trim();
+					code1Value = _driver.findElement(By.xpath("//table[@id='JobBillingAccountingCode']/tbody/tr[1]/td[3]/div")).getText().trim();
+					System.out.println("Code Name is: "+code1Name+ " and Code Value is: "+code1Value);
+				}
+
+				String Code2 = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "code2");
+				if(code1Name.equals("Code2") && code1Value.equals(Code2))
+				{
+					System.out.println("Code 2 value is correct");
+				}
+				else
+				{
+					Assert.fail("Fail");
+				}
+				
+				if(sDSF_Payment_Mode.equals("Accounting Codes"))
+				{
+					code2Name = _driver.findElement(By.xpath("//table[@id='JobBillingAccountingCode']/tbody/tr[2]/td[2]/div")).getText().trim();
+					code2Value = _driver.findElement(By.xpath("//table[@id='JobBillingAccountingCode']/tbody/tr[2]/td[3]/div")).getText().trim();
+					System.out.println("Code Name is: "+code2Name+ " and Code Value is: "+code2Value);
+				}
+
+				String Code1 = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "code1");
+				if(code2Name.equals("Code 1") && code2Value.equals(Code1))
+				{
+					System.out.println("Code 1 value is correct");
+				}
+				else
+				{
+					Assert.fail("Fail");
+				}
+				
+				
+				//==========================================================================
+				// ========//Verify the quantity ordered==============
+				//==========================================================================
+				System.out.println("========Verify Job Parts==============");
+				//boolean sJobValueFlag = false,sTaxFlag=false,sShippingFlag=false,sHandlingFlag=false;
+				System.out.println("Click on Parts Info Tab");
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Parts Info']"));
+				Thread.sleep(2000);
+				boolean jobPartNames = false;
+				String totalRecordsParts = _driver.findElement(By.xpath("//fieldset[@id='JobPart_N1002F_fieldset']/div/div[1]/div[1]/strong")).getText();
+				System.out.println("totalParts: "+totalRecordsParts);
+				if (totalRecordsParts.equals("1"))
+				{
+					
+					String qty1 = _driver.findElement(By.xpath("//table[@id='JobPart_N1002F']/tbody/tr[2]/td[8]/div")).getText();
+			
+					System.out.println("qty1: " +qty1);
+		
+					boolean partQuantity;
+					String sQnty = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product_Qty");
+					if(qty1.equals(sQnty))
+					{
+						partQuantity = true;
+						System.out.println("partQuantity: " +partQuantity);
+						System.out.println("Job Quantity has been verified");
+					}
+					else
+					{
+						Assert.fail("Job qty could not be verified");
+						System.err.println("Job Quantity has been verified and failed");
+					}
+
+					//==========================================================================
+					// ========//Verify the Job Part Name==============
+					//==========================================================================
+					
+					String sProd = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ProductName");
+					//Check that the description of part 1 is the same as the Job Name
+					String part1Name = _driver.findElement(By.xpath("//div[@class='table-contents']/table[@id='JobPart_N1002F']/tbody/tr[2]/td[6]/input")).getAttribute("value");
+					//CommonFunctions.GetValue(_driver, By.xpath("//div[@class='table-contents']/table[@id='JobPart_N1002F']/tbody/tr[2]/td[6]/input"));
+					System.out.println("part1Name: "+part1Name);
+
+					Thread.sleep(1000);
+
+					if(part1Name.contains(sProd) )
+					{
+						jobPartNames = true;
+						System.out.println("jobPartNames: " +jobPartNames);
+						System.out.println("Job Part Names have been verified");
+					}
+					else
+					{
+						System.err.println("jobPartNames: " +jobPartNames);
+						Assert.fail("jobPartNames: " +jobPartNames);
+					}
+					Thread.sleep(1000);
+
+					//==========================================================================
+					// //Verify that the Job Part is mapped to its appropriate Job Product
+					//==========================================================================				
+
+					String pro1 = CommonFunctions.GetSelectedOption(_driver, By.xpath("//div[@class='table-contents']/table[@id='JobPart_N1002F']/tbody/tr[2]/td[4]/select")).replace("[", "").replace("]", "").trim();
+					System.out.println("pro1: "+pro1);
+					boolean check1;
+					//Part 1 will always be Kit123 and so will be the product
+					if(part1Name.contains(pro1))
+					{
+						check1 = true;
+						System.out.println("All the part belongs to the same product");
+					}
+					else
+					{
+						System.err.println("All the part belongs to the same product failed");
+					}
+				}
+				else
+				{
+					System.err.println("Total Parts created are incorrect");
+				}
+
+			}//try end
+			finally
+			{
+				//TakeScreenshot(sTestcase); 
+			}
+		}//if execution required
+
+	}//Test end
+}
+	

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/repos/DSF_Automation/!svn/ver/7234/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/base_classes
+END
+BaseElement.java
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/base_classes/BaseElement.java
+END
+GUI_automation_properties.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/base_classes/GUI_automation_properties.java
+END
+BaseNavigation.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/base_classes/BaseNavigation.java
+END
+GUI_automation_base.java
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/repos/DSF_Automation/!svn/ver/7234/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/src/com/gui_auto/base_classes/GUI_automation_base.java
+END

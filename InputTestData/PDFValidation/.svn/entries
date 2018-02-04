@@ -1,0 +1,43 @@
+10
+
+dir
+7304
+http://balscm01/repos/DSF_Automation/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/InputTestData/PDFValidation
+http://balscm01/repos/DSF_Automation
+
+
+
+2015-06-10T09:23:30.822189Z
+3261
+indrajek
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+32fae8a6-c1f0-415e-a886-973d8cd5d6ec
+
+NewPDFfile
+dir
+
+OriginalPDFfile
+dir
+
+Text_Diff
+dir
+
+Text_New
+dir
+
+Text_Original
+dir
+

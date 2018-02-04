@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/config
+END
+Locators.properties
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/config/Locators.properties
+END
+gui_automation.properties
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/config/gui_automation.properties
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/config/log4j.properties
+END
+Samplegui_automation.properties
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/repos/DSF_Automation/!svn/ver/7229/Selenium_Framework/MM%20SuiteWorkflow/MM%20Suite%205.1/SuiteWorkflow_Selenium/config/Samplegui_automation.properties
+END

@@ -1,0 +1,243 @@
+package com.TestScripts;
+
+import java.io.File;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.text.WordUtils;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+//import com.applitools.eyes.Eyes;
+//import com.applitools.eyes.RectangleSize;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.DSF_Integration_Page;
+import com.gui_auto.pages.JobPlanningPage;
+import com.gui_auto.pages.Login;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.Storefront;
+import com.gui_auto.pages.WorkflowIntegrationPage;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+
+public class PaceWorkflow_15a_1 extends GUI_automation_base
+{
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+		return sdf.format(date);
+	}
+	
+	public static int randInt(int min, int max) 
+	{
+
+		// Usually this can be a field rather than a method variable
+		Random rand = new Random();
+
+		// nextInt is normally exclusive of the top value,
+		// so add 1 to make it inclusive
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+
+		return randomNum;
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{		   
+		_driver.quit();
+	}
+	
+	@Test
+	public void TC_15a_1 () throws Exception
+	{
+		long startTime = System.nanoTime();
+		
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String  sTestcase = "TC_15a";
+		String dater = dateReturn();
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		//========================================================================
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		dbConnection.UpdateFunction("PresentWorkflow", "PresentWorkflow", "PresentWorkflow", "TestCase_Executing", "TC_11");
+		
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+			try
+			{
+				//========================================= prerequisites============================================
+				String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+				String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+				String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+				String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+				String PaceServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+				
+				String ProductName=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ProductName");
+				String ProductName2=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product2Name");
+				String SiteUrl=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "SiteUrl");
+				String userName=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "USERNAME");
+				String passWord=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PASSWORD");
+				String CommChannel=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Communication_Channel");
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);				
+				
+				//============================= PACE prerequisites========================
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+				DCPage DC = new DCPage(_driver);
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				//enable scheduling pace connects
+				System.out.println("Enable the Scheduling Pace Connects");
+				WIP.DisableEnablePaceConnects("Scheduling", "enable", PaceServer, PaceCompany);
+				
+				//enable printstream pace connects
+				System.out.println("Enable the Printstream Pace Connects");
+				WIP.DisableEnablePaceConnects("PrintStream", "enable", PaceServer, PaceCompany);
+				
+				DC.Logout();								
+
+				//============================= DSF prerequisites========================
+				_register.launchapplication(SiteUrl);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				
+				Login Login1 = new Login(_driver);
+				Buyyer_Work_flow bwf = new Buyyer_Work_flow();
+				Storefront sfront = new Storefront(_driver);
+				DSF_Integration_Page DSF = new DSF_Integration_Page(_driver);
+				
+								
+				//====================================Place an Order in DSF with adhoc product======================================
+				String product_qty=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Product_Qty");
+				String DeliveryMethod=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "DeliveryMethod");
+				String PaymentMethod=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PaymentMethod");
+				String PONumber=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PONumber");
+				String Width=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Width");
+				String Height=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Height");
+				String BackCoverOption=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "BackCoverOption");
+				String FrontCoverOption=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "FrontCoverOption");
+				String CreditCardNumber = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "CreditCardNumber");
+				String ExpirationMonth = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ExpirationMonth");
+				String ExpirationYear = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "ExpirationYear");
+				
+				//Login as user
+				Login1.LoginToDSF(sSheetName, sScenario, sTestcase, userName, passWord);
+
+				//Clear Cart
+				CommonFunctions.ClearCart(_driver);
+
+				//Search a product
+				bwf.searchProductAndBuyWithQuantity(ProductName, product_qty);
+				bwf.searchProductAndBuyWithQuantity(ProductName2, product_qty);
+	  			
+	  			//Proceed to check out
+				bwf.Click_On_ProceedTOCheckOut();
+
+				//Select a delivery method
+				sfront.choose_ShipmentMethodBasedOnValue(DeliveryMethod);
+				
+			   //Click on proceed to payment button
+				sfront.ProceedToPayment();
+				
+				//Choose the credit card payment option
+				bwf.choose_CreditCardPaymentPethod(PaymentMethod);				
+				bwf.enterCreditCardDetails(CreditCardNumber, ExpirationMonth, ExpirationYear);
+								
+				//place order
+				bwf.click_on_PlaceMyOrder();
+				String orderNum=bwf.fetch_OrderNumber();
+				System.out.println("DSF Order No is ::"+orderNum);
+				
+				//get billing details				
+				String subTotalValue_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Subtotal_value))).getText();
+				String ShippingAmount_Before_code_apply= _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Shipping_value))).getText();
+				String TotalValue_Before_code_apply =	 _driver.findElement(By.xpath(Locators.getProperty(Locators.Cart_Total))).getText();
+				String TaxCharge_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Tax_Charges))).getText();
+				String HandlingCharge_Before_code_apply = _driver.findElement(By.xpath(Locators.getProperty(Locators.Handling_Charges))).getText();
+				System.out.println("Shipping amount :"+ShippingAmount_Before_code_apply);
+				System.out.println("SubTotal Value :"+subTotalValue_Before_code_apply);
+				System.out.println("Total Value :"+TotalValue_Before_code_apply);
+				System.out.println("Tax Charge :"+TaxCharge_Before_code_apply);
+				System.out.println("Handling Charge :"+HandlingCharge_Before_code_apply);
+				
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFSubTotal",subTotalValue_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFShippingAmount",ShippingAmount_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFTotalAmt",TotalValue_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFTaxAmount",TaxCharge_Before_code_apply);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "DSFHandlingAmount",HandlingCharge_Before_code_apply);				
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "Order_Number", orderNum);
+				
+				Login1.Logout();
+				bwf.End_Print_Console(sTestcase);				
+
+				long endTime = System.nanoTime();		
+				long durations = (endTime - startTime);
+				double durations1 = (double)durations / 1000000000.0;
+				System.out.println("Execution Time in Seconds::"+new DecimalFormat("#.###").format(durations1));
+				durations1 = durations1/60;	
+				String ExecutionTimeInMinutes=new DecimalFormat("#.###").format(durations1);
+				System.out.println("Execution Time In minutes::"+ExecutionTimeInMinutes);
+				dbConnection.UpdateFunction(sSheetName, sScenario, sTestcase, "ExecutionTime",ExecutionTimeInMinutes);				
+								
+				//eyes.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+				Assert.fail(sTestcase+" failed");
+			}
+		}
+	}
+
+}
+

@@ -1,0 +1,215 @@
+package com.TestScripts;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
+
+import com.TestScripts.RetryTest.Retry;
+//import com.applitools.eyes.Eyes;
+//import com.applitools.eyes.RectangleSize;
+import com.gui_auto.base_classes.GUI_automation_base;
+import com.gui_auto.base_classes.GUI_automation_properties;
+import com.gui_auto.dao.ReadAndUpdate;
+import com.gui_auto.pages.DCPage;
+import com.gui_auto.pages.JobPlanningPage;
+import com.gui_auto.pages.Login;
+import com.gui_auto.pages.RegisterPage;
+import com.gui_auto.pages.WorkflowIntegrationPage;
+import com.gui_auto.utilities.CommonFunctions;
+import com.gui_auto.utilities.Locators;
+import com.gui_auto.utilities.ScreenShot;
+
+public class PaceWorkflow_10_5 extends GUI_automation_base
+{
+	ReadAndUpdate dbConnection = new ReadAndUpdate();
+	ScreenShot TakeScreenshot = new ScreenShot();
+	String browser= _properties.getProperty(GUI_automation_properties.BASEURL);
+	String sFile = _properties.getProperty(GUI_automation_properties.ScreenShotPath);
+	//public static Eyes eyes;
+	
+	long maxWait=10000;
+	File directory = new File(sFile);
+
+	private RegisterPage _register;
+	RetryTest Retry = new RetryTest();
+
+	@Rule
+	public Retry retry = Retry.new Retry(1);
+
+	@Before
+	public void setUp() throws Exception
+	{		
+		//eyes = new Eyes();
+		//eyes.setApiKey("U4H2HXkiij105f7H1jedc103H9d2tRA8Hdua6DepWhuic110");
+		//eyes.setForceFullPageScreenshot(true);
+	}
+
+	public String dateReturn()
+	{	
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");	
+		return sdf.format(date);
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{		   
+		_driver.quit();
+	}
+	
+	public static void Killpython() throws Exception   
+	{
+		Process p = Runtime.getRuntime().exec("cmd /c taskkill /F /IM python.exe *32 /T");
+		p.destroy();
+	}
+	
+	@Test
+	public void TC_10_5 () throws Exception
+	{	
+		//=======================================================================
+		//Constant ones....
+		//=======================================================================
+		
+		String sSheetName="IntegrationWF";
+		String  sScenario = "WorkFlow";
+		String dater = dateReturn();
+		String sTestcase = dbConnection.ReadFunction("PresentWorkflow", "PresentWorkflow", "PresentWorkflow", "TestCase_Executing");
+		dbConnection.UpdateFunction(sSheetName,sScenario,sTestcase,"Executed_On",dater);
+		//========================================================================
+		
+		String Exec_Required= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "Execution_Required");
+		
+		if (Exec_Required.equalsIgnoreCase("Yes"))
+		{
+			try
+			{
+				String PaceURL=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEURL");
+				String PaceUserN=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEUserName");
+				String PacePass=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEPassword");
+				String PaceCompany=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACECompany");
+				String PaceServer=dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACEServer");
+				
+				String sJobNumber= dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PACE_Job_Num");
+				
+				super.setUp(getBrowser());
+				_register = PageFactory.initElements(_driver, RegisterPage.class);
+				_register.launchapplication(PaceURL);
+				_driver.manage().window().maximize();
+				_driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+				//_driver = eyes.open(_driver, "PACE", "TC_12_3", new RectangleSize(1008, 705));
+				
+				DCPage DC = new DCPage(_driver);
+				WorkflowIntegrationPage WIP = new WorkflowIntegrationPage(_driver);
+				JobPlanningPage JP = new JobPlanningPage(_driver);
+				
+				String sJPPFPlanIDs = "", sJPPFPlanID = "";
+				
+				System.out.println("Loging in to Pace");
+				DC.EpaceLogin(PaceUserN, PacePass, PaceCompany);
+				
+				//==========================================================================
+				//===================Send Job to Fiery XF===========================
+				//==========================================================================
+
+				String[] aJPPFIDs =  dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JPPFIDs").split(";");
+				String[] aJPPFPlans = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JPPFJobPlansIDs").split(";");
+				
+				System.out.println("Change the admin status of Job and send the Job to Fiery");
+				WIP.navigateToProductionPlanPage(sJobNumber, PaceServer, PaceCompany);
+				CommonFunctions.selectDropdownByText(_driver, By.name("adminStatus"), "Production Ready");
+				DC.Update();
+				
+				String sPythonScirptPath = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "PythonScriptPath");
+				String JobNameFiery= sJobNumber+":01:"+aJPPFIDs[3]+":"+aJPPFPlans[1];
+				
+				System.out.println("===============Calling Python Caller to run the script for Fiery XF======================");
+		    	WIP.CallPythonScript(JobNameFiery, sPythonScirptPath);
+		    	Thread.sleep(5000);
+		    	Killpython();
+		    	
+		    	//==========================================================================
+				//===================Verify the Job Plans are updated===========================
+				//==========================================================================
+		    	
+		    	sJPPFPlanIDs = dbConnection.ReadFunction(sSheetName, sScenario, sTestcase, "JPPFJobPlansIDs");
+		    	String[] aJPPFPlanIDs = sJPPFPlanIDs.split(";");
+		    	sJPPFPlanID = aJPPFPlanIDs[0];
+		    	JP.navigateToProductionPlanPage(sJobNumber);
+		    	int iRwNum = JP.SearchTable4Value("ID", "//table[@id='JobPlan']", sJPPFPlanID);		    	
+		    	CommonFunctions.waitForPageLoaded(_driver);
+		    	String sJobPlanStatus = CommonFunctions.GetSelectedOption(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+iRwNum+"]//select[@name='JobPlan.status']"));
+//		    	assertTrue("Job status, Expected = Run / Working On or Makeready, Actual = "+sJobPlanStatus, (sJobPlanStatus.equals("Run / Working On") || sJobPlanStatus.equals("Makeready")));
+		    	
+		    	System.out.println("Wait for Job to be printed in Fiery");
+		    	int i = 10;
+		    	while (!sJobPlanStatus.equals("Process Complete") && i < 10)
+		    	{
+		    		Thread.sleep(5000);
+		    		System.out.println("Wait time = "+i*5+" seconds");
+		    		_driver.navigate().refresh();
+		    		CommonFunctions.waitForPageLoaded(_driver);
+		    		sJobPlanStatus = CommonFunctions.GetSelectedOption(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+iRwNum+"]//select[@name='JobPlan.status']"));
+		    		i = i++;
+		    	}
+			    
+				_driver.navigate().refresh();
+		    	CommonFunctions.waitForPageLoaded(_driver);
+		    	sJobPlanStatus = CommonFunctions.GetSelectedOption(_driver, By.xpath("//table[@id='JobPlan']/tbody/tr["+iRwNum+"]//select[@name='JobPlan.status']"));
+		    	assertTrue("Job status, Expected = Process Complete, Actual = "+sJobPlanStatus, sJobPlanStatus.equals("Process Complete"));
+		    	
+		    	//==========================================================================
+				//===================verify the Job costs created for the completed Fiery transaction===========================
+				//==========================================================================
+				System.out.println("Navigate to each Job Part Job Costs page and verify the Job Cost created");
+				WIP.JobPartJobCostPage(sJobNumber, "02", PaceServer, PaceCompany);
+				CommonFunctions.waitForPageLoaded(_driver);
+				CommonFunctions.ClickElement(_driver, By.xpath("//a[text()='Unposted Job Costs']"));
+				int iRwCnt = _driver.findElements(By.xpath("//table[@id='JobCost_N10022']/tbody/tr")).size();			
+				if (iRwCnt == 6)
+				{
+					System.out.println("The system created correct Job cost");				
+					String sOriginalHandle = _driver.getWindowHandle();
+					CommonFunctions.ClickElement(_driver, By.xpath("//table[@id='JobCost_N10022']/tbody/tr[1]/td[2]/div/a/img"));
+					Thread.sleep(2000);
+					CommonFunctions.SwitchToWindow(_driver, "Job Cost");
+					String sTranactionType = CommonFunctions.GetSelectedOption(_driver, By.name(Locators.getProperty(Locators.Job_Cost_TransactionType)));
+					if (sTranactionType.equals("Pace Connect") || sTranactionType.equals("Inventory"))
+					{
+						System.out.println("Job cost with correct transaction type was created");
+						_driver.close();
+						_driver.switchTo().window(sOriginalHandle);
+					}
+					else
+					{
+						Assert.fail("Job cost with incorrect transaction type was created, Expected = Pace Connect or Inventory, Actual = "+sTranactionType);
+					}
+				}
+				else
+				{
+					System.err.println("Incorrect number of Job Costs were created, expected = 6, Actual = "+iRwCnt);
+					Assert.fail("Incorrect number of Job Costs were created, expected = 6, Actual = "+iRwCnt);
+				}
+				
+				DC.Logout();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				TakeScreenshot.ScreenShotWindow(_driver, sTestcase);
+				Assert.fail(sTestcase+" failed");
+			}
+		}
+	}
+
+}

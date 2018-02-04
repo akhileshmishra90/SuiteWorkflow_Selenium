@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="EPace">
+    <property environment="env"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="JUnit 4.libraryclasspath">
+       <pathelement location="C:/Pace/eclipse/plugins/hamcrest-core-1.3.jar"/>
+        <pathelement location="C:/Pace/eclipse/plugins/junit-4.11.jar"/>
+       
+    </path>
+     <import file="C:/Pace/eclipse/junitpdfreport_1_1_prerelease_20080220/build-junitpdfreport.xml"/>
+    <path id="EPace.classpath">
+        <pathelement location="bin"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+        <pathelement location="lib/apache-mime4j-0.6.jar"/>
+        <pathelement location="lib/bsh-1.3.0.jar"/>
+        <pathelement location="lib/cglib-nodep-2.1_3.jar"/>
+        <pathelement location="lib/commons-codec-1.9.jar"/>
+        <pathelement location="lib/commons-collections-3.2.1.jar"/>
+        <pathelement location="lib/commons-exec-1.1.jar"/>
+        <pathelement location="lib/commons-io-2.2.jar"/>
+        <pathelement location="lib/commons-jxpath-1.3.jar"/>
+        <pathelement location="lib/commons-logging-1.1.3.jar"/>
+        <pathelement location="lib/cssparser-0.9.9.jar"/>
+        <pathelement location="lib/dom4j-1.6.1.jar"/>
+        <pathelement location="lib/guava-14.0.jar"/>
+        <pathelement location="lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="lib/hamcrest-library-1.3.jar"/>
+        <pathelement location="lib/htmlunit-2.12.jar"/>
+        <pathelement location="lib/htmlunit-core-js-2.12.jar"/>
+        <pathelement location="lib/httpclient-4.2.1.jar"/>
+        <pathelement location="lib/httpcore-4.2.1.jar"/>
+        <pathelement location="lib/httpmime-4.2.1.jar"/>
+        <pathelement location="lib/ini4j-0.5.2.jar"/>
+        <pathelement location="lib/jcommander-1.29.jar"/>
+        <pathelement location="lib/jetty-websocket-8.1.8.jar"/>
+        <pathelement location="lib/jna-3.4.0.jar"/>
+        <pathelement location="lib/jna-platform-3.4.0.jar"/>
+        <pathelement location="lib/json-20080701.jar"/>      
+        <pathelement location="lib/junit-4.10.jar"/>        
+        <pathelement location="lib/jxl-2.6.jar"/>
+        <pathelement location="lib/jxl.jar"/>
+        <pathelement location="lib/log4j-1.2.17.jar"/>
+        <pathelement location="lib/mail.jar"/>
+        <pathelement location="lib/modello-plugin-dom4j-1.1.jar"/>
+        <pathelement location="lib/nekohtml-1.9.17.jar"/>
+        <pathelement location="lib/netty-3.5.7.Final.jar"/>
+        <pathelement location="lib/operadriver-1.2.jar"/>
+        <pathelement location="lib/phantomjsdriver-1.0.3.jar"/>
+        <pathelement location="lib/poi-3.12-20150511.jar"/>
+        <pathelement location="lib/poi-scratchpad-3.12-20150511.jar"/>        
+        <pathelement location="lib/poi-ooxml-3.12-20150511.jar"/>
+        <pathelement location="lib/poi-ooxml-schemas-3.12-20150511.jar"/>
+        <pathelement location="lib/testInProgress-client-1.4.jar"/>
+        <pathelement location="lib/poi-excelant-3.12-20150511.jar"/>
+        <pathelement location="lib/protobuf-java-2.4.1.jar"/>
+        <pathelement location="lib/sac-1.3.jar"/>
+        <pathelement location="lib/selenium-server-standalone-2.39.0.jar"/>
+        <pathelement location="lib/serializer-2.7.1.jar"/>
+        <pathelement location="lib/testng-6.8.jar"/>
+        <pathelement location="lib/xalan-2.7.1.jar"/>
+        <pathelement location="lib/xercesImpl-2.10.0.jar"/>
+        <pathelement location="lib/xml-apis-1.4.01.jar"/>
+        <pathelement location="lib/xmlbeans-2.6.0.jar"/>
+    	<pathelement location="lib/JSErrorCollector-0.5.jar"/>
+    	<pathelement location="lib/pdfbox-app-1.8.8.jar"/>
+    	<pathelement location="lib/diffutils-1.2.1.jar"/>
+    	<pathelement location="lib/diff_match_patch-current-src.jar"/>
+    	<pathelement location="lib/AutoItX4Java.jar"/>
+    	<pathelement location="lib/jacob.jar"/>
+    	<pathelement location="lib/activation.jar"/>
+    	 
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target> 
+     <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac includeantruntime="false" fork="true" memoryInitialSize="256m" memoryMaximumSize="256m" debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="EPace.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>    
+    <target name="replaceContent1">
+        <echo message="${Servern}"/>
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <echo message="${EPace_Svn.classpath}"/>
+        <copy file="config/Samplegui_automation.properties" toFile="config/gui_automation.properties" overwrite="true" />
+        <replace file="config/gui_automation.properties" token="@ServerName@" value="${Servern}"/>
+    </target>
+    <target name="replaceContent2">
+        <echo message="${Serve}"/>
+        <replace file="config/gui_automation.properties" token="@Server@" value="${Serve}"/>
+    </target>
+    <target name="replaceContent3">
+        <echo message="${Bro}"/>
+        <replace file="config/gui_automation.properties" token="@Browser@" value="${Bro}"/>
+    </target>
+    <target name="replaceContent4">
+        <echo message="${Company}"/>
+        <replace file="config/gui_automation.properties" token="@Company@" value="${Company}"/>
+    </target>
+    <target name="replaceContent5">
+        <echo message="${UserID}"/>
+        <replace file="config/gui_automation.properties" token="@UID@" value="${UserID}"/>
+    </target>
+    
+    <target name="Automail_Start">
+              	              <mail mailhost="mailhost.efi.com"  subject="Automation - Selenium Execution started">
+              	              				<from address="karthivi@efi.com"/>
+              	              				<to address="karthivi@efi.com"/>
+                                    		<to address="banavasa@efi.com" />
+                                    		<to address="kiranReddy.Sirigireddy@efi.com" />
+              	              				<message>Automated Selenium Suite Execution started on ${Servern}</message>
+              	              	</mail>
+          </target>
+
+	<target name="Automail_Start_BuildUpgrade">
+              	              <mail mailhost="mailhost.efi.com"  subject="Automation - PACE Build Upgrade started">
+              	              				<from address="karthivi@efi.com"/>
+              	              				<to address="karthivi@efi.com"/>
+              	              				<to address="kiranReddy.Sirigireddy@efi.com" />
+                                    		<to address="banavasa@efi.com" />
+              	              				<message>Build Upgrade started for server ${Servern}</message>              	              				
+              	              	</mail>
+          </target>
+
+
+    <target name="DataCollection">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.DataCollection" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+
+<target name="DC_AC_Settings">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.DC_AC_Settings" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+    <target name="Smoke">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Smoke" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+
+   <target name="Purchase">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Purchase" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+     
+     <target name="Estimate_Prerequisites">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Estimate_Prerequisites" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+     <target name="Estimate_Prerequisites1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Estimate_Prerequisites1" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+     <target name="Estimate_Prerequisites2">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Estimate_Prerequisites2" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>    
+    
+      <target name="Estimate1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Estimate1" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+     <target name="Estimate_PressForms_Sigs">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Estimate_PressForms_Sigs" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+     <target name="Estimate_AmtReq">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Estimate_AmtReq" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+     <target name="Estimate_NumWashUps">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Estimate_NumWashUps" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+     <target name="Estimate_WashUpHours">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Estimate_WashUpHours" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+    <target name="AP">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.AP" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+    <target name="InventoryControl">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.InventoryControl" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>   
+    
+    <target name="JobControlCenter">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.JobControlCenter" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+    <target name="JobControlCenter1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.JobControlCenter1" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+    <target name="JobBilling">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.JobBilling" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+      <target name="JobBilling1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.JobBilling1" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+      <target name="JobBillingPreBill">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.JobBillingPreBill" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+	
+	<target name="JobPlanning">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.JobPlanning" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="JobCosting">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.JobCosting" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="JobShipments">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.JobShipments" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="Payroll">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Payroll" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="PriceListQuoting">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.PriceListQuoting" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="Reports_AccountsPayable">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Reports_AccountsPayable" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="Reports_DataCollection">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Reports_DataCollection" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="Reports_JobControlCenter">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Reports_JobControlCenter" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="Reports_JobCosting">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Reports_JobCosting" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="Reports_JobPlanning">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Reports_JobPlanning" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="Reports_JobShipments">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.Reports_JobShipments" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    	
+	<target name="CreateAndVerifyPurchaseOrders_UnitCosts">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.CreateAndVerifyPurchaseOrders_UnitCosts" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="CreateAndVerifyPurchaseOrders_UnitCosts_WithoutVendor">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.CreateAndVerifyPurchaseOrders_UnitCosts_WithoutVendor" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    
+	<target name="InventoryPosting">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.TestScripts.InventoryPosting" todir="${junit.output.dir}"/>
+            <classpath refid="EPace.classpath"/>
+        </junit>
+    </target>
+    	
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+    
+    <target name="testreport-pdf">
+              	  <junitpdfreport todir="." styledir="default"> 
+              	    <fileset dir="./junit"> 
+              	      <include name="TEST-*.xml"/> 
+              	    </fileset> 
+              	  </junitpdfreport>
+              <!-- <antcall target="mail"/> -->
+              	</target>  
+              	
+
+              	<target name="Automail_End">
+              			<mail mailhost="mailhost.efi.com"  subject="Automation Suite Execution Result for Version ${Version}">
+              				<from address="karthivi@efi.com"/>
+              	              		<to address="karthivi@efi.com"/>
+                              		<to address="banavasa@efi.com" />
+                              		<to address="kiranReddy.Sirigireddy@efi.com" />
+              				<message>Automation Suite Execution is completed on Server ${Servern}. Please find the execution results in attacted pdf.</message>
+					<attachments>
+              					<fileset dir=".">
+              						<include name="junit.pdf"/>
+              					</fileset>
+              				</attachments>
+              			</mail>
+              		</target>  
+    
+ 			<target name="Automail_End_BuildUpgrade">
+              	              <mail mailhost="mailhost.efi.com"  subject="Automation - PACE Build Upgrade Completed">
+              	              				<from address="karthivi@efi.com"/>
+              	              				<to address="karthivi@efi.com"/>
+              	              				<to address="kiranReddy.Sirigireddy@efi.com" />
+                                    		<to address="banavasa@efi.com" />
+              	              				<message>Build Upgrade completed in server ${Servern}. Build status will be mailed shortly.</message>
+              	              				<attachments>
+				              					<fileset dir=".">
+				              						<include name="DefaultServerLogFile.txt"/>
+				              					</fileset>
+				              				</attachments>             	              				
+              	              	</mail>
+          </target>
+	
+    
+    
+
+</project>

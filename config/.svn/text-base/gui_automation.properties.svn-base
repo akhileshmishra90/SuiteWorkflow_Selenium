@@ -1,0 +1,16 @@
+BASEURL                         = http://avatar/epace/login.html
+SERVER				= avatar
+XLS_DATA                        = \InputTestData\Epace_Data.xls
+COMPANY			 	= c001
+#BROWSER                        = firefox
+#BROWSER                        = internetExplorer
+BROWSER                        	= chrome
+UID                        	= Administrator
+USERS_LIST                      = 0
+
+ScreenShotPath 			= C:\\tmp
+ResultPath              	= C:\\AutomationLogs
+FILEPATH			= \\InputTestData\\Epace_Data.xls
+FILE				= \\InputTestData\\Sample_File.txt
+VBSFileP                        = \\InputTestData\\SaveExcel.vbs
+DownloadPath			= \\InputTestData\\TempDownload 
